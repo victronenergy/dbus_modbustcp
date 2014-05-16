@@ -126,10 +126,10 @@ void Mappings::importCSV(const QString &filename)
 			if (values.size() >= 4) {
 				item->deviceType = DBusService::getDeviceType(values.at(0));
 				item->objectPath = values.at(1);
-				item->valueType = convertType(values.at(3));
+				item->valueType = convertType(values.at(4));
 				if (item->valueType != mb_type_none) {
-					item->scaleFactor = values.at(4).toDouble();
-					mDBusModbusMap.insert(values.at(2).toInt(), item);
+					item->scaleFactor = values.at(5).toDouble();
+					mDBusModbusMap.insert(values.at(3).toInt(), item);
 					QLOG_INFO() << "[Mappings] Add" << values;
 				}
 			}

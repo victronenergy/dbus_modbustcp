@@ -11,8 +11,8 @@ svn export --force "https://svn.victronenergy.com/svn/vrm_database/trunk/dataAtt
 xlsx2csv -s 1 -i dataAttributes\ en\ deviceTypes.xlsm attributes_export.csv
 # remove first 3 lines
 sed -i '1,3d' attributes_export.csv
-# get column 5 and 6
-cut -d "," -f5,6,13,14,15 attributes_export.csv > attributes.csv
+# get meaningfull columns
+cut -d "," -f5,6,7,14,15,16 attributes_export.csv > attributes.csv
 # cleanup empty lines
 sed -i '/^,/d' attributes.csv
 
