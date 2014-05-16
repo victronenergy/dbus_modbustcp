@@ -8,7 +8,7 @@ Server::Server(QObject *parent) :
 	QObject(parent)
 {
 	mServer = new QTcpServer(this);
-	if (mServer->listen(QHostAddress::Any, 1502))
+	if (mServer->listen(QHostAddress::Any, 502))
 	{
 		QLOG_INFO() << "[Server] Server listening at: " << mServer->serverAddress().toString()+":"+QString::number(mServer->serverPort());
 		connect(mServer, SIGNAL(newConnection()), SLOT(newConnection()));
