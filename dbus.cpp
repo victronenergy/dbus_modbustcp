@@ -14,7 +14,6 @@ dbus::dbus(QObject *parent) :
 	mDBusWatcher.addWatchedService("com.victronenergy.qwacs");
 	connect(&mDBusWatcher, SIGNAL(serviceRegistered(QString)), this, SLOT(serviceRegisterd(QString)));
 	connect(&mDBusWatcher, SIGNAL(serviceUnregistered(QString)), this, SLOT(serviceUnregisterd(QString)));
-	//connect(&mDBusWatcher, SIGNAL(serviceOwerChanged(QString,QString,QString)), this, SLOT(serviceOwnerChanged(QString,QString,QString)));
 
 	QDBusConnectionInterface *interface = mDBus.interface();
 	QStringList serviceNames = interface->registeredServiceNames();
