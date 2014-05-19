@@ -29,7 +29,7 @@ public:
 
 	enum ExceptionCode
 	{
-		NoExeption                          = 0,
+		NoExeption							= 0,
 		IllegalFunction						= 1,
 		IllegalDataAddress					= 2,
 		IllegalDataValue					= 3,
@@ -48,7 +48,6 @@ public:
 	quint8 getByteCount() { return mData[4]; }
 	ExceptionCode getExceptionCode() { return mExeptionCode; }
 
-	//void setByteCount(uint count) { mByteCount = count; }
 	void setData(const QByteArray & data);
 	void setExceptionCode(ExceptionCode code);
 
@@ -59,8 +58,6 @@ private:
 	quint8 mFunctionCode;
 	ExceptionCode mExeptionCode;
 	QByteArray mData;
-
-	//uint mByteCount;
 
 	// Helpers
 	static const QMap <int,QString> initFunctionMap();
