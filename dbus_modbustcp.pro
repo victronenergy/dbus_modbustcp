@@ -19,7 +19,7 @@ contains(machine,ccgx) {
 }
 
 #CONFIG(release, debug|release):
-#DEFINES += QT_NO_DEBUG_OUTPUT
+DEFINES += QT_NO_DEBUG_OUTPUT
 
 QT       += core
 QT       -= gui
