@@ -21,10 +21,22 @@ void initLogger(QsLogging::Level logLevel)
 	logger.setLoggingLevel(logLevel);
 }
 
+void usage(Arguments & arg)
+{
+	arg.addArg("-h", "Print this help");
+	arg.addArg("-d level", "Debug level: 0=TRACE, 1=DEBUG, 2=INFO...");
+}
+
 int main(int argc, char *argv[])
 {
 	QCoreApplication app(argc, argv);
 	Arguments arg;
+
+	usage(arg);
+	if (arg.contains("h")) {
+		arg.help();
+		exit(0);
+	}
 
 	initLogger(QsLogging::TraceLevel);
 	if (arg.contains("d"))

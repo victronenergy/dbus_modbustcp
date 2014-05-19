@@ -1,14 +1,15 @@
-#include "arguments.h"
 #include <QCoreApplication>
+#include <iostream>
+#include "arguments.h"
 
-//#define QS_LOG_DISABLE
-#include "QsLog.h"
+using namespace std;
 
 Arguments::Arguments()
 {
 	QStringList argList = QCoreApplication::arguments();
 	QString switchName;
 
+	mAppName = argList.at(0).section("/",-1);
 	const int listSize =argList.size();
 	for (int i = 1; i < listSize; i++) {
 		QString arg = argList.at(i);
@@ -29,13 +30,32 @@ Arguments::Arguments()
 			switchName.clear();
 		}
 	}
+	if (!switchName.isEmpty())
+		mArgList.insert(switchName, QString());
 }
 
 void Arguments::print()
 {
 	QMap<QString, QString>::const_iterator i = mArgList.constBegin();
 	while (i != mArgList.constEnd()) {
-		QLOG_DEBUG() << "key = " << i.key() << " value = " << i.value();
+		cout << "key = " << i.key().toStdString() << " value = " << i.value().toStdString() << "\n";
 		++i;
 	}
+}
+
+void Arguments::help()
+{
+	cout << mAppName.toStdString() << "\n\n";
+	cout << "OPTIONS:" << "\n\n";
+	QMap<QString, QString>::iterator i;
+	for (i = mHelp.begin(); i != mHelp.end(); ++i) {
+		cout << i.key().toStdString() << "\n";
+		cout << "\t" << i.value().toStdString() << "\n";
+	}
+	cout << endl;
+}
+
+void Arguments::addArg(const QString & arg, const QString & description)
+{
+	mHelp.insert(arg,description);
 }

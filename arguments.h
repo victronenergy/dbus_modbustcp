@@ -13,9 +13,12 @@ public:
 	QString value(const QString &switchName) const { return mArgList.value(switchName); }
 
 	void print();
-
+	void help();
+	void addArg(const QString & arg, const QString & description);
 private:
+	QString mAppName;
 	QMap<QString, QString> mArgList;
+	QMap<QString, QString> mHelp;
 };
 
 #endif // ARGUMENTS_H
