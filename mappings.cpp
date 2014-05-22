@@ -3,15 +3,15 @@
 //#define QS_LOG_DISABLE
 #include "QsLog.h"
 
-const QString csvFilename = "attributes.csv";
-const QString unitIDFilename = "unitid2di.csv";
+const QString attributesFile = "/data/modbustcp/attributes.csv";
+const QString unitIDFile = "/data/modbustcp/unitid2di.csv";
 
 Mappings::Mappings(DBusServices *services, QObject *parent) :
 	QObject(parent),
 	mServices(services)
 {
-	importCSV(csvFilename);
-	importUnitIDMapping(unitIDFilename);
+	importCSV(attributesFile);
+	importUnitIDMapping(unitIDFile);
 	connect(services, SIGNAL(dbusServiceFound(DBusService *)), SLOT(dbusServiceFound(DBusService *)));
 }
 
@@ -115,7 +115,7 @@ Mappings::ModbusValueTypes Mappings::convertType(const QString &typeString)
 void Mappings::importCSV(const QString &filename)
 {
 	QString string;
-	QFile file(QCoreApplication::applicationDirPath()+"/"+filename);
+	QFile file(filename);
 
 	if (file.open(QIODevice::ReadOnly)) {
 		QTextStream in(&file);
@@ -142,7 +142,7 @@ void Mappings::importCSV(const QString &filename)
 void Mappings::importUnitIDMapping(const QString &filename)
 {
 	QString string;
-	QFile file(QCoreApplication::applicationDirPath()+"/"+filename);
+	QFile file(filename);
 
 	if (file.open(QIODevice::ReadOnly)) {
 		QTextStream in(&file);

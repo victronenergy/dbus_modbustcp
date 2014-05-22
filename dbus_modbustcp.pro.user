@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 3.0.1, 2014-05-19T09:00:24. -->
+<!-- Written by QtCreator 3.0.1, 2014-05-22T09:50:09. -->
 <qtcreator>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
@@ -398,22 +398,28 @@
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">RemoteLinux.DirectUploadStep</value>
       <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedFiles">
+       <value type="QString">/home/marcel/projects/build-dbus_modbustcp-CCGX-Debug/dbus_modbustcp</value>
        <value type="QString">/home/marcel/projects/dbus_modbustcp/attributes_export.csv</value>
        <value type="QString">/home/marcel/projects/dbus_modbustcp/attributes.csv</value>
        <value type="QString">/home/marcel/projects/build-dbus_modbustcp-CCGX-Debug/dbus_modbustcp</value>
-       <value type="QString">/home/marcel/projects/dbus_modbustcp/unitid2di.csv</value>
-       <value type="QString">/home/marcel/projects/build-dbus_modbustcp-CCGX-Debug/dbus_modbustcp</value>
        <value type="QString">/home/marcel/projects/dbus_modbustcp/attributes.csv</value>
+       <value type="QString">/home/marcel/projects/dbus_modbustcp/attributes.csv</value>
+       <value type="QString">/home/marcel/projects/dbus_modbustcp/attributes_export.csv</value>
+       <value type="QString">/home/marcel/projects/dbus_modbustcp/unitid2di.csv</value>
+       <value type="QString">/home/marcel/projects/dbus_modbustcp/unitid2di.csv</value>
        <value type="QString">/home/marcel/projects/dbus_modbustcp/unitid2di.csv</value>
       </valuelist>
       <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedHosts">
        <value type="QString">192.168.4.109</value>
-       <value type="QString">192.168.4.104</value>
+       <value type="QString">192.168.4.109</value>
        <value type="QString">192.168.4.104</value>
        <value type="QString">192.168.4.104</value>
        <value type="QString">192.168.4.109</value>
        <value type="QString">192.168.4.109</value>
        <value type="QString">192.168.4.109</value>
+       <value type="QString">192.168.4.109</value>
+       <value type="QString">192.168.4.109</value>
+       <value type="QString">192.168.4.104</value>
       </valuelist>
       <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedRemotePaths">
        <value type="QString">/opt/dbus_modbustcp</value>
@@ -421,7 +427,10 @@
        <value type="QString">/opt/dbus_modbustcp</value>
        <value type="QString">/opt/dbus_modbustcp</value>
        <value type="QString">/opt/dbus_modbustcp</value>
+       <value type="QString">/data/modbustcp</value>
+       <value type="QString">/data/modbustcp</value>
        <value type="QString">/opt/dbus_modbustcp</value>
+       <value type="QString">/data/modbustcp</value>
        <value type="QString">/opt/dbus_modbustcp</value>
       </valuelist>
       <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedSysroots">
@@ -432,15 +441,21 @@
        <value type="QString">/opt/bpp3/current/sysroots/armv7a-vfp-neon-bpp3-linux-gnueabi</value>
        <value type="QString">/opt/bpp3/current/sysroots/armv7a-vfp-neon-bpp3-linux-gnueabi</value>
        <value type="QString">/opt/bpp3/current/sysroots/armv7a-vfp-neon-bpp3-linux-gnueabi</value>
+       <value type="QString">/opt/bpp3/current/sysroots/armv7a-vfp-neon-bpp3-linux-gnueabi</value>
+       <value type="QString">/opt/bpp3/current/sysroots/armv7a-vfp-neon-bpp3-linux-gnueabi</value>
+       <value type="QString">/opt/bpp3/current/sysroots/armv7a-vfp-neon-bpp3-linux-gnueabi</value>
       </valuelist>
       <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedTimes">
-       <value type="QDateTime">2014-05-19T08:56:02</value>
+       <value type="QDateTime">2014-05-22T09:48:40</value>
+       <value type="QDateTime">2014-05-19T09:12:29</value>
        <value type="QDateTime">2014-04-14T14:37:26</value>
        <value type="QDateTime">2014-04-14T12:00:51</value>
+       <value type="QDateTime">2014-05-19T09:12:29</value>
+       <value type="QDateTime">2014-05-22T09:48:38</value>
+       <value type="QDateTime">2014-05-22T09:48:38</value>
+       <value type="QDateTime">2014-05-19T09:12:29</value>
+       <value type="QDateTime">2014-05-22T09:48:38</value>
        <value type="QDateTime">2014-04-14T14:37:26</value>
-       <value type="QDateTime">2014-05-19T08:56:04</value>
-       <value type="QDateTime">2014-05-19T08:56:02</value>
-       <value type="QDateTime">2014-05-19T08:56:02</value>
       </valuelist>
       <value type="bool" key="RemoteLinux.GenericDirectUploadStep.IgnoreMissingFiles">false</value>
       <value type="bool" key="RemoteLinux.GenericDirectUploadStep.Incremental">false</value>
@@ -498,7 +513,8 @@
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">RemoteLinuxRunConfiguration:/home/marcel/projects/dbus_modbustcp/dbus_modbustcp.pro</value>
     <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.Arguments">
-     <value type="QString">-h</value>
+     <value type="QString">-d</value>
+     <value type="QString">0</value>
     </valuelist>
     <value type="QString" key="Qt4ProjectManager.MaemoRunConfiguration.ProFile">dbus_modbustcp.pro</value>
     <value type="QString" key="RemoteLinux.RunConfig.AlternateRemoteExecutable"></value>

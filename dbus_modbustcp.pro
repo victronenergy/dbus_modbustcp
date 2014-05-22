@@ -6,7 +6,7 @@
 
 # Add more folders to ship with the application, here
 target.path = /opt/dbus_modbustcp
-csv.path = /opt/dbus_modbustcp
+csv.path = /data/modbustcp
 csv.files = *.csv
 INSTALLS += target csv
 
