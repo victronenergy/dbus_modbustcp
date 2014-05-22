@@ -1,7 +1,7 @@
 #ifndef VERSION_H
 #define VERSION_H
 
-#define VERSION "v0.02"
+#define VERSION "v0.03"
 const QString cVERSION = QString(VERSION);
 
 #define NAME "dbus_modbustcp"
