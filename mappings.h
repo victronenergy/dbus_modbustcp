@@ -33,8 +33,8 @@ private:
 	bool getValue(const int modbusAddress, const int unitID, quint16 &value);
 	void importCSV(const QString &filename);
 	void importUnitIDMapping(const QString &filename);
-	quint16 convertToUInt16(QVariant value, float scaleFactor);
-	qint16 convertToInt16(QVariant value, float scaleFactor);
+	quint16 convertUInt16(const QVariant &value, const float scaleFactor);
+	quint16 convertInt16(const QVariant &value, const float scaleFactor);
 	ModbusValueTypes convertType(const QString &typeString);
 
 	DBusServices *mServices;

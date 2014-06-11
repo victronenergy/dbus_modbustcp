@@ -27,7 +27,6 @@ void Mappings::dbusServiceFound(DBusService * service)
 
 bool Mappings::getValue(const int modbusAddress, const int unitID, quint16 &value)
 {
-	bool retVal = false;
 	if (mDBusModbusMap.contains(modbusAddress) && mUnitIDMap.contains(unitID)) {
 		DBusModbusData * itemProperties = mDBusModbusMap.value(modbusAddress);
 		DBusService * service = mServices->getService(itemProperties->deviceType, mUnitIDMap[unitID]);
@@ -36,9 +35,11 @@ bool Mappings::getValue(const int modbusAddress, const int unitID, quint16 &valu
 			if (dbusValue.isValid()) {
 				switch (itemProperties->valueType) {
 				case mb_type_int16:
+					value = convertInt16(dbusValue, itemProperties->scaleFactor);
+					return true;
 				case mb_type_uint16:
-					value = convertToUInt16(dbusValue, itemProperties->scaleFactor);
-					retVal = true;
+					value = convertUInt16(dbusValue, itemProperties->scaleFactor);
+					return true;
 				default:
 					break;
 				}
@@ -47,7 +48,7 @@ bool Mappings::getValue(const int modbusAddress, const int unitID, quint16 &valu
 		}else
 			QLOG_WARN() << "[Mappings] service not found for modbus address " << modbusAddress << " and unit ID " << unitID;
 	}
-	return retVal;
+	return false; //retVal = true;
 }
 
 void Mappings::getValues(const int modbusAddress, const int unitID, const int quantity, QByteArray &replyData)
@@ -66,17 +67,18 @@ void Mappings::getValues(const int modbusAddress, const int unitID, const int qu
 	QLOG_TRACE() << "[Mappings] reply data" << replyData.toHex().toUpper();
 }
 
-qint16 Mappings::convertToInt16(QVariant value, float scaleFactor)
+quint16 Mappings::convertInt16(const QVariant &value, const float scaleFactor)
 {
+	QLOG_TRACE() << "[Mappings] convert to int16: value = " << value.toString() << " scale factor = " << scaleFactor;
 	switch (value.type()) {
 	case QVariant::Double:
-		return (qint16)(value.toDouble() * scaleFactor);
+		return static_cast<qint16>(round(value.toDouble() * scaleFactor));
 	case QVariant::Int:
-		return (qint16)(value.toInt() * scaleFactor);
+		return static_cast<qint16>(round(value.toInt() * scaleFactor));
 	case QVariant::UInt:
-		return (qint16)(value.toUInt() * scaleFactor);
+		return static_cast<qint16>(round(value.toUInt() * scaleFactor));
 	case QVariant::Bool:
-		return (qint16)value.toBool();
+		return static_cast<qint16>(value.toBool());
 		break;
 	default:
 		return 0;
@@ -84,18 +86,18 @@ qint16 Mappings::convertToInt16(QVariant value, float scaleFactor)
 	return 0;
 }
 
-quint16 Mappings::convertToUInt16(QVariant value, float scaleFactor)
+quint16 Mappings::convertUInt16(const QVariant &value, const float scaleFactor)
 {
 	QLOG_TRACE() << "[Mappings] convert to uint16: value = " << value.toString() << " scale factor = " << scaleFactor;
 	switch (value.type()) {
 	case QVariant::Double:
-		return round(value.toDouble() * scaleFactor);
+		return static_cast<quint16>(round(value.toDouble() * scaleFactor));
 	case QVariant::Int:
-	return (quint16)(value.toInt() * scaleFactor);
+		return static_cast<quint16>(round(value.toInt() * scaleFactor));
 	case QVariant::UInt:
-		return (quint16)(value.toUInt() * scaleFactor);
+		return static_cast<quint16>(round(value.toUInt() * scaleFactor));
 	case QVariant::Bool:
-		return (quint16)value.toBool();
+		return static_cast<quint16>(value.toBool());
 		break;
 	default:
 		return 0;
