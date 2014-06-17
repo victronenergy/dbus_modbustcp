@@ -8,13 +8,17 @@ svn export --force "https://svn.victronenergy.com/svn/vrm_database/trunk/dataAtt
 #
 
 # convert to csv
-xlsx2csv -s 1 -i dataAttributes\ en\ deviceTypes.xlsm attributes_export.csv
+xlsx2csv -s 1 -d tab -i dataAttributes\ en\ deviceTypes.xlsm attributes_export.csv
 # remove first 3 lines
 sed -i '1,3d' attributes_export.csv
+# replace comma's with dash -
+sed -i 's/,/-/g' attributes_export.csv
 # get meaningfull columns
-cut -d "," -f5,6,7,14,15,16 attributes_export.csv > attributes.csv
+cut -f5,6,7,14,15,16 attributes_export.csv > attributes.csv
 # cleanup empty lines
-sed -i '/^,/d' attributes.csv
+sed -i '/^\t/d' attributes.csv
+# replace tabs with comma's
+sed -i 's/\t/,/g' attributes.csv
 
 # convert to csv
 xlsx2csv -s 3 -i dataAttributes\ en\ deviceTypes.xlsm unitid2di.csv
