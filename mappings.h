@@ -24,7 +24,7 @@ private:
 	enum ModbusValueTypes { mb_type_none, mb_type_uint16, mb_type_int16 } ;
 
 	struct DBusModbusData {
-		DBusService::DbusServiceType deviceType;
+		QString deviceType;
 		QString objectPath;
 		double scaleFactor;
 		ModbusValueTypes valueType;

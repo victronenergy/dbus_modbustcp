@@ -21,7 +21,7 @@ void DBusServices::initialScan()
 		processServiceName(name);
 }
 
-DBusService * DBusServices::getService(DBusService::DbusServiceType deviceType, int deviceInstance)
+DBusService * DBusServices::getService(QString deviceType, int deviceInstance)
 {
 	if (mServiceByType.contains(deviceType)) {
 		QMap<int, DBusService *> device = mServiceByType.value(deviceType);

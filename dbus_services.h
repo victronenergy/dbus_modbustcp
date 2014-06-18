@@ -14,7 +14,7 @@ public:
 	void initialScan();
 	int getCount() const { return mServicesByName.count(); }
 	bool getConnected(const QString &serviceName);
-	DBusService * getService(DBusService::DbusServiceType deviceType, int deviceInstance);
+	DBusService * getService(QString deviceType, int deviceInstance);
 
 signals:
 	void dbusServiceFound(DBusService *service);
@@ -27,7 +27,7 @@ private slots:
 private:
 	void processServiceName(QString name);
 	QMap<QString, DBusService *> mServicesByName;
-	QMap<DBusService::DbusServiceType, QMap<int, DBusService *> > mServiceByType;
+	QMap<QString, QMap<int, DBusService *> > mServiceByType;
 	QDBusConnection mDBus;
 };
 

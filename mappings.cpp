@@ -18,7 +18,7 @@ Mappings::Mappings(DBusServices *services, QObject *parent) :
 void Mappings::dbusServiceFound(DBusService * service)
 {
 	QLOG_TRACE() << "[Mappings] service found " << service->getServiceName();
-	DBusService::DbusServiceType type = DBusService::getDeviceType(service->getServiceName());
+	QString type = DBusService::getDeviceType(service->getServiceName());
 	foreach (const DBusModbusData * item, mDBusModbusMap ) {
 		if (item->deviceType == type)
 			service->registerObject(item->objectPath);

@@ -8,41 +8,21 @@
 DBusService::DBusService(const QString &serviceName, QObject *parent) :
 	QObject(parent),
 	mDbusServiceName(serviceName),
-	mServiceType(DBUS_SERVICE_UNKNOWN),
+	mServiceType(getDeviceType(serviceName)),
 	mConnected(true),
 	mDeviceInstance(serviceName, "/DeviceInstance", DBUS_CONNECTION)
 {
 	mDeviceInstance.getValue();
-	setDeviceType(serviceName);
-	QLOG_INFO() << "[DBusService] DeviceInstance of " << serviceName << "=" << mDeviceInstance.getValue().toInt();
+	QLOG_INFO() << "[DBusService] DeviceInstance of " << serviceName << "=" << mDeviceInstance.getValue().toInt() << "with type" << mServiceType;
 }
 
-DBusService::DbusServiceType DBusService::getDeviceType(const QString &name)
+QString DBusService::getDeviceType(const QString &name)
 {
 	QStringList elements = name.split(".");
 	if (elements.count() < 3)
-		return DBUS_SERVICE_UNKNOWN;
+		return "Unkown";
 
-	QString type = elements[2];
-
-	if (type == "battery")
-		return DBUS_SERVICE_BATTERY;
-	if (type == "vebus")
-		return DBUS_SERVICE_MULTI;
-	if (type == "solarcharger")
-		return DBUS_SERVICE_SOLAR_CHARGER;
-	if (type == "lynxion")
-		return DBUS_SERVICE_LYNX_ION;
-	if (type == "pvinverter")
-		return DBUS_SERVICE_PV_INVERTER;
-	if (type == "logger")
-		return DBUS_SERVICE_LOGGER;
-	if (type == "settings")
-		return DBUS_SERVICE_SETTINGS;
-	if (type == "gps")
-		return DBUS_SERVICE_GPS;
-
-	return DBUS_SERVICE_UNKNOWN;
+	return elements[2];
 }
 
 void DBusService::setDeviceType(const QString &name)
