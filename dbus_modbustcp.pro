@@ -1,8 +1,6 @@
-#-------------------------------------------------
-#
-# Project created by QtCreator 2014-02-28T21:44:20
-#
-#-------------------------------------------------
+# gui version and revision
+VERSION = 0.5.0
+REVISION = $$system(git --git-dir $$PWD/.git --work-tree $$PWD describe --always --dirty)
 
 # Add more folders to ship with the application, here
 target.path = /opt/dbus_modbustcp
@@ -10,11 +8,23 @@ csv.path = /data/modbustcp
 csv.files = *.csv
 INSTALLS += target csv
 
-#DEPLOYMENTFOLDERS = attributes
+# Create a include file with VERION / REVISION
+version_rule.target = $$OUT_PWD/version.h
+version_rule.commands = @echo \"updating file $$revtarget.target\"; \
+	echo -e \"/* generated file (do not edit) */\\n\" \
+	\"$${LITERAL_HASH}ifndef VERSION_H\\n\" \
+	\"$${LITERAL_HASH}define VERSION_H\\n\" \
+	\"$${LITERAL_HASH}define VERSION \\\"$${VERSION}\\\"\\n\" \
+	\"$${LITERAL_HASH}define REVISION \\\"$${REVISION}\\\"\\n\" \
+	\"$${LITERAL_HASH}endif\" > $$version_rule.target
+version_rule.depends = FORCE
+QMAKE_DISTCLEAN += $$version_rule.target
+
+QMAKE_EXTRA_TARGETS += version_rule
+PRE_TARGETDEPS += $$OUT_PWD/version.h
 
 machine=$$(MACHINE)
 contains(machine,ccgx) {
-	message($$(MACHINE))
 	DEFINES += TARGET_ccgx
 }
 
@@ -54,7 +64,6 @@ HEADERS += \
 	pdu.h \
 	backend.h \
 	defines.h \
-	version.h \
 	dbus_service.h \
 	dbus_services.h \
 	busitem_interface.h \
