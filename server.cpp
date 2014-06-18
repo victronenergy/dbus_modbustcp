@@ -22,7 +22,7 @@ void Server::newConnection()
 
 	newConnection->socketOption(QAbstractSocket::LowDelayOption);
 	mClients.append(newConnection);
-	QLOG_INFO() << "[Server] New connecion: " << newConnection->peerAddress().toString()+":"+QString::number(newConnection->peerPort());
+	QLOG_DEBUG() << "[Server] New connecion: " << newConnection->peerAddress().toString()+":"+QString::number(newConnection->peerPort());
 	connect(newConnection, SIGNAL(readyRead()), SLOT(readyRead()));
 	connect(newConnection, SIGNAL(disconnected()), SLOT(disconnected()));
 }
@@ -46,7 +46,7 @@ void Server::disconnected()
 	QTcpSocket *socket = (QTcpSocket *) sender();
 	if (socket == 0) return;
 
-	QLOG_INFO() << "[Server] Disconnected: " << socket->peerAddress().toString()+":"+QString::number(socket->peerPort());
+	QLOG_DEBUG() << "[Server] Disconnected: " << socket->peerAddress().toString()+":"+QString::number(socket->peerPort());
 	mClients.removeAll(socket);
 	delete mRequests.key(socket);
 	socket->deleteLater();
