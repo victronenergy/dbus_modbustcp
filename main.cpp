@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
 		exit(0);
 	}
 
-	initLogger(QsLogging::TraceLevel);
+	initLogger(QsLogging::InfoLevel);
 	if (arg.contains("d"))
 		logger.setLoggingLevel((QsLogging::Level)arg.value("d").toInt());
 
