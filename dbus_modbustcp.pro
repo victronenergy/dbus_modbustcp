@@ -1,5 +1,5 @@
 # gui version and revision
-VERSION = 0.5.0
+VERSION = 0.5.1
 REVISION = $$system(git --git-dir $$PWD/.git --work-tree $$PWD describe --always --dirty)
 
 # Add more folders to ship with the application, here
