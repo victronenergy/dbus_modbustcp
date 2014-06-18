@@ -1,6 +1,6 @@
 # gui version and revision
 VERSION = 0.5.1
-REVISION = $$system(git --git-dir $$PWD/.git --work-tree $$PWD describe --always --dirty)
+REVISION = $$system(git --git-dir $$PWD/.git --work-tree $$PWD describe --always --dirty --tags)
 
 # Add more folders to ship with the application, here
 target.path = /opt/dbus_modbustcp
