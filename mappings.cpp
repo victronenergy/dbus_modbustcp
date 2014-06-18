@@ -43,12 +43,12 @@ bool Mappings::getValue(const int modbusAddress, const int unitID, quint16 &valu
 				default:
 					break;
 				}
-			}
-			QLOG_DEBUG() << "[Mappings] getValue (" << service->getServiceName() << "," << itemProperties->objectPath << ") got" << dbusValue.toString() << "converted to" << value;
-		}else
+			} else
+				QLOG_WARN() << "[Mappings] getValue: value from dbus invalid";
+		} else
 			QLOG_WARN() << "[Mappings] service not found for modbus address " << modbusAddress << " and unit ID " << unitID;
 	}
-	return false; //retVal = true;
+	return false;
 }
 
 void Mappings::getValues(const int modbusAddress, const int unitID, const int quantity, QByteArray &replyData)
@@ -69,40 +69,58 @@ void Mappings::getValues(const int modbusAddress, const int unitID, const int qu
 
 quint16 Mappings::convertInt16(const QVariant &value, const float scaleFactor)
 {
-	QLOG_TRACE() << "[Mappings] convert to int16: value = " << value.toString() << " scale factor = " << scaleFactor;
-	switch (value.type()) {
-	case QVariant::Double:
+	QLOG_TRACE() << "[Mappings] convert to int16: type =" << value.typeName() << "value = " << value.toString() << " scale factor = " << scaleFactor;
+	const QMetaType::Type type = static_cast<QMetaType::Type>(value.type());
+	switch (type) {
+	case QMetaType::Float:
+	case QMetaType::Double:
 		return static_cast<qint16>(round(value.toDouble() * scaleFactor));
-	case QVariant::Int:
+	case QMetaType::Char:
+	case QMetaType::Short:
+	case QMetaType::Int:
+	case QMetaType::Long:
+	case QMetaType::LongLong:
 		return static_cast<qint16>(round(value.toInt() * scaleFactor));
-	case QVariant::UInt:
+	case QMetaType::UChar:
+	case QMetaType::UShort:
+	case QMetaType::UInt:
+	case QMetaType::ULong:
+	case QMetaType::ULongLong:
 		return static_cast<qint16>(round(value.toUInt() * scaleFactor));
-	case QVariant::Bool:
+	case QMetaType::Bool:
 		return static_cast<qint16>(value.toBool());
-		break;
 	default:
+		QLOG_WARN() << "[Mappings] convertInt16 tries to convert an unsupported type:" << value.typeName();
 		return 0;
 	}
-	return 0;
 }
 
 quint16 Mappings::convertUInt16(const QVariant &value, const float scaleFactor)
 {
-	QLOG_TRACE() << "[Mappings] convert to uint16: value = " << value.toString() << " scale factor = " << scaleFactor;
-	switch (value.type()) {
-	case QVariant::Double:
+	QLOG_TRACE() << "[Mappings] convert to uint16: type =" << value.typeName() << "value = " << value.toString() << " scale factor = " << scaleFactor;
+	const QMetaType::Type type = static_cast<QMetaType::Type>(value.type());
+	switch (type) {
+	case QMetaType::Float:
+	case QMetaType::Double:
 		return static_cast<quint16>(round(value.toDouble() * scaleFactor));
-	case QVariant::Int:
+	case QMetaType::Char:
+	case QMetaType::Short:
+	case QMetaType::Int:
+	case QMetaType::Long:
+	case QMetaType::LongLong:
 		return static_cast<quint16>(round(value.toInt() * scaleFactor));
-	case QVariant::UInt:
+	case QMetaType::UChar:
+	case QMetaType::UShort:
+	case QMetaType::UInt:
+	case QMetaType::ULong:
+	case QMetaType::ULongLong:
 		return static_cast<quint16>(round(value.toUInt() * scaleFactor));
-	case QVariant::Bool:
+	case QMetaType::Bool:
 		return static_cast<quint16>(value.toBool());
-		break;
 	default:
+		QLOG_WARN() << "[Mappings] convertUInt16 tries to convert an unsupported type:" << value.typeName();
 		return 0;
 	}
-	return 0;
 }
 
 Mappings::ModbusValueTypes Mappings::convertType(const QString &typeString)
