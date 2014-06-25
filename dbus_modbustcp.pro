@@ -4,7 +4,7 @@ REVISION = $$system(git --git-dir $$PWD/.git --work-tree $$PWD describe --always
 
 # Add more folders to ship with the application, here
 target.path = /opt/dbus_modbustcp
-csv.path = /data/modbustcp
+csv.path = /opt/dbus_modbustcp
 csv.files = *.csv
 INSTALLS += target csv
 

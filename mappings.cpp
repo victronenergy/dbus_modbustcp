@@ -3,8 +3,8 @@
 //#define QS_LOG_DISABLE
 #include "QsLog.h"
 
-const QString attributesFile = "/data/modbustcp/attributes.csv";
-const QString unitIDFile = "/data/modbustcp/unitid2di.csv";
+const QString attributesFile = "attributes.csv";
+const QString unitIDFile = "unitid2di.csv";
 
 Mappings::Mappings(DBusServices *services, QObject *parent) :
 	QObject(parent),
@@ -27,6 +27,7 @@ void Mappings::dbusServiceFound(DBusService * service)
 
 bool Mappings::getValue(const int modbusAddress, const int unitID, quint16 &value)
 {
+	QLOG_TRACE() << "[Mappings] Get value" << modbusAddress << unitID;
 	if (mDBusModbusMap.contains(modbusAddress) && mUnitIDMap.contains(unitID)) {
 		DBusModbusData * itemProperties = mDBusModbusMap.value(modbusAddress);
 		DBusService * service = mServices->getService(itemProperties->deviceType, mUnitIDMap[unitID]);
@@ -70,8 +71,13 @@ void Mappings::getValues(const int modbusAddress, const int unitID, const int qu
 quint16 Mappings::convertInt16(const QVariant &value, const float scaleFactor)
 {
 	QLOG_TRACE() << "[Mappings] convert to int16: type =" << value.typeName() << "value = " << value.toString() << " scale factor = " << scaleFactor;
-	const QMetaType::Type type = static_cast<QMetaType::Type>(value.type());
-	switch (type) {
+
+	const int variantType = value.userType();
+	if (qMetaTypeId<QDBusArgument>() == variantType)
+		return 0;
+
+	const QMetaType::Type metaType = static_cast<QMetaType::Type>(variantType);
+	switch (metaType) {
 	case QMetaType::Float:
 	case QMetaType::Double:
 		return static_cast<qint16>(round(value.toDouble() * scaleFactor));
@@ -90,7 +96,7 @@ quint16 Mappings::convertInt16(const QVariant &value, const float scaleFactor)
 	case QMetaType::Bool:
 		return static_cast<qint16>(value.toBool());
 	default:
-		QLOG_WARN() << "[Mappings] convertInt16 tries to convert an unsupported type:" << value.typeName();
+		QLOG_WARN() << "[Mappings] convertInt16 tries to convert an unsupported type:" << value.type() << "(" << value.typeName() << ")";
 		return 0;
 	}
 }
@@ -98,6 +104,11 @@ quint16 Mappings::convertInt16(const QVariant &value, const float scaleFactor)
 quint16 Mappings::convertUInt16(const QVariant &value, const float scaleFactor)
 {
 	QLOG_TRACE() << "[Mappings] convert to uint16: type =" << value.typeName() << "value = " << value.toString() << " scale factor = " << scaleFactor;
+
+	const int variantType = value.userType();
+	if (qMetaTypeId<QDBusArgument>() == variantType)
+		return 0;
+
 	const QMetaType::Type type = static_cast<QMetaType::Type>(value.type());
 	switch (type) {
 	case QMetaType::Float:
@@ -118,7 +129,7 @@ quint16 Mappings::convertUInt16(const QVariant &value, const float scaleFactor)
 	case QMetaType::Bool:
 		return static_cast<quint16>(value.toBool());
 	default:
-		QLOG_WARN() << "[Mappings] convertUInt16 tries to convert an unsupported type:" << value.typeName();
+		QLOG_WARN() << "[Mappings] convertUInt16 tries to convert an unsupported type:" << type << "(" << value.typeName() << ")";
 		return 0;
 	}
 }
@@ -135,7 +146,7 @@ Mappings::ModbusValueTypes Mappings::convertType(const QString &typeString)
 void Mappings::importCSV(const QString &filename)
 {
 	QString string;
-	QFile file(filename);
+	QFile file(QCoreApplication::applicationDirPath() + "/" + filename);
 
 	if (file.open(QIODevice::ReadOnly)) {
 		QTextStream in(&file);
@@ -155,14 +166,15 @@ void Mappings::importCSV(const QString &filename)
 			}
 		}
 		file.close();
-	}
+	} else
+		QLOG_ERROR() << "Can not open file" << filename;
 	return;
 }
 
 void Mappings::importUnitIDMapping(const QString &filename)
 {
 	QString string;
-	QFile file(filename);
+	QFile file(QCoreApplication::applicationDirPath() + "/" + filename);
 
 	if (file.open(QIODevice::ReadOnly)) {
 		QTextStream in(&file);
@@ -182,7 +194,8 @@ void Mappings::importUnitIDMapping(const QString &filename)
 			}
 		}
 		file.close();
-	}
+	} else
+		QLOG_ERROR() << "Can not open file" << filename;
 	return;
 }
 
