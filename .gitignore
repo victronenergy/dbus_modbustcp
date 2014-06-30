@@ -1,3 +1,2 @@
-*.csv
-*.xlsm
-
+*\.xlsm
+*\.user

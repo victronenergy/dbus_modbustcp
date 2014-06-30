@@ -1,0 +1,20 @@
+Unit ID, /DeviceInstance,Remark
+254,257,CCGX VE.Bus port (ttyO1)
+255,256,CCGX VE.Direct 1 port (ttyO0)
+253,258,CCGX VE.Direct 2 port (ttyO2)
+0,0,VE.Can device instance 0
+1,1,VE.Can device instance 1
+2,2,VE.Can device instance 2
+3,3,VE.Can device instance 3
+4,4,VE.Can device instance 4
+5,5,VE.Can device instance 5
+6,6,VE.Can device instance 6
+7,7,VE.Can device instance 7
+8,8,VE.Can device instance 8
+9,9,VE.Can device instance 9
+239,288,VE.Direct via USB (ttyUSB0)
+238,289,VE.Direct via USB (ttyUSB1)
+237,290,VE.Direct via USB (ttyUSB2)
+236,291,VE.Direct via USB (ttyUSB3)
+235,292,VE.Direct via USB (ttyUSB4)
+233,293,VE.Direct via USB (ttyUSB5)
