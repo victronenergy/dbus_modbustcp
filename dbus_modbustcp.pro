@@ -1,5 +1,5 @@
-# gui version and revision
-VERSION = 0.5.3
+# version and revision
+VERSION = 0.5.4
 REVISION = $$system(git --git-dir $$PWD/.git --work-tree $$PWD describe --always --dirty --tags)
 
 # Add more folders to ship with the application, here
@@ -8,7 +8,7 @@ csv.path = /opt/dbus_modbustcp
 csv.files = *.csv
 INSTALLS += target csv
 
-# Create a include file with VERION / REVISION
+# Create a include file with VERSION / REVISION
 version_rule.target = $$OUT_PWD/version.h
 version_rule.commands = @echo \"updating file $$revtarget.target\"; \
 	echo -e \"/* generated file (do not edit) */\\n\" \
