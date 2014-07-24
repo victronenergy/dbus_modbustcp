@@ -50,7 +50,7 @@ com.victronenergy.battery,/Dc/1/V,V DC,260,uint16,100
 com.victronenergy.battery,/Dc/0/I,A DC,261,int16,10
 com.victronenergy.battery,/DC/0/T,Degrees celsius,262,int16,10
 com.victronenergy.battery,/Dc/0/MidVoltage,V DC,263,uint16,100
-com.victronenergy.battery,/Dc/0/MidVoltageDeviation,V DC,264,uint16,100
+com.victronenergy.battery,/Dc/0/MidVoltageDeviation,%,264,uint16,100
 com.victronenergy.battery,/ConsumedAmphours,Ah,265,uint16,-10
 com.victronenergy.battery,/Soc,%,266,uint16,10
 com.victronenergy.battery,/TimeToGo,seconds,301,uint16,0.01
