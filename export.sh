@@ -24,5 +24,5 @@ sed -i 's/\t/,/g' attributes.csv
 xlsx2csv -s 3 -i dataAttributes\ en\ deviceTypes.xlsm unitid2di.csv
 
 # cleanup
-dos2unix unitid2di.csv
+#dos2unix unitid2di.csv
 rm attributes_export.csv
