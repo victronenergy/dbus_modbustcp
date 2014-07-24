@@ -25,13 +25,13 @@ void Backend::modbusRequest(ADU * const modbusRequest)
 		QLOG_TRACE() << "quantity = " << quantity;
 
 		if (quantity == 0 || quantity > 125) {
-			QLOG_ERROR() << "Illegal Data Value. Raising exception";
+			QLOG_ERROR() << "Requested quantity" << quantity << "invalid for function" << functionCode;
 			modbusRequest->setExceptionCode(PDU::IllegalDataValue);
 		} else {
 			QByteArray replyData;
 			emit getValues(startAddress, modbusRequest->getUnitID(), quantity, replyData);
 			if (replyData.isEmpty()) {
-				QLOG_ERROR() << "Illegal Data Address. Raising exception";
+				QLOG_ERROR() << "Not existing address" << startAddress << "or gap(s) in range with quantity" << quantity << "for function" << functionCode;
 				modbusRequest->setExceptionCode(PDU::IllegalDataAddress);
 			} else {
 				reply->setData(replyData);
@@ -41,7 +41,7 @@ void Backend::modbusRequest(ADU * const modbusRequest)
 		break;
 	}
 	default:
-		QLOG_ERROR() << "Unknown Function. Raising exception";
+		QLOG_ERROR() << "Unknown function " << functionCode;
 		modbusRequest->setExceptionCode(PDU::IllegalFunction);
 		break;
 	}
