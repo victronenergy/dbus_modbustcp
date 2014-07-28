@@ -18,6 +18,7 @@ public:
 	void registerObjects(const QStringList &pathList);
 	void registerObject(const QString &path);
 	QVariant getValue(const QString path);
+	bool setValue(const QString path, const QVariant value);
 	static QString getDeviceType(const QString &serviceName);
 
 private:

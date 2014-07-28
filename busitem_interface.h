@@ -21,7 +21,7 @@ public slots:
 
 	QDBusReply<int> setValue(const QVariant & value)
 	{
-		return call("SetValue", value);
+		return call("SetValue", QVariant::fromValue(QDBusVariant(value)));
 	}
 
 signals:
