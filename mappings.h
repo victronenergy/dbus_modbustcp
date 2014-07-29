@@ -14,6 +14,7 @@ public:
 
 public slots:
 	void getValues(const int modbusAddress, const int unitID, const int quantity, QByteArray &replyData);
+	void setValues(const int modbusAddress, const int unitID, const int quantity, QByteArray &data);
 
 signals:
 
@@ -21,21 +22,23 @@ private slots:
 	void dbusServiceFound(DBusService *service);
 
 private:
-	enum ModbusValueTypes { mb_type_none, mb_type_uint16, mb_type_int16 } ;
+	enum ModbusTypes { mb_type_none, mb_type_uint16, mb_type_int16 } ;
 
 	struct DBusModbusData {
 		QString deviceType;
 		QString objectPath;
 		double scaleFactor;
-		ModbusValueTypes valueType;
+		ModbusTypes modbusType;
+		QMetaType::Type dbusType;
 	};
 
 	bool getValue(const int modbusAddress, const int unitID, quint16 &value);
+	bool setValue(const int modbusAddress, const int unitID, quint16 value);
 	void importCSV(const QString &filename);
 	void importUnitIDMapping(const QString &filename);
-	quint16 convertUInt16(const QVariant &value, const float scaleFactor);
-	quint16 convertInt16(const QVariant &value, const float scaleFactor);
-	ModbusValueTypes convertType(const QString &typeString);
+	template<class rettype> rettype convertFromDbus(const QVariant &value, const float scaleFactor);
+	template<class argtype> QVariant convertToDbus(const QMetaType::Type dbusType, const argtype value, const float scaleFactor);
+	ModbusTypes convertModbusType(const QString &typeString);
 
 	DBusServices *mServices;
 	// modbus register -> unit id -> dbus<->modbus data

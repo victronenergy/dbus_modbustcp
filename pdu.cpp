@@ -71,11 +71,10 @@ void PDU::setExceptionCode(ExceptionCode code)
 	mExeptionCode = code;
 }
 
-QString PDU::toString()
+QString PDU::pduToString()
 {
 	QString string;
 
-	string += "\tProtocol Data Unit\n";
 	if (mFunctionCode >= 0x80)
 		string += "\tException Code: " + exceptionMap[mExeptionCode] + "\n";
 	else

@@ -17,6 +17,8 @@ public slots:
 
 signals:
 	void getValues(const int modbusAddress, const int unitID, const int quantity, QByteArray &replyData);
+	void setValue(const int modbusAddress, const int unitID, quint16 data);
+	void setValues(const int modbusAddress, const int unitID, const int quantity, QByteArray &data);
 	void modbusReply(ADU * const reply);
 };
 

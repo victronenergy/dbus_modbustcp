@@ -42,7 +42,8 @@ public:
 	};
 
 	uint getFunctionCode() { return mFunctionCode; }
-	QByteArray getData() { return mData; }
+	QByteArray & getData() { return mData; }
+	int getDataSize() { return mData.size(); }
 	quint16 getAddres() { return (mData[0] << 8) | (quint8)mData[1]; }
 	quint16 getQuantity() { return (mData[2] << 8) | (quint8)mData[3]; }
 	quint8 getByteCount() { return mData[4]; }
@@ -52,7 +53,7 @@ public:
 	void setExceptionCode(ExceptionCode code);
 
 	//Helpers
-	QString toString();
+	QString pduToString();
 
 private:
 	quint8 mFunctionCode;
