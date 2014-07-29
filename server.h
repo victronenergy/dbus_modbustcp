@@ -21,6 +21,7 @@ private slots:
 	void newConnection();
 	void readyRead();
 	void disconnected();
+	void bytesWritten(qint64 bytes);
 
 signals:
 	void modbusRequest(ADU * const request);
@@ -28,7 +29,7 @@ signals:
 private:
 	QTcpServer * mServer;
 	QList<QTcpSocket *> mClients;
-	QMap<ADU *, QTcpSocket *> mRequests;
+	QMap<QTcpSocket *, ADU *> mRequests;
 };
 
 #endif // SERVER_H
