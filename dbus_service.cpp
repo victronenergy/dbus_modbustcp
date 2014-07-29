@@ -53,9 +53,8 @@ QVariant DBusService::getValue(const QString path)
 
 bool DBusService::setValue(const QString path, const QVariant value)
 {
-	if (mBusItems.contains(path)) {
-		QLOG_TRACE() << "[DBusService] Set value" << path << value.toString();
+	if (mBusItems.contains(path))
 		return mBusItems.value(path)->setValue(value) == 0 ? true : false;
-	} else
+	else
 		return false;
 }
