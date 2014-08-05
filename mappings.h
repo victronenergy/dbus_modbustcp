@@ -22,7 +22,8 @@ private slots:
 	void dbusServiceFound(DBusService *service);
 
 private:
-	enum ModbusTypes { mb_type_none, mb_type_uint16, mb_type_int16 } ;
+	enum ModbusTypes { mb_type_none, mb_type_uint16, mb_type_int16 };
+	enum Permissions { mb_perm_none, mb_perm_read, mb_perm_write };
 
 	struct DBusModbusData {
 		QString deviceType;
@@ -30,6 +31,7 @@ private:
 		double scaleFactor;
 		ModbusTypes modbusType;
 		QMetaType::Type dbusType;
+		Permissions accessRights;
 	};
 
 	bool getValue(const int modbusAddress, const int unitID, quint16 &value);
@@ -39,6 +41,8 @@ private:
 	template<class rettype> rettype convertFromDbus(const QVariant &value, const float scaleFactor);
 	template<class argtype> QVariant convertToDbus(const QMetaType::Type dbusType, const argtype value, const float scaleFactor);
 	ModbusTypes convertModbusType(const QString &typeString);
+	QMetaType::Type convertDbusType(const QString &typeString);
+	Permissions convertPermissions(const QString &permissions);
 
 	DBusServices *mServices;
 	// modbus register -> unit id -> dbus<->modbus data

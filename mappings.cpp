@@ -75,28 +75,31 @@ bool Mappings::setValue(const int modbusAddress, const int unitID, quint16 value
 		DBusModbusData * itemProperties = mDBusModbusMap.value(modbusAddress);
 		DBusService * service = mServices->getService(itemProperties->deviceType, mUnitIDMap[unitID]);
 		if (service) {
-			QVariant dbusValue;
-			QLOG_TRACE() << "Set dbus object" << itemProperties->objectPath << "value to" << value;
-			switch (itemProperties->modbusType) {
-			case mb_type_int16:
-			{
-				dbusValue = convertToDbus(itemProperties->dbusType, static_cast<qint16>(value), itemProperties->scaleFactor);
-			}
-			case mb_type_uint16:
-			{
-				dbusValue = convertToDbus(itemProperties->dbusType, static_cast<quint16>(value), itemProperties->scaleFactor);
-			}
-			default:
-				break;
-			}
-			if (dbusValue.isValid()) {
-				if (service->setValue(itemProperties->objectPath, dbusValue))
-					return true;
-				else
-					QLOG_ERROR() << "[Mappings] Set value failed.";
-			}
+			if (itemProperties->accessRights==Mappings::mb_perm_write) {
+				QVariant dbusValue;
+				QLOG_TRACE() << "Set dbus object" << itemProperties->objectPath << "value to" << value;
+				switch (itemProperties->modbusType) {
+				case mb_type_int16:
+				{
+					dbusValue = convertToDbus(itemProperties->dbusType, static_cast<qint16>(value), itemProperties->scaleFactor);
+				}
+				case mb_type_uint16:
+				{
+					dbusValue = convertToDbus(itemProperties->dbusType, static_cast<quint16>(value), itemProperties->scaleFactor);
+				}
+				default:
+					break;
+				}
+				if (dbusValue.isValid()) {
+					if (service->setValue(itemProperties->objectPath, dbusValue))
+						return true;
+					else
+						QLOG_ERROR() << "[Mappings] Set value failed.";
+				}
+			} else
+				QLOG_WARN() << "[Mappings] Permission denied for address" << modbusAddress << "and unit ID" << unitID;
 		} else
-			QLOG_WARN() << "[Mappings] setValue: service not found for modbus address " << modbusAddress << " and unit ID " << unitID;
+			QLOG_WARN() << "[Mappings] setValue: service not found for modbus address " << modbusAddress << "and unit ID" << unitID;
 	}
 	return false;
 }
@@ -181,6 +184,38 @@ Mappings::ModbusTypes Mappings::convertModbusType(const QString &typeString)
 	return mb_type_none;
 }
 
+QMetaType::Type Mappings::convertDbusType(const QString &typeString)
+{
+	if (typeString == "y")
+		return QMetaType::UChar;
+	else if (typeString == "b")
+		return QMetaType::Bool;
+	else if (typeString == "n")
+		return QMetaType::Short;
+	else if (typeString == "q")
+		return QMetaType::UShort;
+	else if (typeString == "i")
+		return QMetaType::Int;
+	else if (typeString == "u")
+		return QMetaType::UInt;
+	else if (typeString == "x")
+		return QMetaType::Long;
+	else if (typeString == "t")
+		return QMetaType::ULong;
+	else if (typeString == "d")
+		return QMetaType::Double;
+	return QMetaType::Void;
+}
+
+Mappings::Permissions Mappings::convertPermissions(const QString &permissions)
+{
+	if (permissions == "R")
+		return Mappings::mb_perm_read;
+	else if (permissions == "W")
+		return Mappings::mb_perm_write;
+	return Mappings::mb_perm_none;
+}
+
 void Mappings::importCSV(const QString &filename)
 {
 	QString string;
@@ -192,19 +227,18 @@ void Mappings::importCSV(const QString &filename)
 			DBusModbusData * item = new DBusModbusData();
 			QString line = in.readLine();
 			QStringList values = line.split(",");
-			if (values.size() >= 4) {
+			if (values.size() >= 8) {
 				item->deviceType = DBusService::getDeviceType(values.at(0));
 				item->objectPath = values.at(1);
-				item->modbusType = convertModbusType(values.at(4));
+				item->modbusType = convertModbusType(values.at(5));
 				if (item->modbusType != mb_type_none) {
-					item->scaleFactor = values.at(5).toDouble();
-					// MMU: Check scalefator != 0 for divisions
-
-					mDBusModbusMap.insert(values.at(3).toInt(), item);
+					item->scaleFactor = values.at(6).toDouble();
+					if (item->scaleFactor == 0) item->scaleFactor = 1;
+					item->dbusType = convertDbusType(values.at(2));
+					item->accessRights = convertPermissions(values.at(7));
+					mDBusModbusMap.insert(values.at(4).toInt(), item);
 					QLOG_INFO() << "[Mappings] Add" << values;
 				}
-				// MMU testing type for now!!!
-				item->dbusType = QMetaType::Double;
 			}
 		}
 		file.close();
