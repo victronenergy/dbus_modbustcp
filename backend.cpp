@@ -45,7 +45,7 @@ void Backend::modbusRequest(ADU * const modbusRequest)
 		QLOG_TRACE() << "PDU::WriteSingleRegister Address = " << address;
 
 		emit setValues(address, unitID, 1, data);
-		if (replyData.isEmpty()) {
+		if (data.isEmpty()) {
 			QLOG_ERROR() << "Not existing address" << address << "for function" << functionCode;
 			modbusRequest->setExceptionCode(PDU::IllegalDataAddress);
 		}
@@ -65,7 +65,7 @@ void Backend::modbusRequest(ADU * const modbusRequest)
 			modbusRequest->setExceptionCode(PDU::IllegalDataValue);
 		} else {
 			emit setValues(address, unitID, quantity, data);
-			if (replyData.isEmpty()) {
+			if (data.isEmpty()) {
 				QLOG_ERROR() << "Not existing address" << address << "or gap(s) in range with quantity" << quantity << "for function" << functionCode;
 				modbusRequest->setExceptionCode(PDU::IllegalDataAddress);
 			} else
