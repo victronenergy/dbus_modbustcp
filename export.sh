@@ -14,15 +14,18 @@ sed -i '1,3d' attributes_export.csv
 # replace comma's with dash -
 sed -i 's/,/-/g' attributes_export.csv
 # get meaningfull columns
-cut -f5,6,7,14,15,16 attributes_export.csv > attributes.csv
+cut -f5,6,7,8,15,16,17,21 attributes_export.csv > attributes.csv
 # cleanup empty lines
 sed -i '/^\t/d' attributes.csv
 # replace tabs with comma's
 sed -i 's/\t/,/g' attributes.csv
+# replace operator or owner (accessLevel)  with W for write permissions
+out="$(mktemp)"
+awk 'BEGIN{FS=OFS=","} { if ($8 =="owner" || $8=="operator" ) gsub($8, "W"); else $8="R"; }'1 attributes.csv > $out
+mv $out attributes.csv
 
 # convert to csv
 xlsx2csv -s 3 -i dataAttributes\ en\ deviceTypes.xlsm unitid2di.csv
 
 # cleanup
-#dos2unix unitid2di.csv
 rm attributes_export.csv
