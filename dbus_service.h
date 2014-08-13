@@ -17,7 +17,7 @@ public:
 	void setConnected(bool connected) { mConnected = connected; }
 	void registerObjects(const QStringList &pathList);
 	void registerObject(const QString &path);
-	QVariant getValue(const QString path);
+	QVariant getValue(const QString path) const;
 	bool setValue(const QString path, const QVariant value);
 	static QString getDeviceType(const QString &serviceName);
 

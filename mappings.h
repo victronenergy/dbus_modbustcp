@@ -12,9 +12,11 @@ class Mappings : public QObject
 public:
 	Mappings(DBusServices *services, QObject *parent = 0);
 
+	enum MappingErrors { NoError, QuantityError, StartAddressError, AddressError, UnitIdError, ServiceError, PermissionError};
+
 public slots:
-	void getValues(const int modbusAddress, const int unitID, const int quantity, QByteArray &replyData);
-	void setValues(const int modbusAddress, const int unitID, const int quantity, QByteArray &data);
+	void getValues(const int modbusAddress, const int unitID, const int quantity, QByteArray &replyData, Mappings::MappingErrors &error) const;
+	void setValues(const int modbusAddress, const int unitID, const int quantity, QByteArray &data, Mappings::MappingErrors &error) ;
 
 signals:
 
@@ -34,12 +36,15 @@ private:
 		Permissions accessRights;
 	};
 
-	bool getValue(const int modbusAddress, const int unitID, quint16 &value);
-	bool setValue(const int modbusAddress, const int unitID, quint16 value);
+	MappingErrors getValue(const int modbusAddress, const DBusModbusData &itemProperties, const DBusService &service, quint16 &value);
+	MappingErrors getValue(const DBusService &service, const int modbusAddress, const int unitID, quint16 &value) const;
+	quint16 getValue(const DBusService *service, const QString & objectPath, const ModbusTypes modbusType, const double scaleFactor) const;
+
+	bool setValue(DBusService * const service, const QString &objectPath, const ModbusTypes modbusType, const QMetaType::Type dbusType, const double scaleFactor, const quint16 value);
 	void importCSV(const QString &filename);
 	void importUnitIDMapping(const QString &filename);
-	template<class rettype> rettype convertFromDbus(const QVariant &value, const float scaleFactor);
-	template<class argtype> QVariant convertToDbus(const QMetaType::Type dbusType, const argtype value, const float scaleFactor);
+	template<class rettype> rettype convertFromDbus(const QVariant &value, const float scaleFactor) const;
+	template<class argtype> QVariant convertToDbus(const QMetaType::Type dbusType, const argtype value, const float scaleFactor) const;
 	ModbusTypes convertModbusType(const QString &typeString);
 	QMetaType::Type convertDbusType(const QString &typeString);
 	Permissions convertPermissions(const QString &permissions);

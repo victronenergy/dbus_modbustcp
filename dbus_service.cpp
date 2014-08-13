@@ -43,7 +43,7 @@ void DBusService::registerObject(const QString &path)
 	mBusItems.insert(path, busitem);
 }
 
-QVariant DBusService::getValue(const QString path)
+QVariant DBusService::getValue(const QString path) const
 {
 	if (mBusItems.contains(path)) {
 		return mBusItems.value(path)->getValue();

@@ -25,100 +25,134 @@ void Mappings::dbusServiceFound(DBusService * service)
 	}
 }
 
-bool Mappings::getValue(const int modbusAddress, const int unitID, quint16 &value)
+quint16 Mappings::getValue(const DBusService * service, const QString & objectPath, const ModbusTypes modbusType, const double scaleFactor) const
 {
-	if (mDBusModbusMap.contains(modbusAddress) && mUnitIDMap.contains(unitID)) {
-		DBusModbusData * itemProperties = mDBusModbusMap.value(modbusAddress);
-		DBusService * service = mServices->getService(itemProperties->deviceType, mUnitIDMap[unitID]);
-		if (service) {
-			QVariant dbusValue = service->getValue(itemProperties->objectPath);
-			QLOG_TRACE() << "Get value from dbus object" << itemProperties->objectPath;
-			if (dbusValue.isValid()) {
-				switch (itemProperties->modbusType) {
-				case mb_type_int16:
-					value = convertFromDbus<qint16>(dbusValue, itemProperties->scaleFactor);
-					return true;
-				case mb_type_uint16:
-					value = convertFromDbus<quint16>(dbusValue, itemProperties->scaleFactor);
-					return true;
-				default:
-					break;
-				}
-			} else {
-				value = 0;
-				return true;
-			}
-		} else
-			QLOG_WARN() << "[Mappings] service not found for modbus address " << modbusAddress << " and unit ID " << unitID;
+	QVariant dbusValue = service->getValue(objectPath);
+	QLOG_TRACE() << "Get value from dbus object" << objectPath;
+	if (dbusValue.isValid()) {
+		switch (modbusType) {
+		case mb_type_int16:
+			return convertFromDbus<qint16>(dbusValue, scaleFactor);
+		case mb_type_uint16:
+			return convertFromDbus<quint16>(dbusValue, scaleFactor);
+		default:
+			break;
+		}
 	}
-	return false;
+	return 0;
 }
 
-void Mappings::getValues(const int modbusAddress, const int unitID, const int quantity, QByteArray &replyData)
+void Mappings::getValues(const int modbusAddress, const int unitID, const int quantity, QByteArray &replyData, Mappings::MappingErrors &error) const
 {
+	if (!mUnitIDMap.contains(unitID)) {
+		error = UnitIdError;
+		return;
+	}
+	if (!mDBusModbusMap.contains(modbusAddress)) {
+		error = StartAddressError;
+		return;
+	}
+
+	/*
+	 * Get service from the first modbus address. The service must be the same for the complete address range
+	 * therefore the service pointer has to be fetched and checked only once
+	 */
+	DBusModbusData * itemProperties = mDBusModbusMap.value(modbusAddress);
+	DBusService * service = mServices->getService(itemProperties->deviceType, mUnitIDMap[unitID]);
+	if (!service) {
+		error = ServiceError;
+		return;
+	}
+
+	error = NoError;
 	quint16 value;
 	int j = 0;
 	for (int i = 0; i < quantity; i++) {
-		if (getValue(modbusAddress+i, unitID, value)) {
+		if (mDBusModbusMap.contains(modbusAddress+i)) {
+			itemProperties = mDBusModbusMap.value(modbusAddress+i);
+			value = getValue(service, itemProperties->objectPath, itemProperties->modbusType, itemProperties->scaleFactor);
 			replyData[j++] = (quint8)(value >> 8);
 			replyData[j++] = (quint8)value;
 		} else {
-			replyData.clear();
+			error = AddressError;
 			return;
 		}
 	}
 }
 
-bool Mappings::setValue(const int modbusAddress, const int unitID, quint16 value)
+bool Mappings::setValue(DBusService * const service, const QString & objectPath, const ModbusTypes modbusType, const QMetaType::Type dbusType, const double scaleFactor, const quint16 value)
 {
-	if (mDBusModbusMap.contains(modbusAddress) && mUnitIDMap.contains(unitID)) {
-		DBusModbusData * itemProperties = mDBusModbusMap.value(modbusAddress);
-		DBusService * service = mServices->getService(itemProperties->deviceType, mUnitIDMap[unitID]);
-		if (service) {
-			if (itemProperties->accessRights==Mappings::mb_perm_write) {
-				QVariant dbusValue;
-				QLOG_TRACE() << "Set dbus object" << itemProperties->objectPath << "value to" << value;
-				switch (itemProperties->modbusType) {
-				case mb_type_int16:
-				{
-					dbusValue = convertToDbus(itemProperties->dbusType, static_cast<qint16>(value), itemProperties->scaleFactor);
-				}
-				case mb_type_uint16:
-				{
-					dbusValue = convertToDbus(itemProperties->dbusType, static_cast<quint16>(value), itemProperties->scaleFactor);
-				}
-				default:
-					break;
-				}
-				if (dbusValue.isValid()) {
-					if (service->setValue(itemProperties->objectPath, dbusValue))
-						return true;
-					else
-						QLOG_ERROR() << "[Mappings] Set value failed.";
-				}
-			} else
-				QLOG_WARN() << "[Mappings] Permission denied for address" << modbusAddress << "and unit ID" << unitID;
-		} else
-			QLOG_WARN() << "[Mappings] setValue: service not found for modbus address " << modbusAddress << "and unit ID" << unitID;
+	QVariant dbusValue;
+	QLOG_TRACE() << "Set dbus object" << objectPath << "value to" << value;
+	switch (modbusType) {
+	case mb_type_int16:
+	{
+		dbusValue = convertToDbus(dbusType, static_cast<qint16>(value), scaleFactor);
+		break;
+	}
+	case mb_type_uint16:
+	{
+		dbusValue = convertToDbus(dbusType, static_cast<quint16>(value), scaleFactor);
+		break;
+	}
+	default:
+		break;
+	}
+	if (dbusValue.isValid()) {
+		if (service->setValue(objectPath, dbusValue))
+			return true;
+		else
+			QLOG_ERROR() << "[Mappings] Set value failed.";
 	}
 	return false;
 }
 
-void Mappings::setValues(const int modbusAddress, const int unitID, const int quantity, QByteArray &data)
+void Mappings::setValues(const int modbusAddress, const int unitID, const int quantity, QByteArray &data, Mappings::MappingErrors &error)
 {
+	if (!mUnitIDMap.contains(unitID)) {
+		error = UnitIdError;
+		return;
+	}
+	if (!mDBusModbusMap.contains(modbusAddress)) {
+		error = StartAddressError;
+		return;
+	}
+
+	/*
+	 * Get service from the first modbus address. The service must be the same for the complete address range
+	 * therefore the service pointer has to be fetched and checked only once
+	 */
+	DBusModbusData * itemProperties = mDBusModbusMap.value(modbusAddress);
+	DBusService * service = mServices->getService(itemProperties->deviceType, mUnitIDMap[unitID]);
+	if (!service) {
+		error = ServiceError;
+		return;
+	}
+
+	error = NoError;
 	quint16 value;
 	int j = 0;
 	for (int i = 0; i < quantity; i++) {
-		value = (data[j++] << 8);
-		value |= (quint8)data[j++];
-		if (!setValue(modbusAddress+i, unitID, value)) {
-			QLOG_WARN() << "Set value to" << modbusAddress << " and unit ID " << unitID << "failed.";
-			data.clear();
+		if (mDBusModbusMap.contains(modbusAddress+i)) {
+			itemProperties = mDBusModbusMap.value(modbusAddress+i);
+			if (itemProperties->accessRights==Mappings::mb_perm_write) {
+				value = (data[j++] << 8);
+				value |= (quint8)data[j++];
+				if (!setValue(service, itemProperties->objectPath, itemProperties->modbusType, itemProperties->dbusType,itemProperties->scaleFactor, value)) {
+					error = ServiceError;
+				}
+			} else {
+				error = PermissionError;
+				return;
+			}
+		} else {
+			error = AddressError;
+			return;
 		}
 	}
 }
 
-template<class rettype> rettype Mappings::convertFromDbus(const QVariant &value, const float scaleFactor)
+template<class rettype> rettype Mappings::convertFromDbus(const QVariant &value, const float scaleFactor) const
 {
 	const int variantType = value.userType();
 	if (qMetaTypeId<QDBusArgument>() == variantType)
@@ -149,7 +183,7 @@ template<class rettype> rettype Mappings::convertFromDbus(const QVariant &value,
 	}
 }
 
-template<class argtype> QVariant Mappings::convertToDbus(const QMetaType::Type dbusType, const argtype value, const float scaleFactor)
+template<class argtype> QVariant Mappings::convertToDbus(const QMetaType::Type dbusType, const argtype value, const float scaleFactor) const
 {
 	switch (dbusType) {
 	case QMetaType::Float:
