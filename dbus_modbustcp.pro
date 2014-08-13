@@ -11,12 +11,12 @@ INSTALLS += target csv
 # Create a include file with VERSION / REVISION
 version_rule.target = $$OUT_PWD/version.h
 version_rule.commands = @echo \"updating file $$revtarget.target\"; \
-	echo -e \"/* generated file (do not edit) */\\n\" \
-	\"$${LITERAL_HASH}ifndef VERSION_H\\n\" \
-	\"$${LITERAL_HASH}define VERSION_H\\n\" \
-	\"$${LITERAL_HASH}define VERSION \\\"$${VERSION}\\\"\\n\" \
-	\"$${LITERAL_HASH}define REVISION \\\"$${REVISION}\\\"\\n\" \
-	\"$${LITERAL_HASH}endif\" > $$version_rule.target
+	printf \"/* generated file (do not edit) */\\n \
+	$${LITERAL_HASH}ifndef VERSION_H\\n \
+	$${LITERAL_HASH}define VERSION_H\\n \
+	$${LITERAL_HASH}define VERSION \\\"$${VERSION}\\\"\\n \
+	$${LITERAL_HASH}define REVISION \\\"$${REVISION}\\\"\\n \
+	$${LITERAL_HASH}endif\" > $$version_rule.target
 version_rule.depends = FORCE
 QMAKE_DISTCLEAN += $$version_rule.target
 
