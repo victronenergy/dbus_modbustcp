@@ -1,5 +1,5 @@
 # version and revision
-VERSION = 0.6.1
+VERSION = 0.6.2
 REVISION = $$system(git --git-dir $$PWD/.git --work-tree $$PWD describe --always --dirty --tags)
 
 # Add more folders to ship with the application, here
@@ -75,7 +75,8 @@ HEADERS += \
 
 OTHER_FILES += \
 	attributes.csv \
-	unitid2di.csv
+	unitid2di.csv \
+	modbustcp_tb.py
 
 # suppress the mangling of va_arg has changed for gcc 4.4
 QMAKE_CXXFLAGS += -Wno-psabi
