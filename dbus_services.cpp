@@ -47,9 +47,16 @@ void DBusServices::processServiceName(QString name)
 	if (service == 0)
 		return;
 	mServicesByName.insert(name, service);
-	QMap<int, DBusService *> instance;
-	instance.insert(service->getDeviceInstance(), service);
-	mServiceByType.insert(service->getDeviceType(name), instance);
+
+	const QString deviceType = service->getDeviceType(name);
+	if (mServiceByType.contains(deviceType)) {
+		QMap<int, DBusService *> & device = mServiceByType[deviceType];
+		device.insert(service->getDeviceInstance(), service);
+	} else {
+		QMap<int, DBusService *> device;
+		device.insert(service->getDeviceInstance(), service);
+		mServiceByType.insert(deviceType, device);
+	}
 	emit dbusServiceFound(service);
 }
 
