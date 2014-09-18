@@ -130,13 +130,10 @@ com.victronenergy.solarcharger,/Connected,u,,,,,R
 com.victronenergy.solarcharger,/Yield/User,d,,,,,R
 com.victronenergy.solarcharger,/Yield/Power,d,,,,,R
 com.victronenergy.solarcharger,/Serial,s,,,,,R
-com.victronenergy.system,/SolarYield/Power/AcCoupledPvOnOutput0,,,,,,R
-com.victronenergy.system,/SolarYield/Power/AcCoupledPvOnOutput1,,,,,,R
-com.victronenergy.system,/SolarYield/Power/AcCoupledPvOnOutput2,,,,,,R
-com.victronenergy.system,/SolarYield/Power/AcCoupledPvOnInput0,,,,,,R
-com.victronenergy.system,/SolarYield/Power/AcCoupledPvOnInput1,,,,,,R
-com.victronenergy.system,/SolarYield/Power/AcCoupledPvOnInput2,,,,,,R
-com.victronenergy.system,/SolarYield/Power/DcCoupledPv,,,,,,R
+com.victronenergy.system,/Ac/PvOnOutput/L1/Power,,,,,,R
+com.victronenergy.system,/Ac/PvOnOutput/L2/Power,,,,,,R
+com.victronenergy.system,/Ac/PvOnOutput/L3/Power,,,,,,R
+com.victronenergy.system,/Dc/Pv/Power,,,,,,R
 com.victronenergy.system,/Dc/V,,,,,,R
 com.victronenergy.system,/Dc/I,,,,,,R
 com.victronenergy.system,/Soc,,,,,,R
@@ -168,7 +165,7 @@ com.victronenergy.pvinverter,/Mgmt/ProcessVersion,s,,,,,R
 com.victronenergy.pvinverter,/ProductName,s,,,,,R
 com.victronenergy.bms,/ProductId,q,,1280,,,R
 com.victronenergy.bms,/FirmwareVersion,u,,1281,,,R
-com.victronenergy.bms,/State,y,0=Initializing (Wait start);1=Initializing (before boot);2=Initializing (Before boot delay);3=Initializing (Wait boot);4=Initializing;5=Initializing (Measure battery voltage);6=Initializing (Calculate battery voltage);7=Initializing (Wait bus voltage);8=Initializing (Wait for lynx shunt);9=Running;10=Error;11=Error,1282,uint16,1,R
+com.victronenergy.bms,/State,y,0=Initializing (Wait start);1=Initializing (before boot);2=Initializing (Before boot delay);3=Initializing (Wait boot);4=Initializing;5=Initializing (Measure battery voltage);6=Initializing (Calculate battery voltage);7=Initializing (Wait bus voltage);8=Initializing (Wait for lynx shunt);9=Running;10=Error (10);11=Error (11),1282,uint16,1,R
 com.victronenergy.bms,/Error,y,0=No error;1=Battery initialization error;2=No batteries connected;3=Unknown battery;4=Different battery type;5=Number of batteries incorrect;6=Lynx Shunt not found;7=Battery measure error;8=Internal calculation error;9=Batteries in series not ok;10=Number of batteries incorrect;11=Hardware error;12=Watchdog error;13=Over voltage;14=Under voltage;15=Over temperature;16=Under temperature;22=ADC error;23=Slave error;24=Slave warning;25=Pre-charge error;26=Contactor error;27=Over current,1283,uint16,1,R
 com.victronenergy.bms,/SystemSwitch,y,0=Disabled;1=Enabled,1284,uint16,1,R
 com.victronenergy.bms,/Balancing,y,0=Inactive;1=Active,1285,uint16,1,R
@@ -194,3 +191,22 @@ com.victronenergy.motordrive,/Controller/DC/Voltage,,V DC,2050,uint16,100,R
 com.victronenergy.motordrive,/Controller/DC/Current,,A DC,2051,int16,10,R
 com.victronenergy.motordrive,/Controller/DC/Power,,W,2052,int16,10,R
 com.victronenergy.motordrive,/Controller/Temperature,,Degrees celsius,2053,int16,10,R
+com.victronenergy.charger,/ProductId,,,2304,,,R
+com.victronenergy.charger,/FirmwareVersion,,,2305,,,R
+com.victronenergy.charger,/Serial,,,2306,,,R
+com.victronenergy.charger,/Dc/0/V,,V DC,2307,uint16,100,R
+com.victronenergy.charger,/Dc/0/I,,A DC,2308,int16,10,R
+com.victronenergy.charger,/Dc/0/T,,Degrees celsius,2309,int16,10,R
+com.victronenergy.charger,/Dc/1/V,,V DC,2310,uint16,100,R
+com.victronenergy.charger,/Dc/1/I,,A DC,2311,int16,10,R
+com.victronenergy.charger,/Dc/2/V,,V DC,2312,uint16,100,R
+com.victronenergy.charger,/Dc/2/I,,A DC,2313,int16,10,R
+com.victronenergy.charger,/Ac/In/L1/I,,A AC,2314,int16,10,R
+com.victronenergy.charger,/Ac/In/L1/P,,W DC,2315,uint16,1,R
+com.victronenergy.charger,/Ac/In/CurrentLimit,,A AC,2316,int16,10,W
+com.victronenergy.charger,/Mode,,0=Off;1=On;2=Error;3=Unavailable- Unknown,2317,uint16,1,W
+com.victronenergy.charger,/State,,0=Off;1=Low Power Mode;2=Fault;3=Bulk;4=Absorption;5=Float;6=Storage;7=Equalize;8=Passthru;9=Inverting;10=Power assist;11=Power supply mode;252=Bulk protection,2318,uint16,1,R
+com.victronenergy.charger,/ErrorCode,,0=No error;1=Battery temperature too high;2=Battery voltage too high;3=Battery temperature sensor miswired (+);4=Battery temperature sensor miswired (-);5=Battery temperature sensor disconnected;6=Battery voltage sense miswired (+);7=Battery voltage sense miswired (-);8=Battery voltage sense disconnected;9=Battery voltage wire losses too high;17=Charger temperature too high;18=Charger over-current;19=Charger current polarity reversed;20=Bulk time limit reached;22=Charger temperature sensor miswired;23=Charger temperature sensor disconnected;34=Input current too high,2319,uint16,1,R
+com.victronenergy.charger,/Relay/0/State,,0=Open;1=Closed,2320,uint16,1,R
+com.victronenergy.charger,/Alarms/LowVoltage,,0=No alarm;2=Alarm,2321,uint16,1,R
+com.victronenergy.charger,/Alarms/HighVoltage,,0=No alarm;2=Alarm,2322,uint16,1,R
