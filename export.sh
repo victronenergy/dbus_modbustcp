@@ -23,6 +23,9 @@ sed -i 's/\t/,/g' attributes.csv
 out="$(mktemp)"
 awk 'BEGIN{FS=OFS=","} { if ($8 =="owner" || $8=="operator" ) gsub($8, "W"); else $8="R"; }'1 attributes.csv > $out
 mv $out attributes.csv
+# remove lines without modbus registerid
+sed -i '/,,,,W$/d' attributes.csv
+sed -i '/,,,,R$/d' attributes.csv
 
 # convert to csv
 xlsx2csv -s 3 -i dataAttributes\ en\ deviceTypes.xlsm unitid2di.csv
