@@ -36,6 +36,16 @@ quint16 Mappings::getValue(const DBusService * service, const QString & objectPa
 			return convertFromDbus<qint16>(dbusValue, scaleFactor);
 		case mb_type_uint16:
 			return convertFromDbus<quint16>(dbusValue, scaleFactor);
+		case mb_type_int32:
+		{
+			quint32 v = convertFromDbus<qint32>(dbusValue, scaleFactor);
+			return offset == 0 ? v >> 16 : v & 0xFFFF;
+		}
+		case mb_type_uint32:
+		{
+			quint32 v = convertFromDbus<quint32>(dbusValue, scaleFactor);
+			return offset == 0 ? v >> 16 : v & 0xFFFF;
+		}
 		case mb_type_string:
 		{
 			QByteArray b = dbusValue.toString().toAscii();
@@ -234,6 +244,10 @@ Mappings::ModbusTypes Mappings::convertModbusType(const QString &typeString)
 		return mb_type_int16;
 	if (typeString == "uint16")
 		return mb_type_uint16;
+	if (typeString == "int32")
+		return mb_type_int32;
+	if (typeString == "uint32")
+		return mb_type_uint32;
 	if (typeString.startsWith(stringType))
 		return mb_type_string;
 	return mb_type_none;
@@ -336,6 +350,15 @@ void Mappings::importCSV(const QString &filename)
 							item->accessRights = mb_perm_read;
 							QLOG_WARN() << "[Mappings] Register" << values.at(4)
 										<< ": cannot write string values";
+						}
+						break;
+					case mb_type_int32:
+					case mb_type_uint32:
+						item->size = 2;
+						if (item->accessRights == mb_perm_write) {
+							item->accessRights = mb_perm_read;
+							QLOG_WARN() << "[Mappings] Register"  << values.at(4)
+										<< ": cannot write uin32/int32 values";
 						}
 						break;
 					default:

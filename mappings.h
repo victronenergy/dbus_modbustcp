@@ -25,7 +25,7 @@ private slots:
 	void dbusServiceFound(DBusService *service);
 
 private:
-	enum ModbusTypes { mb_type_none, mb_type_uint16, mb_type_int16, mb_type_string };
+	enum ModbusTypes { mb_type_none, mb_type_uint16, mb_type_int16, mb_type_uint32, mb_type_int32, mb_type_string };
 	enum Permissions { mb_perm_none, mb_perm_read, mb_perm_write };
 
 	struct DBusModbusData {
