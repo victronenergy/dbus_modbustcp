@@ -5,6 +5,7 @@
 
 const QString attributesFile = "attributes.csv";
 const QString unitIDFile = "unitid2di.csv";
+const QString stringType = "string";
 
 Mappings::Mappings(DBusServices *services, QObject *parent) :
 	QObject(parent),
@@ -25,7 +26,7 @@ void Mappings::dbusServiceFound(DBusService * service)
 	}
 }
 
-quint16 Mappings::getValue(const DBusService * service, const QString & objectPath, const ModbusTypes modbusType, const double scaleFactor) const
+quint16 Mappings::getValue(const DBusService * service, const QString & objectPath, const ModbusTypes modbusType, const int offset, const double scaleFactor) const
 {
 	QVariant dbusValue = service->getValue(objectPath);
 	QLOG_TRACE() << "Get value from dbus object" << objectPath;
@@ -35,6 +36,18 @@ quint16 Mappings::getValue(const DBusService * service, const QString & objectPa
 			return convertFromDbus<qint16>(dbusValue, scaleFactor);
 		case mb_type_uint16:
 			return convertFromDbus<quint16>(dbusValue, scaleFactor);
+		case mb_type_string:
+		{
+			QByteArray b = dbusValue.toString().toAscii();
+			int index = 2 * offset;
+			if (b.size() <= index)
+				return 0;
+			quint16 v = static_cast<quint16>(b[index] << 8);
+			++index;
+			if (b.size() <= index)
+				return v;
+			return v | b[index];
+		}
 		default:
 			break;
 		}
@@ -48,7 +61,8 @@ void Mappings::getValues(const int modbusAddress, const int unitID, const int qu
 		error = UnitIdError;
 		return;
 	}
-	if (!mDBusModbusMap.contains(modbusAddress)) {
+	int baseAddress = findBaseAddress(modbusAddress);
+	if (baseAddress == -1) {
 		error = StartAddressError;
 		return;
 	}
@@ -57,7 +71,7 @@ void Mappings::getValues(const int modbusAddress, const int unitID, const int qu
 	 * Get service from the first modbus address. The service must be the same for the complete address range
 	 * therefore the service pointer has to be fetched and checked only once
 	 */
-	DBusModbusData * itemProperties = mDBusModbusMap.value(modbusAddress);
+	DBusModbusData * itemProperties = mDBusModbusMap.value(baseAddress);
 	DBusService * service = mServices->getService(itemProperties->deviceType, mUnitIDMap[unitID]);
 	if (!service) {
 		error = ServiceError;
@@ -68,9 +82,11 @@ void Mappings::getValues(const int modbusAddress, const int unitID, const int qu
 	quint16 value;
 	int j = 0;
 	for (int i = 0; i < quantity; i++) {
-		if (mDBusModbusMap.contains(modbusAddress+i)) {
-			itemProperties = mDBusModbusMap.value(modbusAddress+i);
-			value = getValue(service, itemProperties->objectPath, itemProperties->modbusType, itemProperties->scaleFactor);
+		int baseAddress = findBaseAddress(modbusAddress+i);
+		if (baseAddress != -1) {
+			itemProperties = mDBusModbusMap.value(baseAddress);
+			int offset = modbusAddress+i-baseAddress;
+			value = getValue(service, itemProperties->objectPath, itemProperties->modbusType, offset, itemProperties->scaleFactor);
 			replyData[j++] = (quint8)(value >> 8);
 			replyData[j++] = (quint8)value;
 		} else {
@@ -113,7 +129,8 @@ void Mappings::setValues(const int modbusAddress, const int unitID, const int qu
 		error = UnitIdError;
 		return;
 	}
-	if (!mDBusModbusMap.contains(modbusAddress)) {
+	int baseAddress = findBaseAddress(modbusAddress);
+	if (baseAddress == -1) {
 		error = StartAddressError;
 		return;
 	}
@@ -122,7 +139,7 @@ void Mappings::setValues(const int modbusAddress, const int unitID, const int qu
 	 * Get service from the first modbus address. The service must be the same for the complete address range
 	 * therefore the service pointer has to be fetched and checked only once
 	 */
-	DBusModbusData * itemProperties = mDBusModbusMap.value(modbusAddress);
+	DBusModbusData * itemProperties = mDBusModbusMap.value(baseAddress);
 	DBusService * service = mServices->getService(itemProperties->deviceType, mUnitIDMap[unitID]);
 	if (!service) {
 		error = ServiceError;
@@ -133,12 +150,14 @@ void Mappings::setValues(const int modbusAddress, const int unitID, const int qu
 	quint16 value;
 	int j = 0;
 	for (int i = 0; i < quantity; i++) {
-		if (mDBusModbusMap.contains(modbusAddress+i)) {
-			itemProperties = mDBusModbusMap.value(modbusAddress+i);
+		int baseAddress = findBaseAddress(modbusAddress+i);
+		if (baseAddress != -1) {
+			itemProperties = mDBusModbusMap.value(baseAddress);
 			if (itemProperties->accessRights==Mappings::mb_perm_write) {
+				Q_ASSERT(itemProperties->size == 1);
 				value = (data[j++] << 8);
 				value |= (quint8)data[j++];
-				if (!setValue(service, itemProperties->objectPath, itemProperties->modbusType, itemProperties->dbusType,itemProperties->scaleFactor, value)) {
+				if (!setValue(service, itemProperties->objectPath, itemProperties->modbusType, itemProperties->dbusType, itemProperties->scaleFactor, value)) {
 					error = ServiceError;
 				}
 			} else {
@@ -215,6 +234,8 @@ Mappings::ModbusTypes Mappings::convertModbusType(const QString &typeString)
 		return mb_type_int16;
 	if (typeString == "uint16")
 		return mb_type_uint16;
+	if (typeString.startsWith(stringType))
+		return mb_type_string;
 	return mb_type_none;
 }
 
@@ -250,9 +271,41 @@ Mappings::Permissions Mappings::convertPermissions(const QString &permissions)
 	return Mappings::mb_perm_none;
 }
 
+int Mappings::convertStringSize(const QString &typeString)
+{
+	if (typeString.size() <= stringType.size() + 2 ||
+		typeString[stringType.size()] != '[' ||
+		!typeString.endsWith(']')) {
+		return 0;
+	}
+	int offset = stringType.size() + 1;
+	int count = typeString.size() - stringType.size() - 2;
+	return typeString.mid(offset, count).toInt();
+}
+
+int Mappings::findBaseAddress(int modbusAddress) const
+{
+	QMap< int, DBusModbusData* >::ConstIterator	it = mDBusModbusMap.lowerBound(modbusAddress);
+	if (it == mDBusModbusMap.end())
+		return -1;
+	// iterator is value and points to the first item with key >= modbusAddress
+	if (it.key() == modbusAddress)
+		return modbusAddress;
+	Q_ASSERT(it.key() > modbusAddress);
+	if (it == mDBusModbusMap.begin())
+		return -1;
+	// Note that in a QMap (unlike a QHash) all elements are ordered by key,
+	// so --it will move the iterator to the last element before it. This is
+	// the last value with key < modbusAddress.
+	--it;
+	Q_ASSERT(it.key() < modbusAddress);
+	if (it.key() + it.value()->size <= modbusAddress)
+		return -1;
+	return it.key();
+}
+
 void Mappings::importCSV(const QString &filename)
 {
-	QString string;
 	QFile file(QCoreApplication::applicationDirPath() + "/" + filename);
 
 	if (file.open(QIODevice::ReadOnly)) {
@@ -270,7 +323,26 @@ void Mappings::importCSV(const QString &filename)
 					if (item->scaleFactor == 0) item->scaleFactor = 1;
 					item->dbusType = convertDbusType(values.at(2));
 					item->accessRights = convertPermissions(values.at(7));
-					mDBusModbusMap.insert(values.at(4).toInt(), item);
+					switch (item->modbusType) {
+					case mb_type_string:
+						item->size = convertStringSize(values.at(5));
+						if (item->accessRights == mb_perm_write) {
+							item->accessRights = mb_perm_read;
+							QLOG_WARN() << "[Mappings] Register" << values.at(4)
+										<< ": cannot write string values";
+						}
+						break;
+					default:
+						item->size = 1;
+						break;
+					}
+					int reg = values.at(4).toInt();
+					int baseAddress = findBaseAddress(reg);
+					if (baseAddress != -1) {
+						QLOG_WARN() << "[Mappings] Register" << reg
+									<< "reserved more than once. Check attributes file.";
+					}
+					mDBusModbusMap.insert(reg, item);
 					QLOG_INFO() << "[Mappings] Add" << values;
 				}
 			}
@@ -283,7 +355,6 @@ void Mappings::importCSV(const QString &filename)
 
 void Mappings::importUnitIDMapping(const QString &filename)
 {
-	QString string;
 	QFile file(QCoreApplication::applicationDirPath() + "/" + filename);
 
 	if (file.open(QIODevice::ReadOnly)) {
