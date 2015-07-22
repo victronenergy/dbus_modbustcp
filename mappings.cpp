@@ -259,6 +259,8 @@ QMetaType::Type Mappings::convertDbusType(const QString &typeString)
 		return QMetaType::ULong;
 	else if (typeString == "d")
 		return QMetaType::Double;
+	else if (typeString == "s")
+		return QMetaType::QString;
 	return QMetaType::Void;
 }
 
@@ -322,6 +324,10 @@ void Mappings::importCSV(const QString &filename)
 					item->scaleFactor = values.at(6).toDouble();
 					if (item->scaleFactor == 0) item->scaleFactor = 1;
 					item->dbusType = convertDbusType(values.at(2));
+					if (item->dbusType == QMetaType::Void) {
+						QLOG_WARN() << "[Mappings] Register" << values.at(4)
+									<< ": register has no type";
+					}
 					item->accessRights = convertPermissions(values.at(7));
 					switch (item->modbusType) {
 					case mb_type_string:
