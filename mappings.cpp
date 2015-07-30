@@ -29,7 +29,7 @@ void Mappings::dbusServiceFound(DBusService * service)
 quint16 Mappings::getValue(const DBusService * service, const QString & objectPath, const ModbusTypes modbusType, const int offset, const double scaleFactor) const
 {
 	QVariant dbusValue = service->getValue(objectPath);
-	QLOG_TRACE() << "Get value from dbus object" << objectPath;
+	QLOG_TRACE() << "Get value from dbus object" << objectPath << "offset" << offset;
 	if (dbusValue.isValid()) {
 		switch (modbusType) {
 		case mb_type_int16:
@@ -302,12 +302,10 @@ int Mappings::convertStringSize(const QString &typeString)
 int Mappings::findBaseAddress(int modbusAddress) const
 {
 	QMap< int, DBusModbusData* >::ConstIterator	it = mDBusModbusMap.lowerBound(modbusAddress);
-	if (it == mDBusModbusMap.end())
-		return -1;
 	// iterator is value and points to the first item with key >= modbusAddress
-	if (it.key() == modbusAddress)
+	if (it != mDBusModbusMap.end() && it.key() == modbusAddress)
 		return modbusAddress;
-	Q_ASSERT(it.key() > modbusAddress);
+	Q_ASSERT(it == mDBusModbusMap.end() || it.key() > modbusAddress);
 	if (it == mDBusModbusMap.begin())
 		return -1;
 	// Note that in a QMap (unlike a QHash) all elements are ordered by key,
