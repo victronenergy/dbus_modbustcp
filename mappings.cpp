@@ -48,7 +48,7 @@ quint16 Mappings::getValue(const DBusService * service, const QString & objectPa
 		}
 		case mb_type_string:
 		{
-			QByteArray b = dbusValue.toString().toAscii();
+			QByteArray b = dbusValue.toString().toLatin1();
 			int index = 2 * offset;
 			if (b.size() <= index)
 				return 0;
