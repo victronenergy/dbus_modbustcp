@@ -29,8 +29,8 @@ com.victronenergy.vebus,/Ac/ActiveIn/CurrentLimit,d,A,22,int16,10,W
 com.victronenergy.vebus,/Ac/Out/L1/P,i,VA or Watts,23,int16,0.1,R
 com.victronenergy.vebus,/Ac/Out/L2/P,i,VA or Watts,24,int16,0.1,R
 com.victronenergy.vebus,/Ac/Out/L3/P,i,VA or Watts,25,int16,0.1,R
-com.victronenergy.vebus,/Dc/V,d,V DC,26,uint16,100,R
-com.victronenergy.vebus,/Dc/I,d,A DC,27,int16,10,R
+com.victronenergy.vebus,/Dc/0/Voltage,d,V DC,26,uint16,100,R
+com.victronenergy.vebus,/Dc/0/Current,d,A DC,27,int16,10,R
 com.victronenergy.vebus,/Ac/NumberOfPhases,u,count,28,uint16,1,R
 com.victronenergy.vebus,/Ac/ActiveIn/ActiveInput,u,0=Input 1;1=Input 2;etc,29,uint16,1,R
 com.victronenergy.vebus,/Soc,d,%,30,uint16,10,R
@@ -44,10 +44,10 @@ com.victronenergy.vebus,/Hub4/AcPowerSetpoint,d,,37,int16,1,W
 com.victronenergy.battery,/ProductId,u,,256,,,R
 com.victronenergy.battery,/FirmwareVersion,u,,257,,,R
 com.victronenergy.battery,/Serial,s,,258,,,R
-com.victronenergy.battery,/Dc/0/V,d,V DC,259,uint16,100,R
-com.victronenergy.battery,/Dc/1/V,d,V DC,260,uint16,100,R
-com.victronenergy.battery,/Dc/0/I,d,A DC,261,int16,10,R
-com.victronenergy.battery,/Dc/0/T,d,Degrees celsius,262,int16,10,R
+com.victronenergy.battery,/Dc/0/Voltage,d,V DC,259,uint16,100,R
+com.victronenergy.battery,/Dc/1/Voltage,d,V DC,260,uint16,100,R
+com.victronenergy.battery,/Dc/0/Current,d,A DC,261,int16,10,R
+com.victronenergy.battery,/Dc/0/Temperature,d,Degrees celsius,262,int16,10,R
 com.victronenergy.battery,/Dc/0/MidVoltage,d,V DC,263,uint16,100,R
 com.victronenergy.battery,/Dc/0/MidVoltageDeviation,d,%,264,uint16,100,R
 com.victronenergy.battery,/ConsumedAmphours,d,Ah,265,uint16,-10,R
@@ -92,9 +92,9 @@ com.victronenergy.battery,/History/ChargedEnergy,d,kWh,302,uint16,10,R
 com.victronenergy.solarcharger,/ProductId,u,,768,,,R
 com.victronenergy.solarcharger,/FirmwareVersion,u,,769,,,R
 com.victronenergy.solarcharger,/Serial,s,,770,,,R
-com.victronenergy.solarcharger,/Dc/V,d,V DC,771,uint16,100,R
-com.victronenergy.solarcharger,/Dc/I,d,A DC,772,int16,10,R
-com.victronenergy.solarcharger,/Dc/T,d,Degrees celsius,773,int16,10,R
+com.victronenergy.solarcharger,/Dc/0/Voltage,d,V DC,771,uint16,100,R
+com.victronenergy.solarcharger,/Dc/0/Current,d,A DC,772,int16,10,R
+com.victronenergy.solarcharger,/Dc/0/Temperature,d,Degrees celsius,773,int16,10,R
 com.victronenergy.solarcharger,/Mode,i,0=Off;1=On;2=Error;3=Unavailable- Unknown,774,uint16,1,W
 com.victronenergy.solarcharger,/State,i,0=Off;2=Fault;3=Bulk;4=Absorption;5=Float;6=Storage;7=Equalize;11=Other (Hub-1);252=Hub-1,775,uint16,1,R
 com.victronenergy.solarcharger,/Pv/V,d,V DC,776,uint16,100,R
@@ -150,20 +150,20 @@ com.victronenergy.bms,/History/MinimumCellVoltage,d,V DC,1300,uint16,100,R
 com.victronenergy.bms,/History/MaximumCellVoltage,d,V DC,1301,uint16,100,R
 com.victronenergy.motordrive,/Motor/RPM,d,RPM,2048,int16,1,R
 com.victronenergy.motordrive,/Motor/Temperature,d,Degrees celsius,2049,int16,10,R
-com.victronenergy.motordrive,/Controller/DC/Voltage,d,V DC,2050,uint16,100,R
-com.victronenergy.motordrive,/Controller/DC/Current,d,A DC,2051,int16,10,R
-com.victronenergy.motordrive,/Controller/DC/Power,d,W,2052,int16,10,R
+com.victronenergy.motordrive,/Dc/0/Voltage,d,V DC,2050,uint16,100,R
+com.victronenergy.motordrive,/Dc/0/Current,d,A DC,2051,int16,10,R
+com.victronenergy.motordrive,/Dc/0/Power,d,W,2052,int16,10,R
 com.victronenergy.motordrive,/Controller/Temperature,d,Degrees celsius,2053,int16,10,R
 com.victronenergy.charger,/ProductId,,,2304,,,R
 com.victronenergy.charger,/FirmwareVersion,,,2305,,,R
 com.victronenergy.charger,/Serial,,,2306,,,R
-com.victronenergy.charger,/Dc/0/V,d,V DC,2307,uint16,100,R
-com.victronenergy.charger,/Dc/0/I,d,A DC,2308,int16,10,R
-com.victronenergy.charger,/Dc/0/T,d,Degrees celsius,2309,int16,10,R
-com.victronenergy.charger,/Dc/1/V,d,V DC,2310,uint16,100,R
-com.victronenergy.charger,/Dc/1/I,d,A DC,2311,int16,10,R
-com.victronenergy.charger,/Dc/2/V,d,V DC,2312,uint16,100,R
-com.victronenergy.charger,/Dc/2/I,d,A DC,2313,int16,10,R
+com.victronenergy.charger,/Dc/0/Voltage,d,V DC,2307,uint16,100,R
+com.victronenergy.charger,/Dc/0/Current,d,A DC,2308,int16,10,R
+com.victronenergy.charger,/Dc/0/Temperature,d,Degrees celsius,2309,int16,10,R
+com.victronenergy.charger,/Dc/1/Voltage,d,V DC,2310,uint16,100,R
+com.victronenergy.charger,/Dc/1/Current,d,A DC,2311,int16,10,R
+com.victronenergy.charger,/Dc/2/Voltage,d,V DC,2312,uint16,100,R
+com.victronenergy.charger,/Dc/2/Current,d,A DC,2313,int16,10,R
 com.victronenergy.charger,/Ac/In/L1/I,d,A AC,2314,int16,10,R
 com.victronenergy.charger,/Ac/In/L1/P,d,W DC,2315,uint16,1,R
 com.victronenergy.charger,/Ac/In/CurrentLimit,d,A AC,2316,int16,10,W
