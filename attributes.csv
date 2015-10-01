@@ -41,6 +41,8 @@ com.victronenergy.vebus,/Alarms/HighTemperature,u,0=Ok;1=Warning;2=Alarm,34,uint
 com.victronenergy.vebus,/Alarms/LowBattery,u,0=Ok;1=Warning;2=Alarm,35,uint16,1,R
 com.victronenergy.vebus,/Alarms/Overload,u,0=Ok;1=Warning;2=Alarm,36,uint16,1,R
 com.victronenergy.vebus,/Hub4/AcPowerSetpoint,d,,37,int16,1,W
+com.victronenergy.vebus,/Hub4/DisableCharge,u,0=Charge allowed;1=Charge disabled,38,uint16,1,R
+com.victronenergy.vebus,/Hub4/DisableFeedback,u,0=Feedback allowed;1=Feedback disabled,39,uint16,1,R
 com.victronenergy.battery,/ProductId,u,,256,,,R
 com.victronenergy.battery,/FirmwareVersion,u,,257,,,R
 com.victronenergy.battery,/Serial,s,,258,,,R
@@ -111,6 +113,7 @@ com.victronenergy.solarcharger,/History/Daily/1/Yield,d,kWh,786,uint16,10,R
 com.victronenergy.solarcharger,/History/Daily/1/MaxPower,d,W,787,uint16,1,R
 com.victronenergy.solarcharger,/ErrorCode,i,0=No error;1=Battery temperature too high;2=Battery voltage too high;3=Battery temperature sensor miswired (+);4=Battery temperature sensor miswired (-);5=Battery temperature sensor disconnected;6=Battery voltage sense miswired (+);7=Battery voltage sense miswired (-);8=Battery voltage sense disconnected;9=Battery voltage wire losses too high;17=Charger temperature too high;18=Charger over-current;19=Charger current polarity reversed;20=Bulk time limit reached;22=Charger temperature sensor miswired;23=Charger temperature sensor disconnected;34=Input current too high,788,uint16,1,R
 com.victronenergy.solarcharger,/Yield/Power,d,W,789,uint16,1,R
+com.victronenergy.system,/Serial,s,,800,string[6],1,R
 com.victronenergy.pvinverter,/ProductId,u,,1024,,,R
 com.victronenergy.pvinverter,/FirmwareVersion,s,,1025,,,R
 com.victronenergy.pvinverter,/Position,i,0=AC input 1;1=AC output;2=AC input 2,1026,uint16,1,R
@@ -126,6 +129,7 @@ com.victronenergy.pvinverter,/Ac/L3/Voltage,d,V AC,1035,uint16,10,R
 com.victronenergy.pvinverter,/Ac/L3/Current,d,A AC,1036,int16,10,R
 com.victronenergy.pvinverter,/Ac/L3/Power,i,W,1037,uint16,1,R
 com.victronenergy.pvinverter,/Ac/L3/Energy/Forward,u,kWh,1038,uint16,100,R
+com.victronenergy.pvinverter,/Serial,s,,1039,string[7],,R
 com.victronenergy.bms,/ProductId,q,,1280,,,R
 com.victronenergy.bms,/FirmwareVersion,u,,1281,,,R
 com.victronenergy.bms,/State,y,0=Initializing (Wait start);1=Initializing (before boot);2=Initializing (Before boot delay);3=Initializing (Wait boot);4=Initializing;5=Initializing (Measure battery voltage);6=Initializing (Calculate battery voltage);7=Initializing (Wait bus voltage);8=Initializing (Wait for lynx shunt);9=Running;10=Error (10);11=Error (11),1282,uint16,1,R
@@ -184,3 +188,5 @@ com.victronenergy.grid,/Ac/L2/Energy/Reverse,d,kWh,2607,uint16,100,R
 com.victronenergy.grid,/Ac/L3/Energy/Reverse,d,kWh,2608,uint16,100,R
 com.victronenergy.grid,/Serial,s,,2609,string[7],,R
 com.victronenergy.grid,/Hub4/AcPowerSetpoint,d,W,2700,int16,1,W
+com.victronenergy.grid,/Hub4/MaxChargePercentage,d,%,2701,uint16,1,W
+com.victronenergy.grid,/Hub4/MaxDischargePercentage,d,%,2702,uint16,1,W
