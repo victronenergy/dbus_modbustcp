@@ -49,7 +49,7 @@ QByteArray ADU::toQByteArray()
 		length = mReplyData.size() + 2; // unit ID + function code + data
 		reply.append(mReplyData);
 	} else {
-		length = 2;
+        length = 3;
 		reply[8] = exeptionCode;
 	}
 	reply[4] = (quint8)(length>> 8);
