@@ -2,7 +2,7 @@
 from pymodbus.client.sync import ModbusTcpClient
 from pymodbus.exceptions import ModbusException
 
-client = ModbusTcpClient('192.168.34.10')
+client = ModbusTcpClient('192.168.4.163')
 
 # Test reading ve.bus address 33 until 36
 print "1: Test function code 3, read_holding_registers ve.bus address 33 until 36"
@@ -101,12 +101,13 @@ else:
 print "11: Test writing to ve.bus /State."
 try:
   result = client.write_register(31, 2, unit=246)
-except:
-#ModbusException:
-  print "\tPass"
-  pass
-else:
+except ModbusException:
   print "\tFail"
-
+else:
+  if result.function_code >= 0x80: 
+    print "\tPass"
+  else:
+    print "\tFail"
+assert(result.function_code >= 0x80) # check for error
 client.close()
 
