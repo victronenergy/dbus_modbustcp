@@ -22,6 +22,11 @@ Unit ID, /DeviceInstance,Remark
 27,27,PV Inverter instance 7
 28,28,PV Inverter instance 8
 29,29,PV Inverter instance 9
+30,30,Grid meter (cgwacs)
+31,31,Generator (cgwacs)
+32,32,PV inverter 0 (cgwacs)
+33,33,PV inverter 1 (cgwacs)
+34,34,PV inverter 2 (cgwacs)
 239,288,VE.Direct via USB (ttyUSB0)
 238,289,VE.Direct via USB (ttyUSB1)
 237,290,VE.Direct via USB (ttyUSB2)
