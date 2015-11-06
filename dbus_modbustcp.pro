@@ -1,5 +1,5 @@
 # version and revision
-VERSION = 0.7.4
+VERSION = 0.7.5
 REVISION = $$system(git --git-dir $$PWD/.git --work-tree $$PWD describe --always --dirty --tags)
 
 # Add more folders to ship with the application, here
