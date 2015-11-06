@@ -187,6 +187,6 @@ com.victronenergy.grid,/Ac/L1/Energy/Reverse,d,kWh,2606,uint16,100,R
 com.victronenergy.grid,/Ac/L2/Energy/Reverse,d,kWh,2607,uint16,100,R
 com.victronenergy.grid,/Ac/L3/Energy/Reverse,d,kWh,2608,uint16,100,R
 com.victronenergy.grid,/Serial,s,,2609,string[7],,R
-com.victronenergy.grid,/Hub4/AcPowerSetpoint,d,W,2700,int16,1,W
-com.victronenergy.grid,/Hub4/MaxChargePercentage,d,%,2701,uint16,1,W
-com.victronenergy.grid,/Hub4/MaxDischargePercentage,d,%,2702,uint16,1,W
+com.victronenergy.hub4,/AcPowerSetpoint,d,W,2700,int16,1,W
+com.victronenergy.hub4,/MaxChargePercentage,d,%,2701,uint16,1,W
+com.victronenergy.hub4,/MaxDischargePercentage,d,%,2702,uint16,1,W
