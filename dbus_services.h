@@ -25,9 +25,10 @@ private slots:
 	void serviceOwnerChanged(const QString &name, const QString &oldOwner, const QString &newOwner);
 
 private:
-	void processServiceName(QString name);
+	void addService(const QString &name);
+	void removeService(const QString &name);
 	QMap<QString, DBusService *> mServicesByName;
-	QMap<QString, QMap<int, DBusService *> > mServiceByType;
+	QMap<QString, QMultiMap<int, DBusService *> > mServiceByType;
 	QDBusConnection mDBus;
 };
 
