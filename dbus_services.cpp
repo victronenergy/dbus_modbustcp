@@ -11,6 +11,16 @@ DBusServices::DBusServices(QObject *parent) :
 {
 }
 
+DBusServices::~DBusServices()
+{
+	for (QMap<QString, QMultiMap<int, DBusService *> >::iterator it = mServiceByType.begin();
+		 it != mServiceByType.end(); ++it) {
+		for (QMultiMap<int, DBusService *>::iterator it2 = it->begin(); it2 != it->end(); ++it2) {
+			delete it2.value();
+		}
+	}
+}
+
 void DBusServices::initialScan()
 {
 	QDBusConnectionInterface *interface = mDBus.interface();
