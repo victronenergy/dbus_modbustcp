@@ -1,6 +1,8 @@
+#include <QCoreApplication>
+#include <QFile>
+#include <qmath.h>
+#include <QStringList>
 #include "mappings.h"
-
-//#define QS_LOG_DISABLE
 #include "QsLog.h"
 
 const QString attributesFile = "attributes.csv";
@@ -26,10 +28,8 @@ void Mappings::dbusServiceFound(DBusService * service)
 	}
 }
 
-quint16 Mappings::getValue(const DBusService * service, const QString & objectPath, const ModbusTypes modbusType, const int offset, const double scaleFactor) const
+quint16 Mappings::getValue(const QVariant &dbusValue, const ModbusTypes modbusType, const int offset, const double scaleFactor) const
 {
-	QVariant dbusValue = service->getValue(objectPath);
-	QLOG_TRACE() << "Get value from dbus object" << objectPath << "offset" << offset;
 	if (dbusValue.isValid()) {
 		switch (modbusType) {
 		case mb_type_int16:
@@ -96,7 +96,17 @@ void Mappings::getValues(const int modbusAddress, const int unitID, const int qu
 		if (baseAddress != -1) {
 			itemProperties = mDBusModbusMap.value(baseAddress);
 			int offset = modbusAddress+i-baseAddress;
-			value = getValue(service, itemProperties->objectPath, itemProperties->modbusType, offset, itemProperties->scaleFactor);
+			QLOG_TRACE() << "Get value from dbus object"
+						 << itemProperties->objectPath
+						 << "offset" << offset;
+			QPair<QVariant, bool> dbusValue = service->getValue(itemProperties->objectPath);
+			if (!dbusValue.second) {
+				QLOG_TRACE() << "Value not available";
+				error = AddressError;
+				return;
+			}
+			value = getValue(dbusValue.first, itemProperties->modbusType, offset,
+							 itemProperties->scaleFactor);
 			replyData[j++] = (quint8)(value >> 8);
 			replyData[j++] = (quint8)value;
 		} else {
@@ -184,8 +194,6 @@ void Mappings::setValues(const int modbusAddress, const int unitID, const int qu
 template<class rettype> rettype Mappings::convertFromDbus(const QVariant &value, const float scaleFactor) const
 {
 	const int variantType = value.userType();
-	if (qMetaTypeId<QDBusArgument>() == variantType)
-		return 0;
 
 	const QMetaType::Type metaType = static_cast<QMetaType::Type>(variantType);
 	switch (metaType) {

@@ -1,0 +1,8 @@
+[submodule "ext/velib"]
+	path = ext/velib
+	url = git@git.victronenergy.com:victron/velib.git
+	branch = master
+[submodule "ext/QsLog"]
+	path = ext/QsLog
+	url = https://github.com/victronenergy/QsLog.git
+	branch = master

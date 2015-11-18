@@ -11,7 +11,7 @@ class App : public QObject
 {
 	Q_OBJECT
 public:
-	App(QObject *parent = 0);
+	App(VeQItem *dbusRoot, QObject *parent = 0);
 
 signals:
 

@@ -1,19 +1,25 @@
 #include <qstringlist.h>
 #include <QEvent>
-
+#include <velib/qt/ve_qitem.hpp>
 #include "dbus_service.h"
 #include "defines.h"
 #include "QsLog.h"
 
-DBusService::DBusService(const QString &serviceName, QObject *parent) :
+DBusService::DBusService(VeQItem *serviceRoot, QObject *parent) :
 	QObject(parent),
-	mDbusServiceName(serviceName),
-	mServiceType(getDeviceType(serviceName)),
+	mServiceRoot(serviceRoot),
+	mServiceType(getDeviceType(serviceRoot->id())),
 	mConnected(true),
-	mDeviceInstance(serviceName, "/DeviceInstance", DBUS_CONNECTION)
+	mDeviceInstance(serviceRoot->itemGetOrCreate("/DeviceInstance"))
 {
-	mDeviceInstance.getValue();
-	QLOG_INFO() << "[DBusService] DeviceInstance of " << serviceName << "=" << mDeviceInstance.getValue().toInt() << "with type" << mServiceType;
+	QLOG_INFO() << "[DBusService] DeviceInstance of" << getServiceName()
+				<< "=" << mDeviceInstance->getValue().toInt()
+				<< "with type" << mServiceType;
+}
+
+QString DBusService::getServiceName() const
+{
+	return mServiceRoot->id();
 }
 
 QString DBusService::getDeviceType(const QString &name)
@@ -38,23 +44,25 @@ void DBusService::registerObjects(const QStringList &pathList)
 
 void DBusService::registerObject(const QString &path)
 {
-	QLOG_INFO() << "[DBusService] registerObject " << mDbusServiceName << path;
-	BusItemCons * busitem = new BusItemCons(mDbusServiceName, path, DBUS_CONNECTION);
-	mBusItems.insert(path, busitem);
+	Q_ASSERT(path.startsWith('/'));
+	QLOG_INFO() << "[DBusService] registerObject " << getServiceName() << path;
+	VeQItem *item = mServiceRoot->itemGetOrCreate(path);
+	item->getValue();
 }
 
-QVariant DBusService::getValue(const QString path) const
+QPair<QVariant, bool> DBusService::getValue(const QString &path) const
 {
-	if (mBusItems.contains(path)) {
-		return mBusItems.value(path)->getValue();
-	} else
-		return QVariant();
+	VeQItem *item = mServiceRoot->itemGet(path);
+	Q_ASSERT(item != 0);
+	if (item == 0 || item->getState() == VeQItem::Requested)
+		return QPair<QVariant, bool>(QVariant(), false);
+	return QPair<QVariant, bool>(item->getValue(), true);
 }
 
-bool DBusService::setValue(const QString path, const QVariant value)
+bool DBusService::setValue(const QString &path, const QVariant &value)
 {
-	if (mBusItems.contains(path))
-		return mBusItems.value(path)->setValue(value) == 0 ? true : false;
-	else
+	VeQItem *item = mServiceRoot->itemGet(path);
+	if (item == 0)
 		return false;
+	return item->setValue(value) == 0;
 }
