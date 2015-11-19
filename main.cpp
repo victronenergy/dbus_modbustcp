@@ -7,14 +7,13 @@
 #include "version.h"
 #include "arguments.h"
 
-QsLogging::Logger& logger = QsLogging::Logger::instance();
-
 void initLogger(QsLogging::Level logLevel)
 {
-	// init the logging mechanism
+	QsLogging::Logger &logger = QsLogging::Logger::instance();
 	QsLogging::DestinationPtr debugDestination(
 			QsLogging::DestinationFactory::MakeDebugOutputDestination() );
 	logger.addDestination(debugDestination);
+	logger.setIncludeTimestamp(false);
 
 	QLOG_INFO() << "dbus_modbustcp" << "v"VERSION << "started" << "("REVISION")";
 	QLOG_INFO() << "Built with Qt" << QT_VERSION_STR << "running on" << qVersion();
@@ -40,9 +39,10 @@ int main(int argc, char *argv[])
 		exit(0);
 	}
 
-	initLogger(QsLogging::InfoLevel);
+	QsLogging::Level logLevel = QsLogging::InfoLevel;
 	if (arg.contains("d"))
-		logger.setLoggingLevel((QsLogging::Level)arg.value("d").toInt());
+		logLevel = static_cast<QsLogging::Level>(arg.value("d").toInt());
+	initLogger(logLevel);
 
 	QString dbusConnection = arg.contains("dbus") ? arg.value("dbus") : "system";
 	VeQItemDbusProducer *producer = new VeQItemDbusProducer(VeQItems::getRoot(), "dbus");

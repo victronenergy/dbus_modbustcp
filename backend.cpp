@@ -1,3 +1,4 @@
+#include <QHostAddress>
 #include "backend.h"
 //#define QS_LOG_DISABLE
 #include "QsLog.h"
@@ -14,7 +15,7 @@ void Backend::modbusRequest(ADU * const modbusRequest)
 	const quint8 unitID = modbusRequest->getUnitID();
 	QByteArray & data = modbusRequest->getData();
 	QByteArray & replyData = modbusRequest->getReplyDataRef();
-	QString errorMessage = "Error processing function code "+QString::number(functionCode)+", unit id "+QString::number(unitID);
+	QString errorMessage = "Error processing function code "+QString::number(functionCode)+", unit id "+QString::number(unitID) + ", src " + reply->getSocket()->peerAddress().toString();
 	Mappings::MappingErrors error;
 
 	switch(functionCode) {

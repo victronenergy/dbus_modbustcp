@@ -73,6 +73,7 @@ void Mappings::getValues(const int modbusAddress, const int unitID, const int qu
 	}
 	int baseAddress = findBaseAddress(modbusAddress);
 	if (baseAddress == -1) {
+		QLOG_ERROR() << "Unkown modbus address: " << modbusAddress;
 		error = StartAddressError;
 		return;
 	}
@@ -84,6 +85,8 @@ void Mappings::getValues(const int modbusAddress, const int unitID, const int qu
 	DBusModbusData * itemProperties = mDBusModbusMap.value(baseAddress);
 	DBusService * service = mServices->getService(itemProperties->deviceType, mUnitIDMap[unitID]);
 	if (!service) {
+		QLOG_ERROR() << "Error finding service with device type" << itemProperties->deviceType
+					 << "at device instance" << mUnitIDMap[unitID];
 		error = ServiceError;
 		return;
 	}
