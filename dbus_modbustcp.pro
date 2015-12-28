@@ -2,11 +2,18 @@
 VERSION = 0.8.0
 REVISION = $$system(git --git-dir $$PWD/.git --work-tree $$PWD describe --always --dirty --tags)
 
-# Add more folders to ship with the application, here
-target.path = /opt/dbus_modbustcp
-csv.path = /opt/dbus_modbustcp
-csv.files = *.csv
-INSTALLS += target csv
+# Add more folders to ship with the application here
+unix {
+    bindir = $$(bindir)
+    DESTDIR = $$(DESTDIR)
+    isEmpty(bindir) {
+        bindir = /usr/local/bin
+    }
+    INSTALLS += target csv
+    target.path = $${DESTDIR}$${bindir}
+    csv.path = $${DESTDIR}$${bindir}
+    csv.files = *.csv
+}
 
 # Create a include file with VERSION / REVISION
 version_rule.target = $$OUT_PWD/version.h
