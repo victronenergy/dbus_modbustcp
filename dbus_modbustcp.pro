@@ -41,7 +41,7 @@ DEFINES += QT_NO_DEBUG_OUTPUT
 QT += core dbus network xml
 QT -= gui
 
-TARGET = dbus_modbustcp
+TARGET = dbus-modbustcp
 CONFIG += console
 CONFIG -= app_bundle
 
