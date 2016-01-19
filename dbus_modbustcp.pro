@@ -65,9 +65,15 @@ OTHER_FILES += \
 	unitid2di.csv \
 	modbustcp_tb.py
 
+*g++* {
 # suppress the mangling of va_arg has changed for gcc 4.4
 QMAKE_CXXFLAGS += -Wno-psabi
 
 # these warnings appear when compiling with QT4.8.3-debug. Problem appears to be
 # solved in newer QT versions.
 QMAKE_CXXFLAGS += -Wno-unused-local-typedefs
+}
+
+*clang* {
+QMAKE_CXXFLAGS_WARN_ON = -Wall -Wno-unused-local-typedef
+}
