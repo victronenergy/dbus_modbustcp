@@ -2,16 +2,15 @@
 #define DBUS_SERVICES_H
 
 #include <QObject>
-#include <QMap>
-
-class DBusService;
-class VeQItem;
+#include <QDBusConnection>
+#include <QDBusConnectionInterface>
+#include "dbus_service.h"
 
 class DBusServices : public QObject
 {
 	Q_OBJECT
 public:
-	DBusServices(VeQItem *root, QObject *parent = 0);
+	DBusServices(QObject *parent = 0);
 	~DBusServices();
 	void initialScan();
 	int getCount() const { return mServicesByName.count(); }
@@ -20,18 +19,18 @@ public:
 
 signals:
 	void dbusServiceFound(DBusService *service);
+	void dbusServiceConnected(DBusService *service);
+	void dbusServiceDisconnected(DBusService *service);
 
 private slots:
-	void onServiceAdded(VeQItem *service);
-	void onDeviceInstanceFound(VeQItem *service);
+	void serviceOwnerChanged(const QString &name, const QString &oldOwner, const QString &newOwner);
 
 private:
-	void addService(VeQItem *item);
-	void removeService(VeQItem *item);
-
+	void addService(const QString &name);
+	void removeService(const QString &name);
 	QMap<QString, DBusService *> mServicesByName;
 	QMap<QString, QMultiMap<int, DBusService *> > mServiceByType;
-	VeQItem *mRoot;
+	QDBusConnection mDBus;
 };
 
 #endif

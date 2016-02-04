@@ -1,12 +1,13 @@
-#include <QsLog.h>
-#include <velib/qt/ve_qitem.hpp>
 #include "dbus_service.h"
 #include "dbus_services.h"
 #include "defines.h"
 
-DBusServices::DBusServices(VeQItem *root, QObject *parent) :
+//#define QS_LOG_DISABLE
+#include "QsLog.h"
+
+DBusServices::DBusServices(QObject *parent) :
 	QObject(parent),
-	mRoot(root)
+	mDBus(DBUS_CONNECTION)
 {
 }
 
@@ -22,14 +23,12 @@ DBusServices::~DBusServices()
 
 void DBusServices::initialScan()
 {
-	for (int i=0;;++i) {
-		VeQItem *item = mRoot->itemChild(i);
-		if (item == 0)
-			break;
-		onServiceAdded(item);
-	}
-	connect(mRoot, SIGNAL(childAdded(VeQItem *)),
-			this, SLOT(onServiceAdded(VeQItem *)));
+	QDBusConnectionInterface *interface = mDBus.interface();
+	QStringList serviceNames = interface->registeredServiceNames();
+	connect(interface, SIGNAL(serviceOwnerChanged(QString,QString,QString)), SLOT(serviceOwnerChanged(QString,QString,QString)));
+
+	foreach (const QString &name, serviceNames)
+		addService(name);
 }
 
 DBusService * DBusServices::getService(QString deviceType, int deviceInstance)
@@ -49,62 +48,19 @@ DBusService * DBusServices::getService(QString deviceType, int deviceInstance)
 	return lastConnected == 0 ? last : lastConnected;
 }
 
-void DBusServices::onServiceAdded(VeQItem *service)
+void DBusServices::addService(const QString &name)
 {
-	VeQItem *item = service->itemGetOrCreate("/DeviceInstance");
-	connect(item, SIGNAL(stateChanged(VeQItem *, State)),
-			this, SLOT(onDeviceInstanceFound(VeQItem *)));
-	item->getValue();
-	if (item->getState() == VeQItem::Synchronized)
-		addService(service);
-}
+	if (!name.startsWith("com.victronenergy."))
+		return;
 
-void DBusServices::onDeviceInstanceFound(VeQItem *item)
-{
-	switch (item->getState()) {
-	case VeQItem::Idle:
-		item->getValue();
-		break;
-	case VeQItem::Synchronized:
-		addService(item->itemParent());
-		break;
-	case VeQItem::Offline:
-		// There are 3 scenario's to get here:
-		// 1. D-Bus service found earlier and disappeared. Device instance
-		//    state will change from Synchronized to Offline. In this case
-		//    service will already exist, so addService is a no-op.
-		// 2. D-Bus service was just added and disappears before device
-		//    instance was retrieved. State will change from Requested to
-		//    offline. We will add the service and disable it directly.
-		//    This behavior is similar to (1).
-		// 3. D-Bus service was just added and has no /DeviceInstance path.
-		//    state will change from Requested to offline. In this case we
-		//    also create a disabled service which can be used as long as
-		//    no other D-Bus service turns up with a /DeviceInstance path.
-		//    We do this for backward compatibility with older version of this
-		//    service.
-		addService(item->itemParent());
-		removeService(item->itemParent());
-		break;
-	default:
-		break;
-	}
-}
-
-void DBusServices::addService(VeQItem *item)
-{
-	QString name = item->id();
-	QMap<QString, DBusService *>::Iterator it = mServicesByName.find(name);
-	if (it != mServicesByName.end()) {
-		if (!it.value()->getConnected()) {
-			QLOG_TRACE() << "[DBusServices] connect " << name;
-			it.value()->setConnected(true);
-		}
+	if (mServicesByName.contains(name)) {
+		QLOG_TRACE() << "[DBusServices] connect " << name;
+		mServicesByName.value(name)->setConnected(true);
 		return;
 	}
 
 	QLOG_TRACE() << "[DBusServices] Add new service " << name;
-	DBusService *service = new DBusService(item);
+	DBusService *service = new DBusService(name);
 	mServicesByName.insert(name, service);
 
 	QString deviceType = service->getDeviceType(name);
@@ -113,13 +69,23 @@ void DBusServices::addService(VeQItem *item)
 	emit dbusServiceFound(service);
 }
 
-void DBusServices::removeService(VeQItem *item)
+void DBusServices::removeService(const QString &name)
 {
-	QString name = item->id();
-	QMap<QString, DBusService *>::Iterator it = mServicesByName.find(name);
-	if (it == mServicesByName.end() || !it.value()->getConnected())
+	if (!mServicesByName.contains(name))
 		return;
 
 	QLOG_TRACE() << "[DBusServices] Remove old service " << name;
-	it.value()->setConnected(false);
+	mServicesByName.value(name)->setConnected(false);
+}
+
+void DBusServices::serviceOwnerChanged(const QString &name, const QString &oldOwner, const QString &newOwner)
+{
+	Q_UNUSED(oldOwner);
+	if (!newOwner.isEmpty() ) {
+		// new owner > service add on dbus
+		addService(name);
+	} else {
+		// no new owner > service removed from dbus
+		removeService(name);
+	}
 }

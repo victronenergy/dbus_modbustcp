@@ -1,6 +1,5 @@
 #include <QCoreApplication>
-#include <velib/qt/ve_qitems_dbus.hpp>
-#include <velib/qt/v_busitems.h>
+#include <QDBusConnection>
 #include "app.h"
 #include "QsLog.h"
 #include "defines.h"
@@ -25,7 +24,6 @@ void usage(Arguments & arg)
 {
 	arg.addArg("-h", "Print this help");
 	arg.addArg("-d level", "Debug level: 0=TRACE, 1=DEBUG, 2=INFO...");
-	arg.addArg("--dbus", "D-Bus connection: session, system, ...");
 }
 
 int main(int argc, char *argv[])
@@ -44,11 +42,13 @@ int main(int argc, char *argv[])
 		logLevel = static_cast<QsLogging::Level>(arg.value("d").toInt());
 	initLogger(logLevel);
 
-	QString dbusConnection = arg.contains("dbus") ? arg.value("dbus") : "system";
-	VeQItemDbusProducer *producer = new VeQItemDbusProducer(VeQItems::getRoot(), "dbus");
-	producer->open(dbusConnection);
+	QDBusConnection dbus = DBUS_CONNECTION;
+	if (!dbus.isConnected()) {
+		QLOG_ERROR() << "DBus connection failed.";
+		exit(EXIT_FAILURE);
+	}
 
-	App dbusModbusApp(producer->services());
+	App dbusModbusApp;
 
 	return app.exec();
 }

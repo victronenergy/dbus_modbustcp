@@ -1,10 +1,10 @@
 #include "app.h"
 
-App::App(VeQItem *dbusRoot, QObject *parent) :
+App::App(QObject *parent) :
 	QObject(parent),
 	mServer(parent),
 	mBackend(parent),
-	mDBusServices(dbusRoot, parent),
+	mDBusServices(parent),
 	mMapping(&mDBusServices, parent)
 {
 	connect(&mServer, SIGNAL(modbusRequest(ADU*const)), &mBackend, SLOT(modbusRequest(ADU*const)));
