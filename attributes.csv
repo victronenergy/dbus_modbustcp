@@ -40,9 +40,11 @@ com.victronenergy.vebus,/Mode,u,1=Charger Only;2=Inverter Only;3=On;4=Off,33,uin
 com.victronenergy.vebus,/Alarms/HighTemperature,u,0=Ok;1=Warning;2=Alarm,34,uint16,1,R
 com.victronenergy.vebus,/Alarms/LowBattery,u,0=Ok;1=Warning;2=Alarm,35,uint16,1,R
 com.victronenergy.vebus,/Alarms/Overload,u,0=Ok;1=Warning;2=Alarm,36,uint16,1,R
-com.victronenergy.vebus,/Hub4/AcPowerSetpoint,d,,37,int16,1,W
+com.victronenergy.vebus,/Hub4/L1/AcPowerSetpoint,d,W,37,int16,1,W
 com.victronenergy.vebus,/Hub4/DisableCharge,u,0=Charge allowed;1=Charge disabled,38,uint16,1,W
 com.victronenergy.vebus,/Hub4/DisableFeedback,u,0=Feedback allowed;1=Feedback disabled,39,uint16,1,W
+com.victronenergy.vebus,/Hub4/L2/AcPowerSetpoint,d,W,40,int16,1,W
+com.victronenergy.vebus,/Hub4/L3/AcPowerSetpoint,d,W,41,int16,1,W
 com.victronenergy.battery,/ProductId,u,,256,,,R
 com.victronenergy.battery,/FirmwareVersion,u,,257,,,R
 com.victronenergy.battery,/Serial,s,,258,,,R
