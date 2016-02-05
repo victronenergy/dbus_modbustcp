@@ -2,7 +2,6 @@
 #include <QDBusConnection>
 #include "app.h"
 #include "QsLog.h"
-#include "defines.h"
 #include "version.h"
 #include "arguments.h"
 
@@ -12,7 +11,6 @@ void initLogger(QsLogging::Level logLevel)
 	QsLogging::DestinationPtr debugDestination(
 			QsLogging::DestinationFactory::MakeDebugOutputDestination() );
 	logger.addDestination(debugDestination);
-	logger.setIncludeTimestamp(false);
 
 	QLOG_INFO() << "dbus_modbustcp" << "v"VERSION << "started" << "("REVISION")";
 	QLOG_INFO() << "Built with Qt" << QT_VERSION_STR << "running on" << qVersion();
@@ -42,13 +40,23 @@ int main(int argc, char *argv[])
 		logLevel = static_cast<QsLogging::Level>(arg.value("d").toInt());
 	initLogger(logLevel);
 
-	QDBusConnection dbus = DBUS_CONNECTION;
+	QDBusConnection dbus = QDBusConnection::systemBus();
+	if (arg.contains("dbus")) {
+		QString dbusAddress = arg.value("dbus");
+		if (dbusAddress != "system") {
+			if (dbusAddress == "session")
+				dbus = QDBusConnection::sessionBus();
+			else
+				dbus = QDBusConnection::connectToBus(dbusAddress, "modbus_tcp");
+		}
+	}
+
 	if (!dbus.isConnected()) {
 		QLOG_ERROR() << "DBus connection failed.";
 		exit(EXIT_FAILURE);
 	}
 
-	App dbusModbusApp;
+	App dbusModbusApp(dbus);
 
 	return app.exec();
 }

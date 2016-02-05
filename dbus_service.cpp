@@ -2,15 +2,15 @@
 #include <QEvent>
 
 #include "dbus_service.h"
-#include "defines.h"
 #include "QsLog.h"
 
-DBusService::DBusService(const QString &serviceName, QObject *parent) :
+DBusService::DBusService(const QDBusConnection &dbus, const QString &serviceName, QObject *parent) :
 	QObject(parent),
 	mDbusServiceName(serviceName),
 	mServiceType(getDeviceType(serviceName)),
 	mConnected(true),
-	mDeviceInstance(serviceName, "/DeviceInstance", DBUS_CONNECTION)
+	mDeviceInstance(serviceName, "/DeviceInstance", dbus),
+	mDBus(dbus)
 {
 	mDeviceInstance.getValue();
 	QLOG_INFO() << "[DBusService] DeviceInstance of " << serviceName << "=" << mDeviceInstance.getValue().toInt() << "with type" << mServiceType;
@@ -39,7 +39,7 @@ void DBusService::registerObjects(const QStringList &pathList)
 void DBusService::registerObject(const QString &path)
 {
 	QLOG_INFO() << "[DBusService] registerObject " << mDbusServiceName << path;
-	BusItemCons * busitem = new BusItemCons(mDbusServiceName, path, DBUS_CONNECTION);
+	BusItemCons * busitem = new BusItemCons(mDbusServiceName, path, mDBus);
 	mBusItems.insert(path, busitem);
 }
 

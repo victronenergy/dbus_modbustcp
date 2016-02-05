@@ -1,6 +1,7 @@
 #ifndef DBUS_SERVICE_H
 #define DBUS_SERVICE_H
 
+#include <QDBusConnection>
 #include <QObject>
 #include <QString>
 #include "busitem_cons.h"
@@ -9,7 +10,7 @@ class DBusService : public QObject
 {
 	Q_OBJECT
 public:
-	DBusService(const QString &name, QObject *parent = 0);
+	DBusService(const QDBusConnection &dbus, const QString &name, QObject *parent = 0);
 	QString getServiceName() const { return mDbusServiceName; }
 	int getDeviceInstance() { return mDeviceInstance.getValue().toInt(); }
 
@@ -29,6 +30,7 @@ private:
 	bool mConnected;
 	BusItemCons mDeviceInstance;
 	QHash<QString, BusItemCons *> mBusItems;
+	QDBusConnection mDBus;
 };
 
 #endif

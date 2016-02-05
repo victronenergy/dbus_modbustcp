@@ -1,13 +1,12 @@
 #include "dbus_service.h"
 #include "dbus_services.h"
-#include "defines.h"
 
 //#define QS_LOG_DISABLE
 #include "QsLog.h"
 
-DBusServices::DBusServices(QObject *parent) :
+DBusServices::DBusServices(const QDBusConnection &dbus, QObject *parent) :
 	QObject(parent),
-	mDBus(DBUS_CONNECTION)
+	mDBus(dbus)
 {
 }
 
@@ -60,7 +59,7 @@ void DBusServices::addService(const QString &name)
 	}
 
 	QLOG_TRACE() << "[DBusServices] Add new service " << name;
-	DBusService *service = new DBusService(name);
+	DBusService *service = new DBusService(mDBus, name);
 	mServicesByName.insert(name, service);
 
 	QString deviceType = service->getDeviceType(name);

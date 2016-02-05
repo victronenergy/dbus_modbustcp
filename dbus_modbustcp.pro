@@ -30,11 +30,6 @@ QMAKE_DISTCLEAN += $$version_rule.target
 QMAKE_EXTRA_TARGETS += version_rule
 PRE_TARGETDEPS += $$OUT_PWD/version.h
 
-machine=$$(MACHINE)
-contains(machine,ccgx) {
-	DEFINES += TARGET_ccgx
-}
-
 #CONFIG(release, debug|release):
 DEFINES += QT_NO_DEBUG_OUTPUT
 
@@ -60,7 +55,6 @@ SOURCES += main.cpp \
 	dbus_services.cpp \
 	busitem_interface.cpp \
 	busitem_cons.cpp \
-	dbus.cpp \
 	mappings.cpp \
 	app.cpp \
 	arguments.cpp
@@ -70,12 +64,10 @@ HEADERS += \
 	adu.h \
 	pdu.h \
 	backend.h \
-	defines.h \
 	dbus_service.h \
 	dbus_services.h \
 	busitem_interface.h \
 	busitem_cons.h \
-	dbus.h \
 	mappings.h \
 	app.h \
 	arguments.h

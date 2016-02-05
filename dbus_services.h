@@ -10,7 +10,7 @@ class DBusServices : public QObject
 {
 	Q_OBJECT
 public:
-	DBusServices(QObject *parent = 0);
+	DBusServices(const QDBusConnection &dbus, QObject *parent = 0);
 	~DBusServices();
 	void initialScan();
 	int getCount() const { return mServicesByName.count(); }
