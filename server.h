@@ -12,7 +12,7 @@ class Server : public QObject
 {
 	Q_OBJECT
 public:
-	Server(QObject *parent = 0);
+	Server(int tcpPort, QObject *parent = 0);
 
 public slots:
 	void modbusReply(ADU * const reply);
