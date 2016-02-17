@@ -15,7 +15,7 @@ public:
 	Server(int tcpPort, QObject *parent = 0);
 
 public slots:
-	void modbusReply(ADU * const reply);
+	void modbusReply(ADU *reply);
 
 private slots:
 	void newConnection();
@@ -24,7 +24,7 @@ private slots:
 	void bytesWritten(qint64 bytes);
 
 signals:
-	void modbusRequest(ADU * const request);
+	void modbusRequest(ADU *request);
 
 private:
 	QTcpServer * mServer;

@@ -2,10 +2,11 @@
 #define BACKEND_H
 
 #include <QObject>
-#include <QTcpSocket>
+#include "mapping_request.h"
+#include "pdu.h"
 
-#include "adu.h"
-#include "mappings.h"
+class ADU;
+class MappingRequest;
 
 class Backend : public QObject
 {
@@ -14,15 +15,16 @@ public:
 	explicit Backend(QObject *parent = 0);
 
 public slots:
-	void modbusRequest(ADU * const request);
+	void modbusRequest(ADU *request);
+	void requestCompleted(MappingRequest *request);
 
 signals:
-	void getValues(const int modbusAddress, const int unitID, const int quantity, QByteArray &replyData, Mappings::MappingErrors &error);
-	void setValues(const int modbusAddress, const int unitID, const int quantity, QByteArray &data, Mappings::MappingErrors &error);
-	void modbusReply(ADU * const reply);
+	void mappingRequest(MappingRequest *request);
+	void modbusReply(ADU *reply);
 
 private:
-	QString handleError(Mappings::MappingErrors &error, ADU * const modbusRequest);
+	void logError(const QString &message, ADU *request);
+	static PDU::ExceptionCode getExceptionCode(MappingErrors error);
 };
 
 #endif // BACKEND_H

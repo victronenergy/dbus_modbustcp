@@ -1,7 +1,5 @@
 #include "server.h"
 #include "backend.h"
-
-//#define QS_LOG_DISABLE
 #include "QsLog.h"
 
 Server::Server(int tcpPort, QObject *parent) :
@@ -14,7 +12,9 @@ Server::Server(int tcpPort, QObject *parent) :
 					   arg(mServer->serverPort());
 		connect(mServer, SIGNAL(newConnection()), SLOT(newConnection()));
 	}
-	else QLOG_ERROR() << "[Server] QTcpServer error: " + mServer->errorString();
+	else {
+		QLOG_ERROR() << "[Server] QTcpServer error: " + mServer->errorString();
+	}
 }
 
 void Server::newConnection()
@@ -22,8 +22,9 @@ void Server::newConnection()
 	QTcpSocket * newConnection = mServer->nextPendingConnection();
 
 	newConnection->socketOption(QAbstractSocket::LowDelayOption);
-	mClients.append(newConnection);
-	QLOG_TRACE() << "[Server] New connecion: " << newConnection->peerAddress().toString()+":"+QString::number(newConnection->peerPort());
+	QLOG_TRACE() << QString("[Server] New connecion: %1:%2").
+					arg(newConnection->peerAddress().toString()).
+					arg(newConnection->peerPort());
 	connect(newConnection, SIGNAL(readyRead()), SLOT(readyRead()));
 	connect(newConnection, SIGNAL(disconnected()), SLOT(disconnected()));
 	connect(newConnection, SIGNAL(bytesWritten(qint64)), SLOT(bytesWritten(qint64)));
@@ -31,40 +32,44 @@ void Server::newConnection()
 
 void Server::readyRead()
 {
-	QTcpSocket * socket = (QTcpSocket *) sender();
-	if (socket == 0) return;
+	QTcpSocket * socket = static_cast<QTcpSocket *>(sender());
 
 	QByteArray tcpReq = socket->readAll();
-	QLOG_TRACE() << "[Server] request from " << socket->peerAddress().toString()+":"+QString::number(socket->peerPort());
-	QLOG_TRACE() << "[Server] request data " << tcpReq.toHex().toUpper();
+	QLOG_DEBUG() << QString("[Server] request from: %1:%2").
+					arg(socket->peerAddress().toString()).
+					arg(socket->peerPort());
+	QLOG_DEBUG() << "[Server] request data " << tcpReq.toHex().toUpper();
 	ADU * request = new ADU(socket, tcpReq);
-	mRequests.insert(socket,request);
 	QLOG_DEBUG() << "[Server] Request:" << request->aduToString();
 	emit modbusRequest(request);
 }
 
 void Server::disconnected()
 {
-	QTcpSocket *socket = (QTcpSocket *) sender();
-	if (socket == 0) return;
+	QTcpSocket * socket = static_cast<QTcpSocket *>(sender());
 
-	QLOG_TRACE() << "[Server] Disconnected: " << socket->peerAddress().toString()+":"+QString::number(socket->peerPort());
-	mClients.removeAll(socket);
-	delete mRequests.value(socket);
+	QLOG_TRACE() << QString("[Server] Disconnected: %1:%2").
+					arg(socket->peerAddress().toString()).
+					arg(socket->peerPort());
 	socket->deleteLater();
 }
 
-void Server::modbusReply(ADU * const modbusReply)
+void Server::modbusReply(ADU *modbusReply)
 {
 	QLOG_DEBUG() << "[Server] Reply:" << modbusReply->aduToString();
-	modbusReply->getSocket()->write(modbusReply->toQByteArray());
+	QTcpSocket *socket = modbusReply->getSocket();
+	if (socket == 0)
+		return;
+	socket->write(modbusReply->toQByteArray());
+	delete modbusReply;
 }
 
 void Server::bytesWritten(qint64 bytes)
 {
-	QTcpSocket * socket = (QTcpSocket *) sender();
+	QTcpSocket * socket = static_cast<QTcpSocket *>(sender());
 
-	QLOG_DEBUG() << "[Server] bytesWritten:" << bytes << socket->peerAddress().toString()+":"+QString::number(socket->peerPort());
-	delete mRequests.value(socket);
-	mRequests.remove(socket);
+	QLOG_DEBUG() << QString("[Server] bytes written: %1 %2:%3").
+					arg(bytes).
+					arg(socket->peerAddress().toString()).
+					arg(socket->peerPort());
 }
