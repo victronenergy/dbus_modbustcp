@@ -1,8 +1,10 @@
 #include <QCoreApplication>
-#include <QDBusConnection>
+#include <velib/qt/ve_qitems_dbus.hpp>
+#include <velib/qt/v_busitems.h>
 #include "app.h"
-#include "QsLog.h"
 #include "arguments.h"
+#include "nostorage_qitem_producer.h"
+#include "QsLog.h"
 
 void initLogger(QsLogging::Level logLevel)
 {
@@ -10,6 +12,7 @@ void initLogger(QsLogging::Level logLevel)
 	QsLogging::DestinationPtr debugDestination(
 			QsLogging::DestinationFactory::MakeDebugOutputDestination() );
 	logger.addDestination(debugDestination);
+	logger.setIncludeTimestamp(false);
 
 	QLOG_INFO() << "dbus_modbustcp" << "v" VERSION << "started";
 	QLOG_INFO() << "Built with Qt" << QT_VERSION_STR << "running on" << qVersion();
@@ -17,7 +20,7 @@ void initLogger(QsLogging::Level logLevel)
 	logger.setLoggingLevel(logLevel);
 }
 
-void usage(Arguments & arg)
+void usage(Arguments &arg)
 {
 	arg.addArg("-h", "Print this help");
 	arg.addArg("-d level", "Debug level: 0=TRACE, 1=DEBUG, 2=INFO...");
@@ -45,23 +48,13 @@ int main(int argc, char *argv[])
 		logLevel = static_cast<QsLogging::Level>(arg.value("d").toInt());
 	initLogger(logLevel);
 
-	QDBusConnection dbus = QDBusConnection::systemBus();
-	if (arg.contains("dbus")) {
-		QString dbusAddress = arg.value("dbus");
-		if (dbusAddress != "system") {
-			if (dbusAddress == "session")
-				dbus = QDBusConnection::sessionBus();
-			else
-				dbus = QDBusConnection::connectToBus(dbusAddress, "modbus_tcp");
-		}
-	}
+	QString dbusConnection = arg.contains("dbus") ? arg.value("dbus") : "system";
 
-	if (!dbus.isConnected()) {
-		QLOG_ERROR() << "DBus connection failed.";
-		exit(EXIT_FAILURE);
-	}
+	NostorageQItemProducer producer(VeQItems::getRoot(), "sub", true, false);
+	producer.setListenIndividually(true);
+	producer.open(dbusConnection);
 
-	App dbusModbusApp(dbus, tcpPort);
+	App dbusModbusApp(producer.services(), tcpPort);
 
 	return app.exec();
 }

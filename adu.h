@@ -12,7 +12,7 @@ public:
 	ADU(QTcpSocket * const socket, const QByteArray & aduRequest);
 	~ADU();
 
-	QTcpSocket * getSocket() { return mSocket; }
+	QTcpSocket * getSocket() { return mSocket.data(); }
 	QByteArray & getReplyDataRef() { return mReplyData; }
 	//void setReplyData(const QByteArray & replyData) { mReplyData = replyData; }
 	uint getTransID() { return mTransID; }
@@ -27,7 +27,7 @@ public:
 	QString aduToString();
 
 private:
-	QTcpSocket * const mSocket;
+	QPointer<QTcpSocket> mSocket;
 	QByteArray mReplyData;
 
 	// MBAP Header members

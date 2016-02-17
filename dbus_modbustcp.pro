@@ -18,52 +18,59 @@ unix {
 DEFINES += QT_NO_DEBUG_OUTPUT
 DEFINES += VERSION=\\\"$${VERSION}\\\"
 
-QT       += core
-QT       -= gui
-QT       += network
-QT       += dbus
+QT += core dbus network xml
+QT -= gui
 
 TARGET = dbus-modbustcp
-CONFIG   += console
-CONFIG   -= app_bundle
+CONFIG += console
+CONFIG -= app_bundle
 
 TEMPLATE = app
 
 MOC_DIR=.moc
 OBJECTS_DIR=.obj
 
-include(QsLog/QsLog.pri)
+include(ext/QsLog/QsLog.pri)
+include(ext/velib/src/qt/ve_qitems.pri)
+
+INCLUDEPATH += \
+    ext/QsLog \
+    ext/velib/inc
 
 SOURCES += main.cpp \
-	server.cpp \
-	adu.cpp \
-	pdu.cpp \
-	backend.cpp \
-	dbus_service.cpp \
-	dbus_services.cpp \
-	busitem_interface.cpp \
-	busitem_cons.cpp \
-	mappings.cpp \
-	app.cpp \
-	arguments.cpp
+    server.cpp \
+    adu.cpp \
+    pdu.cpp \
+    backend.cpp \
+    dbus_service.cpp \
+    dbus_services.cpp \
+    mappings.cpp \
+    app.cpp \
+    arguments.cpp \
+    backend_request.cpp \
+    mapping_request.cpp \
+    ve_qitem_init_monitor.cpp
 
 HEADERS += \
-	server.h \
-	adu.h \
-	pdu.h \
-	backend.h \
-	dbus_service.h \
-	dbus_services.h \
-	busitem_interface.h \
-	busitem_cons.h \
-	mappings.h \
-	app.h \
-	arguments.h
+    server.h \
+    adu.h \
+    pdu.h \
+    backend.h \
+    dbus_service.h \
+    dbus_services.h \
+    mappings.h \
+    app.h \
+    arguments.h \
+    velib/velib_config_app.h \
+    nostorage_qitem_producer.h \
+    backend_request.h \
+    mapping_request.h \
+    ve_qitem_init_monitor.h
 
 OTHER_FILES += \
-	attributes.csv \
-	unitid2di.csv \
-	modbustcp_tb.py
+    attributes.csv \
+    unitid2di.csv \
+    modbustcp_tb.py
 
 *g++* {
 # suppress the mangling of va_arg has changed for gcc 4.4

@@ -1,16 +1,16 @@
 #include "app.h"
 
-App::App(const QDBusConnection &dbus, int tcpPort, QObject *parent) :
+App::App(VeQItem *dbusRoot, int tcpPort, QObject *parent) :
 	QObject(parent),
 	mServer(tcpPort, parent),
 	mBackend(parent),
-	mDBusServices(dbus, parent),
+	mDBusServices(dbusRoot, parent),
 	mMapping(&mDBusServices, parent)
 {
-	connect(&mServer, SIGNAL(modbusRequest(ADU*const)), &mBackend, SLOT(modbusRequest(ADU*const)));
-	connect(&mBackend, SIGNAL(modbusReply(ADU*const)), &mServer, SLOT(modbusReply(ADU*const)));
-	connect(&mBackend, SIGNAL(getValues(int,int,int,QByteArray&,Mappings::MappingErrors&)),&mMapping, SLOT(getValues(int,int,int,QByteArray&,Mappings::MappingErrors&)));
-	connect(&mBackend, SIGNAL(setValues(int,int,int,QByteArray&,Mappings::MappingErrors&)),&mMapping, SLOT(setValues(int,int,int,QByteArray&,Mappings::MappingErrors&)));
-
+	connect(&mServer, SIGNAL(modbusRequest(ADU*)), &mBackend, SLOT(modbusRequest(ADU*)));
+	connect(&mBackend, SIGNAL(modbusReply(ADU*)), &mServer, SLOT(modbusReply(ADU*)));
+	connect(&mBackend, SIGNAL(mappingRequest(MappingRequest *)), &mMapping, SLOT(handleRequest(MappingRequest *)));
+	connect(&mMapping, SIGNAL(requestCompleted(MappingRequest *)),
+			&mBackend, SLOT(requestCompleted(MappingRequest *)));
 	mDBusServices.initialScan();
 }

@@ -4,14 +4,20 @@ from pymodbus.exceptions import ModbusException
 import struct
 import unittest
 
-client_ip = '192.168.4.169'
+# This script will test various Modbus TCP operations on a CCGX. It expects a vebus device
+# (Multi/Quattro) and a BMV to be connected to the CCGX.
+
+#client_ip = '192.168.4.100'
+#port = 502
+client_ip = 'localhost'
+port = 5020
 
 class TestModbusTcp(unittest.TestCase):
     def __init__(self, methodName='runTest'):
         unittest.TestCase.__init__(self, methodName)
 
     def setUp(self):
-        self.client = ModbusTcpClient(client_ip)
+        self.client = ModbusTcpClient(client_ip, port=port)
 
     def tearDown(self):
         self.client.close()
@@ -28,7 +34,7 @@ class TestModbusTcp(unittest.TestCase):
 
     def test_1(self):
         # Test reading ve.bus address 33 until 36
-        self._checked_read(3,34, unit=246)
+        self._checked_read(3, 34, unit=246)
 
     def test_2to5(self):
         # Write multi /Mode and reset again
@@ -52,14 +58,20 @@ class TestModbusTcp(unittest.TestCase):
         r2 = self._checked_read(33, 1, unit=246)
         result = self.client.write_registers(33, [r[0]], unit=246)
         self.assertTrue(result.function_code < 0x80)
-        r3 = self._checked_read(33,1, unit=246)
+        r3 = self._checked_read(33, 1, unit=246)
         self.assertEqual(r2[0], 2)
         self.assertEqual(r[0], r3[0])
 
     def test_10(self):
         # Test function code 16, write_registers address 256 until 267"
-        result = self.client.write_registers(22, [100], unit=246)
+        r = self._checked_read(22, 1, unit=246)
+        result = self.client.write_registers(22, [r[0]/2], unit=246)
         self.assertLess(result.function_code, 0x80)
+        self._checked_read(22, 1, unit=246)
+        result = self.client.write_registers(22, r, unit=246)
+        self.assertLess(result.function_code, 0x80)
+        r2 = self._checked_read(22, 1, unit=246)
+        self.assertEqual(r, r2)
 
     def test_11(self):
         # Test writing to ve.bus /State.
@@ -75,9 +87,9 @@ class TestModbusTcp(unittest.TestCase):
     def test_13(self):
         # Test writing to service without /DeviceInstance
         prev = self._checked_read(2702, 1, unit=0)
-        self._checked_write(2702, 35, unit=0)
+        self._checked_write(2702, 55, unit=0)
         current = self._checked_read(2702, 1, unit=0)
-        self.assertEqual(current[0], 35)
+        self.assertEqual(current[0], 55)
         self._checked_write(2702, prev[0], unit=0)
         current = self._checked_read(2702, 1, unit=0)
         self.assertEqual(current[0], prev[0])

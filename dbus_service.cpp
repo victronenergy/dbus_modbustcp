@@ -1,19 +1,26 @@
-#include <qstringlist.h>
-#include <QEvent>
-
+#include <QStringList>
+#include <velib/qt/ve_qitem.hpp>
 #include "dbus_service.h"
 #include "QsLog.h"
 
-DBusService::DBusService(const QDBusConnection &dbus, const QString &serviceName, QObject *parent) :
+DBusService::DBusService(VeQItem *serviceRoot, QObject *parent) :
 	QObject(parent),
-	mDbusServiceName(serviceName),
-	mServiceType(getDeviceType(serviceName)),
-	mConnected(true),
-	mDeviceInstance(serviceName, "/DeviceInstance", dbus),
-	mDBus(dbus)
+	mServiceRoot(serviceRoot),
+	mDeviceInstance(serviceRoot->itemGetOrCreate("/DeviceInstance"))
 {
-	mDeviceInstance.getValue();
-	QLOG_INFO() << "[DBusService] DeviceInstance of " << serviceName << "=" << mDeviceInstance.getValue().toInt() << "with type" << mServiceType;
+	connect(mDeviceInstance, SIGNAL(valueChanged(VeQItem *, QVariant)),
+			this, SLOT(onDeviceInstanceChanged()));
+	mDeviceInstance->getValue();
+}
+
+VeQItem *DBusService::getServiceRoot() const
+{
+	return mServiceRoot;
+}
+
+VeQItem *DBusService::getDeviceInstance() const
+{
+	return mDeviceInstance;
 }
 
 QString DBusService::getDeviceType(const QString &name)
@@ -25,41 +32,20 @@ QString DBusService::getDeviceType(const QString &name)
 	return elements[2];
 }
 
-void DBusService::setDeviceType(const QString &name)
+void DBusService::onDeviceInstanceChanged()
 {
-	mServiceType = getDeviceType(name);
-}
-
-void DBusService::registerObjects(const QStringList &pathList)
-{
-	foreach(const QString &path, pathList)
-		registerObject(path);
-}
-
-void DBusService::registerObject(const QString &path)
-{
-	QHash<QString, BusItemCons *>::Iterator it = mBusItems.find(path);
-	if (it == mBusItems.end()) {
-		QLOG_DEBUG() << "[DBusService] registerObject " << mDbusServiceName << path;
-		BusItemCons * busitem = new BusItemCons(mDbusServiceName, path, mDBus);
-		mBusItems.insert(path, busitem);
-	} else {
-		it.value()->getValue(true);
+	switch (mDeviceInstance->getState()) {
+	case VeQItem::Synchronized:
+		QLOG_INFO() << QString("[DBusService] Service online: %1 (%2)").
+					   arg(mServiceRoot->id()).
+					   arg(mDeviceInstance->getValue().toInt());
+		break;
+	case VeQItem::Offline:
+		QLOG_INFO() << QString("[DBusService] Service offline: %1 (%2)").
+					   arg(mServiceRoot->id()).
+					   arg(mDeviceInstance->getValue().toInt());
+		break;
+	default:
+		break;
 	}
-}
-
-QVariant DBusService::getValue(const QString path) const
-{
-	if (mBusItems.contains(path)) {
-		return mBusItems.value(path)->getValue();
-	} else
-		return QVariant();
-}
-
-bool DBusService::setValue(const QString path, const QVariant value)
-{
-	if (mBusItems.contains(path))
-		return mBusItems.value(path)->setValue(value) == 0 ? true : false;
-	else
-		return false;
 }
