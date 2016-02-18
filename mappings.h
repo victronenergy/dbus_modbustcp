@@ -43,6 +43,7 @@ private:
 	MappingErrors getValue(const int modbusAddress, const DBusModbusData &itemProperties, const DBusService &service, quint16 &value);
 	MappingErrors getValue(const DBusService &service, const int modbusAddress, const int unitID, quint16 &value) const;
 	quint16 getValue(const DBusService *service, const QString & objectPath, const ModbusTypes modbusType, const int offset, const double scaleFactor) const;
+	int getDeviceInstance(int unitID) const;
 
 	bool setValue(DBusService * const service, const QString &objectPath, const ModbusTypes modbusType, const QMetaType::Type dbusType, const double scaleFactor, const quint16 value);
 	void importCSV(const QString &filename);

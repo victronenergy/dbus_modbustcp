@@ -65,9 +65,20 @@ quint16 Mappings::getValue(const DBusService * service, const QString & objectPa
 	return 0;
 }
 
+int Mappings::getDeviceInstance(int unitID) const
+{
+	QHash<int, int>::ConstIterator it = mUnitIDMap.find(unitID);
+	if (it != mUnitIDMap.end())
+		return it.value();
+	if (unitID >= 0 && unitID <= 247)
+		return unitID;
+	return -1;
+}
+
 void Mappings::getValues(const int modbusAddress, const int unitID, const int quantity, QByteArray &replyData, Mappings::MappingErrors &error) const
 {
-	if (!mUnitIDMap.contains(unitID)) {
+	int deviceInstance = getDeviceInstance(unitID);
+	if (deviceInstance == -1) {
 		error = UnitIdError;
 		return;
 	}
@@ -83,10 +94,10 @@ void Mappings::getValues(const int modbusAddress, const int unitID, const int qu
 	 * therefore the service pointer has to be fetched and checked only once
 	 */
 	DBusModbusData * itemProperties = mDBusModbusMap.value(baseAddress);
-	DBusService * service = mServices->getService(itemProperties->deviceType, mUnitIDMap[unitID]);
+	DBusService * service = mServices->getService(itemProperties->deviceType, deviceInstance);
 	if (!service) {
 		QLOG_ERROR() << "Error finding service with device type" << itemProperties->deviceType
-					 << "at device instance" << mUnitIDMap[unitID];
+					 << "at device instance" << deviceInstance;
 		error = ServiceError;
 		return;
 	}
@@ -138,7 +149,8 @@ bool Mappings::setValue(DBusService * const service, const QString & objectPath,
 
 void Mappings::setValues(const int modbusAddress, const int unitID, const int quantity, QByteArray &data, Mappings::MappingErrors &error)
 {
-	if (!mUnitIDMap.contains(unitID)) {
+	int deviceInstance = getDeviceInstance(unitID);
+	if (deviceInstance == -1) {
 		error = UnitIdError;
 		return;
 	}
@@ -153,7 +165,7 @@ void Mappings::setValues(const int modbusAddress, const int unitID, const int qu
 	 * therefore the service pointer has to be fetched and checked only once
 	 */
 	DBusModbusData * itemProperties = mDBusModbusMap.value(baseAddress);
-	DBusService * service = mServices->getService(itemProperties->deviceType, mUnitIDMap[unitID]);
+	DBusService * service = mServices->getService(itemProperties->deviceType, deviceInstance);
 	if (!service) {
 		error = ServiceError;
 		return;
