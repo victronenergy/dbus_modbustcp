@@ -22,14 +22,22 @@ Unit ID, /DeviceInstance,Remark
 27,27,PV Inverter instance 7
 28,28,PV Inverter instance 8
 29,29,PV Inverter instance 9
-30,30,Grid meter (cgwacs)
-31,31,Generator (cgwacs)
-32,32,PV inverter 0 (cgwacs)
-33,33,PV inverter 1 (cgwacs)
-34,34,PV inverter 2 (cgwacs)
+30,30,Carlo Gavazi grid meters instance 0
+31,31,Carlo Gavazi grid meters instance 1
+32,32,Carlo Gavazi grid meters instance 2
+33,33,Carlo Gavazi grid meters instance 3
+34,34,Carlo Gavazi grid meters instance 4
+40,40,Redflow system totals
+41,41,Redflow battery (Modbus-RTU ID 1)
+42,42,Redflow battery (Modbus-RTU ID 2)
+43,43,Redflow battery (Modbus-RTU ID 3)
+44,44,Redflow battery (Modbus-RTU ID 4)
+45,45,Redflow battery (Modbus-RTU ID 5)
+46,46,Redflow battery (Modbus-RTU ID 6)
 239,288,VE.Direct via USB (ttyUSB0)
 238,289,VE.Direct via USB (ttyUSB1)
 237,290,VE.Direct via USB (ttyUSB2)
 236,291,VE.Direct via USB (ttyUSB3)
 235,292,VE.Direct via USB (ttyUSB4)
 233,293,VE.Direct via USB (ttyUSB5)
+225,512,LG resu battery
