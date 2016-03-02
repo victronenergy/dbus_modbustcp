@@ -56,6 +56,7 @@ com.victronenergy.battery,/Dc/0/MidVoltage,d,V DC,263,uint16,100,R
 com.victronenergy.battery,/Dc/0/MidVoltageDeviation,d,%,264,uint16,100,R
 com.victronenergy.battery,/ConsumedAmphours,d,Ah,265,uint16,-10,R
 com.victronenergy.battery,/Soc,y,%,266,uint16,10,R
+com.victronenergy.battery,/Soh,y,%,304,uint16,10,R
 com.victronenergy.battery,/TimeToGo,q,seconds,303,uint16,0.01,R
 com.victronenergy.battery,/Alarms/Alarm,y,0=No alarm;2=Alarm,267,uint16,1,R
 com.victronenergy.battery,/Alarms/LowVoltage,u,0=No alarm;2=Alarm,268,uint16,1,R
@@ -120,6 +121,7 @@ com.victronenergy.system,/Serial,s,,800,string[6],1,R
 com.victronenergy.pvinverter,/ProductId,u,,1024,,,R
 com.victronenergy.pvinverter,/FirmwareVersion,s,,1025,,,R
 com.victronenergy.pvinverter,/Position,i,0=AC input 1;1=AC output;2=AC input 2,1026,uint16,1,R
+com.victronenergy.pvinverter,/Serial,s,,1039,string[7],1,R
 com.victronenergy.pvinverter,/Ac/L1/Voltage,d,V AC,1027,uint16,10,R
 com.victronenergy.pvinverter,/Ac/L1/Current,d,A AC,1028,int16,10,R
 com.victronenergy.pvinverter,/Ac/L1/Power,i,W,1029,uint16,1,R
@@ -132,7 +134,6 @@ com.victronenergy.pvinverter,/Ac/L3/Voltage,d,V AC,1035,uint16,10,R
 com.victronenergy.pvinverter,/Ac/L3/Current,d,A AC,1036,int16,10,R
 com.victronenergy.pvinverter,/Ac/L3/Power,i,W,1037,uint16,1,R
 com.victronenergy.pvinverter,/Ac/L3/Energy/Forward,u,kWh,1038,uint16,100,R
-com.victronenergy.pvinverter,/Serial,s,,1039,string[7],,R
 com.victronenergy.bms,/ProductId,q,,1280,,,R
 com.victronenergy.bms,/FirmwareVersion,u,,1281,,,R
 com.victronenergy.bms,/State,y,0=Initializing (Wait start);1=Initializing (before boot);2=Initializing (Before boot delay);3=Initializing (Wait boot);4=Initializing;5=Initializing (Measure battery voltage);6=Initializing (Calculate battery voltage);7=Initializing (Wait bus voltage);8=Initializing (Wait for lynx shunt);9=Running;10=Error (10);11=Error (11),1282,uint16,1,R
