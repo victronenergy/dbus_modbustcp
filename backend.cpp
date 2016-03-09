@@ -62,7 +62,7 @@ void Backend::modbusRequest(ADU * const modbusRequest)
 		data.remove(0,5); // Remove header
 		QLOG_TRACE() << "Write multiple registers" << functionCode << "address =" << address << "quantity =" << quantity;
 
-		if ( (quantity == 0 || quantity > 125) && (byteCount != (quantity*2)) ) {
+		if ((quantity == 0 || quantity > 125) || (byteCount != (quantity * 2))) {
 			QLOG_ERROR() << errorMessage << "Requested quantity invalid for this function";
 			modbusRequest->setExceptionCode(PDU::IllegalDataValue);
 		} else {
