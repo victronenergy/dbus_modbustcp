@@ -1,6 +1,5 @@
-# version and revision
+# version
 VERSION = 0.9.0
-REVISION = $$system(git --git-dir $$PWD/.git --work-tree $$PWD describe --always --dirty --tags)
 
 # Add more folders to ship with the application here
 unix {
@@ -15,23 +14,9 @@ unix {
     csv.files = *.csv
 }
 
-# Create a include file with VERSION / REVISION
-version_rule.target = $$OUT_PWD/version.h
-version_rule.commands = @echo \"updating file $$revtarget.target\"; \
-	printf \"/* generated file (do not edit) */\\n \
-	$${LITERAL_HASH}ifndef VERSION_H\\n \
-	$${LITERAL_HASH}define VERSION_H\\n \
-	$${LITERAL_HASH}define VERSION \\\"$${VERSION}\\\"\\n \
-	$${LITERAL_HASH}define REVISION \\\"$${REVISION}\\\"\\n \
-	$${LITERAL_HASH}endif\" > $$version_rule.target
-version_rule.depends = FORCE
-QMAKE_DISTCLEAN += $$version_rule.target
-
-QMAKE_EXTRA_TARGETS += version_rule
-PRE_TARGETDEPS += $$OUT_PWD/version.h
-
 #CONFIG(release, debug|release):
 DEFINES += QT_NO_DEBUG_OUTPUT
+DEFINES += VERSION=\\\"$${VERSION}\\\"
 
 QT       += core
 QT       -= gui

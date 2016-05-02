@@ -2,7 +2,6 @@
 #include <QDBusConnection>
 #include "app.h"
 #include "QsLog.h"
-#include "version.h"
 #include "arguments.h"
 
 void initLogger(QsLogging::Level logLevel)
@@ -12,7 +11,7 @@ void initLogger(QsLogging::Level logLevel)
 			QsLogging::DestinationFactory::MakeDebugOutputDestination() );
 	logger.addDestination(debugDestination);
 
-	QLOG_INFO() << "dbus_modbustcp" << "v"VERSION << "started" << "("REVISION")";
+	QLOG_INFO() << "dbus_modbustcp" << "v" VERSION << "started";
 	QLOG_INFO() << "Built with Qt" << QT_VERSION_STR << "running on" << qVersion();
 	QLOG_INFO() << "Built on" << __DATE__ << "at" << __TIME__;
 	logger.setLoggingLevel(logLevel);
