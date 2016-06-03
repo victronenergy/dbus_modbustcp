@@ -122,6 +122,8 @@ com.victronenergy.solarcharger,/History/Daily/1/MaxPower,d,W,787,uint16,1,R
 com.victronenergy.solarcharger,/ErrorCode,i,0=No error;1=Battery temperature too high;2=Battery voltage too high;3=Battery temperature sensor miswired (+);4=Battery temperature sensor miswired (-);5=Battery temperature sensor disconnected;6=Battery voltage sense miswired (+);7=Battery voltage sense miswired (-);8=Battery voltage sense disconnected;9=Battery voltage wire losses too high;17=Charger temperature too high;18=Charger over-current;19=Charger current polarity reversed;20=Bulk time limit reached;22=Charger temperature sensor miswired;23=Charger temperature sensor disconnected;34=Input current too high,788,uint16,1,R
 com.victronenergy.solarcharger,/Yield/User,d,kWh,790,uint16,10,R
 com.victronenergy.solarcharger,/Yield/Power,d,W,789,uint16,10,R
+com.victronenergy.system,/Relay/0/State,i,0=Open;1=Closed,806,uint16,1,W
+com.victronenergy.system,/Relay/1/State,i,0=Open;1=Closed,807,uint16,1,W
 com.victronenergy.system,/Serial,s,,800,string[6],1,R
 com.victronenergy.pvinverter,/ProductId,u,,1024,,,R
 com.victronenergy.pvinverter,/FirmwareVersion,s,,1025,,,R
