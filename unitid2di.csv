@@ -12,6 +12,9 @@ Unit ID, /DeviceInstance,Remark
 7,7,VE.Can device instance 7
 8,8,VE.Can device instance 8
 9,9,VE.Can device instance 9
+10,10,VE.Bus AC-Sensor on input 1
+11,11,VE.Bus AC-Sensor on output
+12,12,VE.Bus AC-Sensor on input 2
 20,20,PV Inverter instance 0
 21,21,PV Inverter instance 1
 22,22,PV Inverter instance 2
@@ -40,4 +43,4 @@ Unit ID, /DeviceInstance,Remark
 236,291,VE.Direct via USB (ttyUSB3)
 235,292,VE.Direct via USB (ttyUSB4)
 233,293,VE.Direct via USB (ttyUSB5)
-225,512,LG resu battery
+225,512,CAN-bus BMS
