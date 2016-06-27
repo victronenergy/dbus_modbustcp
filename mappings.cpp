@@ -29,7 +29,6 @@ void Mappings::dbusServiceFound(DBusService * service)
 quint16 Mappings::getValue(const DBusService * service, const QString & objectPath, const ModbusTypes modbusType, const int offset, const double scaleFactor) const
 {
 	QVariant dbusValue = service->getValue(objectPath);
-	QLOG_TRACE() << "Get value from dbus object" << objectPath << "offset" << offset;
 	if (dbusValue.isValid()) {
 		switch (modbusType) {
 		case mb_type_int16:
@@ -111,6 +110,8 @@ void Mappings::getValues(const int modbusAddress, const int unitID, const int qu
 			itemProperties = mDBusModbusMap.value(baseAddress);
 			int offset = modbusAddress+i-baseAddress;
 			value = getValue(service, itemProperties->objectPath, itemProperties->modbusType, offset, itemProperties->scaleFactor);
+			QLOG_DEBUG() << "Value from" << itemProperties->deviceType
+						 << itemProperties->objectPath << "@offset" << offset << ": " << value;
 			replyData[j++] = (quint8)(value >> 8);
 			replyData[j++] = (quint8)value;
 		} else {
@@ -385,7 +386,7 @@ void Mappings::importCSV(const QString &filename)
 									<< "reserved more than once. Check attributes file.";
 					}
 					mDBusModbusMap.insert(reg, item);
-					QLOG_INFO() << "[Mappings] Add" << values;
+					QLOG_DEBUG() << "[Mappings] Add" << values;
 				}
 			}
 		}
@@ -411,7 +412,7 @@ void Mappings::importUnitIDMapping(const QString &filename)
 					const int deviceInstance = values.at(1).toInt(&isNumber);
 					if (isNumber) {
 						mUnitIDMap.insert(unitID, deviceInstance);
-						QLOG_INFO() << "[Mappings] Add" << values;
+						QLOG_DEBUG() << "[Mappings] Add" << values;
 					}
 				}
 			}
