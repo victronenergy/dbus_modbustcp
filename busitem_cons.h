@@ -10,7 +10,7 @@ class BusItemCons : public QObject
 public:
 	BusItemCons(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
 
-	QVariant getValue();
+	QVariant getValue(bool force = false);
 	int setValue(const QVariant & val);
 
 public slots:

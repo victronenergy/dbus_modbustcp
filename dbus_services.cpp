@@ -52,9 +52,11 @@ void DBusServices::addService(const QString &name)
 	if (!name.startsWith("com.victronenergy."))
 		return;
 
-	if (mServicesByName.contains(name)) {
+	QMap<QString, DBusService *>::Iterator it = mServicesByName.find(name);
+	if (it != mServicesByName.end()) {
 		QLOG_TRACE() << "[DBusServices] connect " << name;
 		mServicesByName.value(name)->setConnected(true);
+		emit dbusServiceFound(it.value());
 		return;
 	}
 

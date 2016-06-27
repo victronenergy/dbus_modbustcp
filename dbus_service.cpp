@@ -38,9 +38,14 @@ void DBusService::registerObjects(const QStringList &pathList)
 
 void DBusService::registerObject(const QString &path)
 {
-	QLOG_INFO() << "[DBusService] registerObject " << mDbusServiceName << path;
-	BusItemCons * busitem = new BusItemCons(mDbusServiceName, path, mDBus);
-	mBusItems.insert(path, busitem);
+	QHash<QString, BusItemCons *>::Iterator it = mBusItems.find(path);
+	if (it == mBusItems.end()) {
+		QLOG_DEBUG() << "[DBusService] registerObject " << mDbusServiceName << path;
+		BusItemCons * busitem = new BusItemCons(mDbusServiceName, path, mDBus);
+		mBusItems.insert(path, busitem);
+	} else {
+		it.value()->getValue(true);
+	}
 }
 
 QVariant DBusService::getValue(const QString path) const

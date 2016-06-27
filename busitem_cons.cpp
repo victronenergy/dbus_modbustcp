@@ -10,16 +10,16 @@ BusItemCons::BusItemCons(const QString &service, const QString &path, const QDBu
 
 	mBusItem = new BusItemInterface(service, path, connection, this);
 	connect(mBusItem, SIGNAL(PropertiesChanged(const QVariantMap &)), this, SLOT(PropertiesChanged(const QVariantMap &)));
-	mValue = mBusItem->getValue();
-	if (mValue.isValid()) {
-		const int variantType = mValue.userType();
-		if (qMetaTypeId<QDBusArgument>() != variantType)
-			mValueValid = true;
-	}
+	getValue(true);
 }
 
-QVariant BusItemCons::getValue()
+QVariant BusItemCons::getValue(bool force)
 {
+	if (force) {
+		mValue = mBusItem->getValue();
+		if (mValue.isValid())
+			mValueValid = mValue.userType() != qMetaTypeId<QDBusArgument>();
+	}
 	if (mValueValid)
 		return mValue;
 	else
