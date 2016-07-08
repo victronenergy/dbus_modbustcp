@@ -37,6 +37,7 @@ Unit ID, /DeviceInstance,Remark
 44,44,Redflow battery (Modbus-RTU ID 4)
 45,45,Redflow battery (Modbus-RTU ID 5)
 46,46,Redflow battery (Modbus-RTU ID 6)
+100,0,Workaround for clients that do not support unit ID 0
 239,288,VE.Direct via USB (ttyUSB0)
 238,289,VE.Direct via USB (ttyUSB1)
 237,290,VE.Direct via USB (ttyUSB2)
