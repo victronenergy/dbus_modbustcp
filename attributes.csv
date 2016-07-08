@@ -4,6 +4,7 @@ com.victronenergy.gps,/Course,d,Degrees,2804,uint16,100,R
 com.victronenergy.gps,/Speed,d,m/s,2805,uint16,100,R
 com.victronenergy.gps,/Fix,y,,2806,uint16,1,R
 com.victronenergy.gps,/NrOfSatellites,y,,2807,uint16,1,R
+com.victronenergy.settings,/Settings/CGwacs/BatteryLife/State,i,0=Disabled;1=Restart;2=Default;3=Absorption;4=Float;5=Discharge;6=Force charge,2900,uint16,1,W
 com.victronenergy.vebus,/Interfaces/Mk2/Version,u,,1,,,R
 com.victronenergy.vebus,/Devices/0/Version,u,,2,,,R
 com.victronenergy.vebus,/Ac/ActiveIn/L1/V,d,V AC,3,uint16,10,R
