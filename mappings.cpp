@@ -28,6 +28,15 @@ Mappings::~Mappings()
 		delete m;
 }
 
+int Mappings::getUnitId(int deviceInstance) const
+{
+	for (QHash<int, int>::ConstIterator it = mUnitIDMap.begin(); it != mUnitIDMap.end(); ++it) {
+		if (it.value() == deviceInstance)
+			return it.key();
+	}
+	return deviceInstance;
+}
+
 void Mappings::handleRequest(MappingRequest *request)
 {
 	DataIterator it(this, request->address(), request->unitId(), request->quantity());

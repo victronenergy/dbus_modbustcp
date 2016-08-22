@@ -31,8 +31,7 @@ void DBusServices::initialScan()
 
 DBusService *DBusServices::getService(QString deviceType, int deviceInstance)
 {
-	QMap<QString, QList<DBusService *> >::iterator it =
-		mServiceByType.find(deviceType);
+	QMap<QString, QList<DBusService *> >::iterator it = mServiceByType.find(deviceType);
 	if (it == mServiceByType.end())
 		return 0;
 	DBusService *last = 0;

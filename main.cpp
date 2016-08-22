@@ -1,6 +1,6 @@
 #include <QCoreApplication>
 #include <velib/qt/ve_qitems_dbus.hpp>
-#include <velib/qt/v_busitems.h>
+#include <velib/qt/ve_qitem_dbus_publisher.hpp>
 #include "app.h"
 #include "arguments.h"
 #include "nostorage_qitem_producer.h"
@@ -54,7 +54,11 @@ int main(int argc, char *argv[])
 	producer.setListenIndividually(true);
 	producer.open(dbusConnection);
 
-	App dbusModbusApp(producer.services(), tcpPort);
+	VeQItemProducer pub(VeQItems::getRoot(), "pub");
+	VeQItemDbusPublisher publisher(pub.services());
+	publisher.open(dbusConnection);
+
+	App dbusModbusApp(producer.services(), pub.services(), tcpPort);
 
 	return app.exec();
 }

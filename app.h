@@ -12,7 +12,7 @@ class App : public QObject
 {
 	Q_OBJECT
 public:
-	App(VeQItem *dbusRoot, int tcpPort, QObject *parent = 0);
+	App(VeQItem *subRoot, VeQItem *pubRoot, int tcpPort, QObject *parent = 0);
 
 signals:
 

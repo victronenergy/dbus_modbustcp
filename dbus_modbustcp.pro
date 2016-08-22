@@ -49,6 +49,7 @@ SOURCES += main.cpp \
     arguments.cpp \
     backend_request.cpp \
     mapping_request.cpp \
+    diagnostics_service.cpp \
     ve_qitem_init_monitor.cpp
 
 HEADERS += \
@@ -65,6 +66,7 @@ HEADERS += \
     nostorage_qitem_producer.h \
     backend_request.h \
     mapping_request.h \
+    diagnostics_service.h \
     ve_qitem_init_monitor.h
 
 OTHER_FILES += \
