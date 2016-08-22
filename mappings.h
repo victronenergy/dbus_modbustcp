@@ -20,6 +20,8 @@ public:
 
 	~Mappings();
 
+	int getUnitId(int deviceInstance) const;
+
 public slots:
 	void handleRequest(MappingRequest *request);
 

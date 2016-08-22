@@ -27,7 +27,7 @@ QString DBusService::getDeviceType(const QString &name)
 {
 	QStringList elements = name.split(".");
 	if (elements.count() < 3)
-		return "Unkown";
+		return "Unknown";
 
 	return elements[2];
 }
