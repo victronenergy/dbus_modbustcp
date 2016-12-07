@@ -4,7 +4,7 @@ com.victronenergy.gps,/Course,d,Degrees,2804,uint16,100,R
 com.victronenergy.gps,/Speed,d,m/s,2805,uint16,100,R
 com.victronenergy.gps,/Fix,y,,2806,uint16,1,R
 com.victronenergy.gps,/NrOfSatellites,y,,2807,uint16,1,R
-com.victronenergy.settings,/Settings/CGwacs/BatteryLife/State,i,0=Disabled;1=Restart;2=Default;3=Absorption;4=Float;5=Discharge;6=Force charge,2900,uint16,1,W
+com.victronenergy.settings,/Settings/CGwacs/BatteryLife/State,i,0=BL Disabled;1=Restarting;2=Self-consumption;3=Self-consumption;4=Self-consumption;5=Discharge disabled;6=Force charge,2900,uint16,1,W
 com.victronenergy.vebus,/Interfaces/Mk2/Version,u,,1,,,R
 com.victronenergy.vebus,/Devices/0/Version,u,,2,,,R
 com.victronenergy.vebus,/Ac/ActiveIn/L1/V,d,V AC,3,uint16,10,R
@@ -41,11 +41,26 @@ com.victronenergy.vebus,/Mode,u,1=Charger Only;2=Inverter Only;3=On;4=Off,33,uin
 com.victronenergy.vebus,/Alarms/HighTemperature,u,0=Ok;1=Warning;2=Alarm,34,uint16,1,R
 com.victronenergy.vebus,/Alarms/LowBattery,u,0=Ok;1=Warning;2=Alarm,35,uint16,1,R
 com.victronenergy.vebus,/Alarms/Overload,u,0=Ok;1=Warning;2=Alarm,36,uint16,1,R
+com.victronenergy.vebus,/Alarms/TemperatureSensor,u,0=Ok;1=Warning;2=Alarm,42,uint16,1,R
+com.victronenergy.vebus,/Alarms/VoltageSensor,u,0=Ok;1=Warning;2=Alarm,43,uint16,1,R
+com.victronenergy.vebus,/Alarms/L1/HighTemperature,u,0=Ok;1=Warning;2=Alarm,44,uint16,1,R
+com.victronenergy.vebus,/Alarms/L1/LowBattery,u,0=Ok;1=Warning;2=Alarm,45,uint16,1,R
+com.victronenergy.vebus,/Alarms/L1/Overload,u,0=Ok;1=Warning;2=Alarm,46,uint16,1,R
+com.victronenergy.vebus,/Alarms/L1/Ripple,u,0=Ok;1=Warning;2=Alarm,47,uint16,1,R
+com.victronenergy.vebus,/Alarms/L2/HighTemperature,u,0=Ok;1=Warning;2=Alarm,48,uint16,1,R
+com.victronenergy.vebus,/Alarms/L2/LowBattery,u,0=Ok;1=Warning;2=Alarm,49,uint16,1,R
+com.victronenergy.vebus,/Alarms/L2/Overload,u,0=Ok;1=Warning;2=Alarm,50,uint16,1,R
+com.victronenergy.vebus,/Alarms/L2/Ripple,u,0=Ok;1=Warning;2=Alarm,51,uint16,1,R
+com.victronenergy.vebus,/Alarms/L3/HighTemperature,u,0=Ok;1=Warning;2=Alarm,52,uint16,1,R
+com.victronenergy.vebus,/Alarms/L3/LowBattery,u,0=Ok;1=Warning;2=Alarm,53,uint16,1,R
+com.victronenergy.vebus,/Alarms/L3/Overload,u,0=Ok;1=Warning;2=Alarm,54,uint16,1,R
+com.victronenergy.vebus,/Alarms/L3/Ripple,u,0=Ok;1=Warning;2=Alarm,55,uint16,1,R
 com.victronenergy.vebus,/Hub4/L1/AcPowerSetpoint,d,W,37,int16,1,W
 com.victronenergy.vebus,/Hub4/DisableCharge,u,0=Charge allowed;1=Charge disabled,38,uint16,1,W
 com.victronenergy.vebus,/Hub4/DisableFeedback,u,0=Feedback allowed;1=Feedback disabled,39,uint16,1,W
 com.victronenergy.vebus,/Hub4/L2/AcPowerSetpoint,d,W,40,int16,1,W
 com.victronenergy.vebus,/Hub4/L3/AcPowerSetpoint,d,W,41,int16,1,W
+com.victronenergy.vebus,/PvInverter/Disable,u,0=PV enabled;1=PV disabled,56,uint16,1,W
 com.victronenergy.battery,/ProductId,u,,256,,,R
 com.victronenergy.battery,/FirmwareVersion,u,,257,,,R
 com.victronenergy.battery,/Serial,s,,258,,,R
@@ -128,11 +143,11 @@ com.victronenergy.system,/Ac/PvOnOutput/L3/Power,d,W,810,uint16,1,R
 com.victronenergy.system,/Ac/PvOnGrid/L1/Power,d,W,811,uint16,1,R
 com.victronenergy.system,/Ac/PvOnGrid/L2/Power,d,W,812,uint16,1,R
 com.victronenergy.system,/Ac/PvOnGrid/L3/Power,d,W,813,uint16,1,R
-com.victronenergy.system,/Ac/PvOnGrid/L1/Power,d,W,814,uint16,1,R
-com.victronenergy.system,/Ac/PvOnGrid/L2/Power,d,W,815,uint16,1,R
-com.victronenergy.system,/Ac/PvOnGrid/L3/Power,d,W,816,uint16,1,R
+com.victronenergy.system,/Ac/PvOnGenset/L1/Power,d,W,814,uint16,1,R
+com.victronenergy.system,/Ac/PvOnGenset/L2/Power,d,W,815,uint16,1,R
+com.victronenergy.system,/Ac/PvOnGenset/L3/Power,d,W,816,uint16,1,R
 com.victronenergy.system,/Dc/Pv/Power,d,W,850,uint16,1,R
-com.victronenergy.system,/Dc/Pv/Current,d,A AC,851,int16,10,R
+com.victronenergy.system,/Dc/Pv/Current,d,A DC,851,int16,10,R
 com.victronenergy.system,/Dc/Charger/Power,d,W,855,uint16,1,R
 com.victronenergy.system,/Ac/Consumption/L1/Power,d,W,817,uint16,1,R
 com.victronenergy.system,/Ac/Consumption/L2/Power,d,W,818,uint16,1,R
