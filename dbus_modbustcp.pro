@@ -1,5 +1,5 @@
 # version
-VERSION = 0.9.5
+VERSION = 0.9.6
 
 # Add more folders to ship with the application here
 unix {
