@@ -61,6 +61,10 @@ com.victronenergy.vebus,/Hub4/DisableFeedback,u,0=Feedback allowed;1=Feedback di
 com.victronenergy.vebus,/Hub4/L2/AcPowerSetpoint,d,W,40,int16,1,W
 com.victronenergy.vebus,/Hub4/L3/AcPowerSetpoint,d,W,41,int16,1,W
 com.victronenergy.vebus,/PvInverter/Disable,u,0=PV enabled;1=PV disabled,56,uint16,1,W
+com.victronenergy.vebus,/Bms/AllowToCharge,u,0=No;1=Yes,57,uint16,1,R
+com.victronenergy.vebus,/Bms/AllowToDischarge,u,0=No;1=Yes,58,uint16,1,R
+com.victronenergy.vebus,/Bms/BmsExpected,u,0=No;1=Yes,59,uint16,1,R
+com.victronenergy.vebus,/Bms/Error,u,0=No;1=Yes,60,uint16,1,R
 com.victronenergy.battery,/ProductId,u,,256,,,R
 com.victronenergy.battery,/FirmwareVersion,u,,257,,,R
 com.victronenergy.battery,/Serial,s,,258,,,R
