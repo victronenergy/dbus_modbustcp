@@ -394,7 +394,7 @@ void Mappings::importCSV(const QString &filename)
 								<< "reserved more than once. Check attributes file.";
 				}
 				mDBusModbusMap.insert(reg, item);
-				QLOG_DEBUG() << "[Mappings] Add" << values;
+				QLOG_TRACE() << "[Mappings] Add" << values;
 			}
 		}
 	}
@@ -418,7 +418,7 @@ void Mappings::importUnitIDMapping(const QString &filename)
 				int deviceInstance = values.at(1).toInt(&isNumber);
 				if (isNumber) {
 					mUnitIDMap.insert(unitID, deviceInstance);
-					QLOG_DEBUG() << "[Mappings] Add" << values;
+					QLOG_TRACE() << "[Mappings] Add" << values;
 				}
 			}
 		}

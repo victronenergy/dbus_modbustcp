@@ -38,9 +38,9 @@ void Server::readyRead()
 	QLOG_DEBUG() << QString("[Server] request from: %1:%2").
 					arg(socket->peerAddress().toString()).
 					arg(socket->peerPort());
-	QLOG_DEBUG() << "[Server] request data " << tcpReq.toHex().toUpper();
+	QLOG_TRACE() << "[Server] request data " << tcpReq.toHex().toUpper();
 	ADU * request = new ADU(socket, tcpReq);
-	QLOG_DEBUG() << "[Server] Request:" << request->aduToString();
+	QLOG_TRACE() << "[Server] Request:" << request->aduToString();
 	emit modbusRequest(request);
 }
 
@@ -56,7 +56,7 @@ void Server::disconnected()
 
 void Server::modbusReply(ADU *modbusReply)
 {
-	QLOG_DEBUG() << "[Server] Reply:" << modbusReply->aduToString();
+	QLOG_TRACE() << "[Server] Reply:" << modbusReply->aduToString();
 	QTcpSocket *socket = modbusReply->getSocket();
 	if (socket == 0)
 		return;
@@ -68,7 +68,7 @@ void Server::bytesWritten(qint64 bytes)
 {
 	QTcpSocket * socket = static_cast<QTcpSocket *>(sender());
 
-	QLOG_DEBUG() << QString("[Server] bytes written: %1 %2:%3").
+	QLOG_TRACE() << QString("[Server] bytes written: %1 %2:%3").
 					arg(bytes).
 					arg(socket->peerAddress().toString()).
 					arg(socket->peerPort());
