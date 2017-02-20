@@ -57,7 +57,7 @@ com.victronenergy.vebus,/Alarms/L3/Overload,u,0=Ok;1=Warning;2=Alarm,54,uint16,1
 com.victronenergy.vebus,/Alarms/L3/Ripple,u,0=Ok;1=Warning;2=Alarm,55,uint16,1,R
 com.victronenergy.vebus,/Hub4/L1/AcPowerSetpoint,d,W,37,int16,1,W
 com.victronenergy.vebus,/Hub4/DisableCharge,u,0=Charge allowed;1=Charge disabled,38,uint16,1,W
-com.victronenergy.vebus,/Hub4/DisableFeedback,u,0=Feedback allowed;1=Feedback disabled,39,uint16,1,W
+com.victronenergy.vebus,/Hub4/DisableFeedIn,u,0=Feed in allowed;1=Feed in disabled,39,uint16,1,W
 com.victronenergy.vebus,/Hub4/L2/AcPowerSetpoint,d,W,40,int16,1,W
 com.victronenergy.vebus,/Hub4/L3/AcPowerSetpoint,d,W,41,int16,1,W
 com.victronenergy.vebus,/PvInverter/Disable,u,0=PV enabled;1=PV disabled,56,uint16,1,W
