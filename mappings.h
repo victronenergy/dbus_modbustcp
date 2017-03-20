@@ -85,6 +85,8 @@ private:
 		int offset() const;
 		/// The address associated with the current VeQItem.
 		int address() const;
+		/// The number of registers to mapped to the data from the current VeQItem.
+		int registerCount() const;
 
 	private:
 		void setError(MappingErrors error, const QString &errorString);
@@ -92,6 +94,7 @@ private:
 		QMap<int, DBusModbusData *>::ConstIterator mCurrent;
 		int mQuantity;
 		int mOffset;
+		int mRegisterCount;
 		VeQItem *mServiceRoot;
 		QString mErrorString;
 		MappingErrors mError;
