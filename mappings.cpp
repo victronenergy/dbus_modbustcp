@@ -131,12 +131,14 @@ void Mappings::getValues(MappingRequest *request)
 			QLOG_TRACE() << "Value not available" << it.data()->objectPath;
 		}
 		QVariant dbusValue = item->getValue();
-		quint16 value = getValue(dbusValue, it.data()->modbusType, it.offset(),
-								 it.data()->scaleFactor);
-		replyData[j++] = static_cast<char>(value >> 8);
-		replyData[j++] = static_cast<char>(value);
-		QLOG_DEBUG() << "Get dbus value" << it.data()->objectPath
-					 << "offset" << it.offset() << ':' << dbusValue.toString();
+		for (int i = 0; i<it.registerCount(); ++i) {
+			quint16 value = getValue(dbusValue, it.data()->modbusType, it.offset() + i,
+									 it.data()->scaleFactor);
+			replyData[j++] = static_cast<char>(value >> 8);
+			replyData[j++] = static_cast<char>(value);
+			QLOG_DEBUG() << "Get dbus value" << it.data()->objectPath
+						 << "offset" << it.offset() << ':' << dbusValue.toString();
+		}
 	}
 	if (it.error() != NoError) {
 		request->setError(it.error(), it.errorString());
@@ -150,21 +152,27 @@ void Mappings::setValues(MappingRequest *request)
 {
 	DataIterator it(this, request->address(), request->unitId(), request->quantity());
 	int j = 0;
+	const QByteArray &data = request->data();
 	for (;!it.atEnd(); it.next()) {
 		Q_ASSERT(it.error() == NoError);
 		VeQItem *item = it.item();
 		Q_ASSERT(item->getState() != VeQItem::Requested && item->getState() != VeQItem::Idle);
 		quint32 value = 0;
 		if (it.registerCount() < it.data()->size || it.offset() > 0) {
+			// The write request does not cover all registers mapped to the current item, so we
+			// retrieve the current value and overwrite parts of it with data from the request
+			// later.
 			QVariant dbusValue = item->getValue();
 			for (int i=0; i<it.data()->size; ++i) {
 				quint16 v = getValue(dbusValue, it.data()->modbusType, i, it.data()->scaleFactor);
 				value = (value << 16) | v;
 			}
 		}
-		for (int i=it.registerCount(); i>0; --i, j+=2) {
+		// Copy the request data to `value`. Take care not to overwrite parts of `value` not
+		// covered by the request.
+		for (int i=0; i<it.registerCount(); ++i, j+=2) {
 			quint16 v = (static_cast<quint8>(data[j]) << 8) | static_cast<quint8>(data[j+1]);
-			int shift = 16 * (it.data()->size - i - it.offset());
+			int shift = 16 * (it.data()->size - i - it.offset() - 1);
 			value = (value & ~(0xFFFFu << shift)) | (v << shift);
 		}
 		QVariant dbusValue;
@@ -175,6 +183,14 @@ void Mappings::setValues(MappingRequest *request)
 			break;
 		case mb_type_uint16:
 			dbusValue = convertToDbus(it.data()->dbusType, static_cast<quint16>(value),
+									  it.data()->scaleFactor);
+			break;
+		case mb_type_int32:
+			dbusValue = convertToDbus(it.data()->dbusType, static_cast<qint32>(value),
+									  it.data()->scaleFactor);
+			break;
+		case mb_type_uint32:
+			dbusValue = convertToDbus(it.data()->dbusType, static_cast<quint32>(value),
 									  it.data()->scaleFactor);
 			break;
 		default:
@@ -378,11 +394,6 @@ void Mappings::importCSV(const QString &filename)
 				case mb_type_int32:
 				case mb_type_uint32:
 					item->size = 2;
-					if (item->accessRights == mb_perm_write) {
-						item->accessRights = mb_perm_read;
-						QLOG_WARN() << "[Mappings] Register"  << values.at(4)
-									<< ": cannot write uin32/int32 values";
-					}
 					break;
 				default:
 					item->size = 1;
@@ -430,6 +441,7 @@ Mappings::DataIterator::DataIterator(const Mappings *mappings, int address, int 
 	mMappings(mappings),
 	mQuantity(quantity),
 	mOffset(0),
+	mRegisterCount(0),
 	mServiceRoot(0),
 	mError(NoError)
 {
@@ -454,13 +466,13 @@ Mappings::DataIterator::DataIterator(const Mappings *mappings, int address, int 
 		deviceInstance = uIt.value();
 	}
 
-	// iterator is value and points to the first item with key >= modbusAddress
 	mCurrent = mMappings->mDBusModbusMap.lowerBound(address);
 	if (mCurrent == mMappings->mDBusModbusMap.end()) {
 		setError(StartAddressError, QString("Modbus address %1 is not registered").arg(address));
 		return;
 	}
-	if (mCurrent.key() != address) {
+	Q_ASSERT(mCurrent.key() >= address);
+	if (mCurrent.key() > address) {
 		if (mCurrent == mMappings->mDBusModbusMap.begin()) {
 			setError(StartAddressError, QString("Modbus address %1 is not registered").arg(address));
 			return;
@@ -475,7 +487,14 @@ Mappings::DataIterator::DataIterator(const Mappings *mappings, int address, int 
 			return;
 		}
 	}
+	Q_ASSERT(mCurrent.key() <= address);
+	Q_ASSERT(mCurrent.key() + mCurrent.value()->size > address);
 	mOffset = address - mCurrent.key();
+	Q_ASSERT(mOffset >= 0);
+	mRegisterCount = qMin(mCurrent.key() + mCurrent.value()->size - address, quantity);
+	Q_ASSERT(mRegisterCount > 0);
+	Q_ASSERT(mRegisterCount <= mCurrent.value()->size);
+	Q_ASSERT(mRegisterCount <= quantity);
 
 	// Get service from the first modbus address. The service must be the same
 	// for the complete address range therefore the service pointer has to be
@@ -506,16 +525,13 @@ void Mappings::DataIterator::next()
 {
 	if (mCurrent == mMappings->mDBusModbusMap.end())
 		return;
-	--mQuantity;
+	mQuantity -= mRegisterCount;
+	Q_ASSERT(mQuantity >= 0);
 	if (mQuantity == 0) {
 		mCurrent = mMappings->mDBusModbusMap.end();
 		return;
 	}
-	++mOffset;
 	DBusModbusData *d = mCurrent.value();
-	Q_ASSERT(mOffset <= d->size);
-	if (mOffset < d->size)
-		return;
 	int oldAddress = mCurrent.key();
 	++mCurrent;
 	int newAddress = oldAddress + d->size;
@@ -524,6 +540,7 @@ void Mappings::DataIterator::next()
 		return;
 	}
 	mOffset = 0;
+	mRegisterCount = qMin(mCurrent.value()->size, mQuantity);
 }
 
 bool Mappings::DataIterator::atEnd() const
@@ -553,6 +570,11 @@ int Mappings::DataIterator::offset() const
 int Mappings::DataIterator::address() const
 {
 	return mCurrent == mMappings->mDBusModbusMap.end() ? -1 : mCurrent.key() + mOffset;
+}
+
+int Mappings::DataIterator::registerCount() const
+{
+	return mRegisterCount;
 }
 
 void Mappings::DataIterator::setError(MappingErrors error, const QString &errorString)
