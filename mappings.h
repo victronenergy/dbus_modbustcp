@@ -9,6 +9,7 @@
 #include "mapping_request.h"
 
 class DBusServices;
+class QTextStream;
 class VeQItem;
 class VeQItemInitMonitor;
 
@@ -19,6 +20,14 @@ public:
 	Mappings(DBusServices *services, QObject *parent = 0);
 
 	~Mappings();
+
+	void importCSV(const QString &filename);
+
+	void importCSV(QTextStream &filename);
+
+	void importUnitIDMapping(const QString &filename);
+
+	void importUnitIDMapping(QTextStream &filename);
 
 	int getUnitId(int deviceInstance) const;
 
@@ -107,8 +116,6 @@ private:
 	void addPendingRequest(MappingRequest *request, const QList<VeQItem *> &pendingItems);
 	static quint16 getValue(const QVariant &dbusValue, const ModbusTypes modbusType, int offset,
 							double scaleFactor);
-	void importCSV(const QString &filename);
-	void importUnitIDMapping(const QString &filename);
 	template<class rettype> static rettype convertFromDbus(const QVariant &value, double scaleFactor);
 	template<class argtype> static QVariant convertToDbus(const QMetaType::Type dbusType, argtype value,
 														  double scaleFactor);
