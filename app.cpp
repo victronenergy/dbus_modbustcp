@@ -9,6 +9,8 @@ App::App(VeQItem *subRoot, VeQItem *pubRoot, int tcpPort, QObject *parent) :
 	mDBusServices(subRoot, parent),
 	mMapping(&mDBusServices, parent)
 {
+	mMapping.importCSV("attributes.csv");
+	mMapping.importUnitIDMapping("unitid2di.csv");
 	connect(&mServer, SIGNAL(modbusRequest(ADU*)), &mBackend, SLOT(modbusRequest(ADU*)));
 	connect(&mBackend, SIGNAL(modbusReply(ADU*)), &mServer, SLOT(modbusReply(ADU*)));
 	connect(&mBackend, SIGNAL(mappingRequest(MappingRequest *)), &mMapping, SLOT(handleRequest(MappingRequest *)));

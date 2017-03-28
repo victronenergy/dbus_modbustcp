@@ -10,22 +10,109 @@
 #include "QsLog.h"
 #include "ve_qitem_init_monitor.h"
 
-const QString attributesFile = "attributes.csv";
-const QString unitIDFile = "unitid2di.csv";
 const QString stringType = "string";
 
 Mappings::Mappings(DBusServices *services, QObject *parent) :
 	QObject(parent),
 	mServices(services)
 {
-	importCSV(attributesFile);
-	importUnitIDMapping(unitIDFile);
 }
 
 Mappings::~Mappings()
 {
 	foreach(DBusModbusData *m, mDBusModbusMap)
 		delete m;
+}
+
+void Mappings::importCSV(const QString &filename)
+{
+	QFile file(QCoreApplication::applicationDirPath() + "/" + filename);
+	if (!file.open(QIODevice::ReadOnly)) {
+		QLOG_ERROR() << "Can not open file" << filename;
+		return;
+	}
+	QTextStream in(&file);
+	importCSV(in);
+}
+
+void Mappings::importCSV(QTextStream &in)
+{
+	while (!in.atEnd()) {
+		QString line = in.readLine();
+		QStringList values = line.split(",");
+		if (values.size() >= 8) {
+			ModbusTypes modbusType = convertModbusType(values.at(5));
+			if (modbusType != mb_type_none) {
+				DBusModbusData * item = new DBusModbusData();
+				item->deviceType = DBusService::getDeviceType(values.at(0));
+				item->objectPath = values.at(1);
+				item->modbusType = convertModbusType(values.at(5));
+				item->scaleFactor = values.at(6).toDouble();
+				if (item->scaleFactor == 0)
+					item->scaleFactor = 1;
+				item->dbusType = convertDbusType(values.at(2));
+				if (item->dbusType == QMetaType::Void) {
+					QLOG_WARN() << "[Mappings] Register" << values.at(4)
+								<< ": register has no type";
+				}
+				item->accessRights = convertPermissions(values.at(7));
+				switch (item->modbusType) {
+				case mb_type_string:
+					item->size = convertStringSize(values.at(5));
+					if (item->accessRights == mb_perm_write) {
+						item->accessRights = mb_perm_read;
+						QLOG_WARN() << "[Mappings] Register" << values.at(4)
+									<< ": cannot write string values";
+					}
+					break;
+				case mb_type_int32:
+				case mb_type_uint32:
+					item->size = 2;
+					break;
+				default:
+					item->size = 1;
+					break;
+				}
+				int reg = values.at(4).toInt();
+				if (mDBusModbusMap.find(reg) != mDBusModbusMap.end()) {
+					QLOG_WARN() << "[Mappings] Register" << reg
+								<< "reserved more than once. Check attributes file.";
+				}
+				mDBusModbusMap.insert(reg, item);
+				QLOG_TRACE() << "[Mappings] Add" << values;
+			}
+		}
+	}
+}
+
+void Mappings::importUnitIDMapping(const QString &filename)
+{
+	QFile file(QCoreApplication::applicationDirPath() + "/" + filename);
+	if (!file.open(QIODevice::ReadOnly)) {
+		QLOG_ERROR() << "Can not open file" << filename;
+		return;
+	}
+	QTextStream in(&file);
+	importUnitIDMapping(in);
+}
+
+void Mappings::importUnitIDMapping(QTextStream &in)
+{
+	while (!in.atEnd()) {
+		QString line = in.readLine();
+		QStringList values = line.split(",");
+		if (values.size() >= 2) {
+			bool isNumber;
+			int unitID = values.at(0).toInt(&isNumber);
+			if (isNumber) {
+				int deviceInstance = values.at(1).toInt(&isNumber);
+				if (isNumber) {
+					mUnitIDMap.insert(unitID, deviceInstance);
+					QLOG_TRACE() << "[Mappings] Add" << values;
+				}
+			}
+		}
+	}
 }
 
 int Mappings::getUnitId(int deviceInstance) const
@@ -353,87 +440,6 @@ int Mappings::convertStringSize(const QString &typeString)
 	int offset = stringType.size() + 1;
 	int count = typeString.size() - stringType.size() - 2;
 	return typeString.mid(offset, count).toInt();
-}
-
-void Mappings::importCSV(const QString &filename)
-{
-	QFile file(QCoreApplication::applicationDirPath() + "/" + filename);
-	if (!file.open(QIODevice::ReadOnly)) {
-		QLOG_ERROR() << "Can not open file" << filename;
-		return;
-	}
-	QTextStream in(&file);
-	while (!in.atEnd()) {
-		QString line = in.readLine();
-		QStringList values = line.split(",");
-		if (values.size() >= 8) {
-			ModbusTypes modbusType = convertModbusType(values.at(5));
-			if (modbusType != mb_type_none) {
-				DBusModbusData * item = new DBusModbusData();
-				item->deviceType = DBusService::getDeviceType(values.at(0));
-				item->objectPath = values.at(1);
-				item->modbusType = convertModbusType(values.at(5));
-				item->scaleFactor = values.at(6).toDouble();
-				if (item->scaleFactor == 0)
-					item->scaleFactor = 1;
-				item->dbusType = convertDbusType(values.at(2));
-				if (item->dbusType == QMetaType::Void) {
-					QLOG_WARN() << "[Mappings] Register" << values.at(4)
-								<< ": register has no type";
-				}
-				item->accessRights = convertPermissions(values.at(7));
-				switch (item->modbusType) {
-				case mb_type_string:
-					item->size = convertStringSize(values.at(5));
-					if (item->accessRights == mb_perm_write) {
-						item->accessRights = mb_perm_read;
-						QLOG_WARN() << "[Mappings] Register" << values.at(4)
-									<< ": cannot write string values";
-					}
-					break;
-				case mb_type_int32:
-				case mb_type_uint32:
-					item->size = 2;
-					break;
-				default:
-					item->size = 1;
-					break;
-				}
-				int reg = values.at(4).toInt();
-				if (mDBusModbusMap.find(reg) != mDBusModbusMap.end()) {
-					QLOG_WARN() << "[Mappings] Register" << reg
-								<< "reserved more than once. Check attributes file.";
-				}
-				mDBusModbusMap.insert(reg, item);
-				QLOG_TRACE() << "[Mappings] Add" << values;
-			}
-		}
-	}
-}
-
-void Mappings::importUnitIDMapping(const QString &filename)
-{
-	QFile file(QCoreApplication::applicationDirPath() + "/" + filename);
-	if (!file.open(QIODevice::ReadOnly)) {
-		QLOG_ERROR() << "Can not open file" << filename;
-		return;
-	}
-	QTextStream in(&file);
-	while (!in.atEnd()) {
-		QString line = in.readLine();
-		QStringList values = line.split(",");
-		if (values.size() >= 2) {
-			bool isNumber;
-			int unitID = values.at(0).toInt(&isNumber);
-			if (isNumber) {
-				int deviceInstance = values.at(1).toInt(&isNumber);
-				if (isNumber) {
-					mUnitIDMap.insert(unitID, deviceInstance);
-					QLOG_TRACE() << "[Mappings] Add" << values;
-				}
-			}
-		}
-	}
 }
 
 Mappings::DataIterator::DataIterator(const Mappings *mappings, int address, int unitId,
