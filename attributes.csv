@@ -256,3 +256,18 @@ com.victronenergy.tank,/Capacity,d,m3,3001,uint32,10000,R
 com.victronenergy.tank,/FluidType,u,0=Fuel;1=Fresh water;2=Waste water;3=Live well;4=Oil;5=Black water (sewage),3003,uint16,1,R
 com.victronenergy.tank,/Level,d,%,3004,uint16,10,R
 com.victronenergy.tank,/Remaining,d,m3,3005,uint32,10000,R
+com.victronenergy.inverter,/Ac/Out/L1/I,d,A AC,3100,int16,10,R
+com.victronenergy.inverter,/Ac/Out/L1/V,d,V AC,3101,uint16,10,R
+com.victronenergy.inverter,/Alarms/HighTemperature,u,0=No alarm;1=Warning;2=Alarm,3110,uint16,1,R
+com.victronenergy.inverter,/Alarms/HighVoltage,u,0=No alarm;1=Warning;2=Alarm,3111,uint16,1,R
+com.victronenergy.inverter,/Alarms/HighVoltageAcOut,u,0=No alarm;1=Warning;2=Alarm,3112,uint16,1,R
+com.victronenergy.inverter,/Alarms/LowTemperature,u,0=No alarm;1=Warning;2=Alarm,3113,uint16,1,R
+com.victronenergy.inverter,/Alarms/LowVoltage,u,0=No alarm;1=Warning;2=Alarm,3114,uint16,1,R
+com.victronenergy.inverter,/Alarms/LowVoltageAcOut,u,0=No alarm;1=Warning;2=Alarm,3115,uint16,1,R
+com.victronenergy.inverter,/Alarms/Overload,u,0=No alarm;1=Warning;2=Alarm,3116,uint16,1,R
+com.victronenergy.inverter,/Alarms/Ripple,u,0=No alarm;1=Warning;2=Alarm,3117,uint16,1,R
+com.victronenergy.inverter,/Dc/0/Voltage,d,V DC,3105,uint16,100,R
+com.victronenergy.inverter,/FirmwareVersion,u,,3125,uint16,1,R
+com.victronenergy.inverter,/Mode,u,2=On;4=Off;5=Eco,3126,uint16,1,W
+com.victronenergy.inverter,/ProductId,u,,3127,uint16,1,R
+com.victronenergy.inverter,/State,u,0=Off;1=Low power mode (search mode);2=Fault;9=Inverting (on),3128,uint16,1,R
