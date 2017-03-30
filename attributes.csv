@@ -79,7 +79,7 @@ com.victronenergy.battery,/Soc,y,%,266,uint16,10,R
 com.victronenergy.battery,/Soh,y,%,304,uint16,10,R
 com.victronenergy.battery,/TimeToGo,q,seconds,303,uint16,0.01,R
 com.victronenergy.battery,/Info/MaxChargeVoltage,u,V DC,305,uint16,10,R
-com.victronenergy.battery,/Info/MaxDischargeVoltage,u,V DC,306,uint16,10,R
+com.victronenergy.battery,/Info/BatteryLowVoltage,u,V DC,306,uint16,10,R
 com.victronenergy.battery,/Info/MaxChargeCurrent,u,A DC,307,uint16,10,R
 com.victronenergy.battery,/Info/MaxDischargeCurrent,u,A DC,308,uint16,10,R
 com.victronenergy.battery,/Alarms/Alarm,y,0=No alarm;2=Alarm,267,uint16,1,R
