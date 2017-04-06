@@ -118,6 +118,33 @@ com.victronenergy.battery,/History/MinimumFusedVoltage,d,V DC,299,uint16,100,R
 com.victronenergy.battery,/History/MaximumFusedVoltage,d,V DC,300,uint16,100,R
 com.victronenergy.battery,/History/DischargedEnergy,d,kWh,301,uint16,10,R
 com.victronenergy.battery,/History/ChargedEnergy,d,kWh,302,uint16,10,R
+com.victronenergy.battery,/Capacity,d,Ah,339,uint16,10,R
+com.victronenergy.battery,/State,y,0=Initializing (Wait start);1=Initializing (before boot);2=Initializing (Before boot delay);3=Initializing (Wait boot);4=Initializing;5=Initializing (Measure battery voltage);6=Initializing (Calculate battery voltage);7=Initializing (Wait bus voltage);8=Initializing (Wait for lynx shunt);9=Running;10=Error (10);11=Error (11),309,uint16,1,R
+com.victronenergy.battery,/ErrorCode,y,0=No error;1=Battery initialization error;2=No batteries connected;3=Unknown battery connected;4=Different battery type;5=Number of batteries incorrect;6=Lynx Shunt not found;7=Battery measure error;8=Internal calculation error;9=Batteries in series not ok;10=Number of batteries incorrect;11=Hardware error;12=Watchdog error;13=Over voltage;14=Under voltage;15=Over temperature;16=Under temperature;17=Hardware fault;18=Standby shutdown;19=Pre-charge charge error;20=Safety contactor check error;21=Pre-charge discharge error;22=ADC error;23=Slave error;24=Slave warning;25=Pre-charge error;26=Safety contactor error;27=Over current;28=Slave update failed;29=Slave update unavailable,310,uint16,1,R
+com.victronenergy.battery,/SystemSwitch,y,0=Disabled;1=Enabled,311,uint16,1,R
+com.victronenergy.battery,/Balancing,y,0=Inactive;1=Active,312,uint16,1,R
+com.victronenergy.battery,/System/NrOfBatteries,y,count,313,uint16,1,R
+com.victronenergy.battery,/System/BatteriesParallel,y,count,314,uint16,1,R
+com.victronenergy.battery,/System/BatteriesSeries,y,count,315,uint16,1,R
+com.victronenergy.battery,/System/NrOfCellsPerBattery,y,count,316,uint16,1,R
+com.victronenergy.battery,/System/MinCellVoltage,d,V DC,317,uint16,100,R
+com.victronenergy.battery,/System/MaxCellVoltage,d,V DC,318,uint16,100,R
+com.victronenergy.battery,/Diagnostics/ShutDownsDueError,q,count,319,uint16,1,R
+com.victronenergy.battery,/Diagnostics/LastErrors/1/Error,y,0=No error;1=Battery initialization error;2=No batteries connected;3=Unknown battery connected;4=Different battery type;5=Number of batteries incorrect;6=Lynx Shunt not found;7=Battery measure error;8=Internal calculation error;9=Batteries in series not ok;10=Number of batteries incorrect;11=Hardware error;12=Watchdog error;13=Over voltage;14=Under voltage;15=Over temperature;16=Under temperature;17=Hardware fault;18=Standby shutdown;19=Pre-charge charge error;20=Safety contactor check error;21=Pre-charge discharge error;22=ADC error;23=Slave error;24=Slave warning;25=Pre-charge error;26=Safety contactor error;27=Over current;28=Slave update failed;29=Slave update unavailable,320,uint16,1,R
+com.victronenergy.battery,/Diagnostics/LastErrors/2/Error,y,0=No error;1=Battery initialization error;2=No batteries connected;3=Unknown battery connected;4=Different battery type;5=Number of batteries incorrect;6=Lynx Shunt not found;7=Battery measure error;8=Internal calculation error;9=Batteries in series not ok;10=Number of batteries incorrect;11=Hardware error;12=Watchdog error;13=Over voltage;14=Under voltage;15=Over temperature;16=Under temperature;17=Hardware fault;18=Standby shutdown;19=Pre-charge charge error;20=Safety contactor check error;21=Pre-charge discharge error;22=ADC error;23=Slave error;24=Slave warning;25=Pre-charge error;26=Safety contactor error;27=Over current;28=Slave update failed;29=Slave update unavailable,321,uint16,1,R
+com.victronenergy.battery,/Diagnostics/LastErrors/3/Error,y,0=No error;1=Battery initialization error;2=No batteries connected;3=Unknown battery connected;4=Different battery type;5=Number of batteries incorrect;6=Lynx Shunt not found;7=Battery measure error;8=Internal calculation error;9=Batteries in series not ok;10=Number of batteries incorrect;11=Hardware error;12=Watchdog error;13=Over voltage;14=Under voltage;15=Over temperature;16=Under temperature;17=Hardware fault;18=Standby shutdown;19=Pre-charge charge error;20=Safety contactor check error;21=Pre-charge discharge error;22=ADC error;23=Slave error;24=Slave warning;25=Pre-charge error;26=Safety contactor error;27=Over current;28=Slave update failed;29=Slave update unavailable,322,uint16,1,R
+com.victronenergy.battery,/Diagnostics/LastErrors/4/Error,y,0=No error;1=Battery initialization error;2=No batteries connected;3=Unknown battery connected;4=Different battery type;5=Number of batteries incorrect;6=Lynx Shunt not found;7=Battery measure error;8=Internal calculation error;9=Batteries in series not ok;10=Number of batteries incorrect;11=Hardware error;12=Watchdog error;13=Over voltage;14=Under voltage;15=Over temperature;16=Under temperature;17=Hardware fault;18=Standby shutdown;19=Pre-charge charge error;20=Safety contactor check error;21=Pre-charge discharge error;22=ADC error;23=Slave error;24=Slave warning;25=Pre-charge error;26=Safety contactor error;27=Over current;28=Slave update failed;29=Slave update unavailable,323,uint16,1,R
+com.victronenergy.battery,/Diagnostics/LastErrors/1/Time,u,,324,int32,1,R
+com.victronenergy.battery,/Diagnostics/LastErrors/2/Time,u,,326,int32,1,R
+com.victronenergy.battery,/Diagnostics/LastErrors/3/Time,u,,328,int32,1,R
+com.victronenergy.battery,/Diagnostics/LastErrors/4/Time,u,,330,int32,1,R
+com.victronenergy.battery,/System/MinCellTemperature,d,Degrees celsius,332,int16,10,R
+com.victronenergy.battery,/System/MaxCellTemperature,d,Degrees celsius,333,int16,10,R
+com.victronenergy.battery,/Io/AllowToCharge,y,0=No;1=Yes,334,uint16,1,R
+com.victronenergy.battery,/Io/AllowToDischarge,y,0=No;1=Yes,335,uint16,1,R
+com.victronenergy.battery,/Io/ExternalRelay,y,0=Inactive;1=Active,336,uint16,1,R
+com.victronenergy.battery,/History/MinimumCellVoltage,d,V DC,337,uint16,100,R
+com.victronenergy.battery,/History/MaximumCellVoltage,d,V DC,338,uint16,100,R
 com.victronenergy.solarcharger,/ProductId,u,,768,,,R
 com.victronenergy.solarcharger,/FirmwareVersion,u,,769,,,R
 com.victronenergy.solarcharger,/Serial,s,,770,,,R
