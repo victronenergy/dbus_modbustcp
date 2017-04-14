@@ -277,3 +277,27 @@ com.victronenergy.inverter,/Alarms/Ripple,u,0=No alarm;1=Warning;2=Alarm,3117,ui
 com.victronenergy.inverter,/Dc/0/Voltage,d,V DC,3105,uint16,100,R
 com.victronenergy.inverter,/Mode,u,2=On;4=Off;5=Eco,3126,uint16,1,W
 com.victronenergy.inverter,/State,u,0=Off;1=Low power mode (search mode);2=Fault;9=Inverting (on),3128,uint16,1,R
+com.victronenergy.genset,/ProductId,u,,3212,uint16,1,R
+com.victronenergy.genset,/StatusCode,u,0=Standby;1=Startup 1;2=Startup 2;3=Startup 3;4=Startup 4;5=Startup 5;6=Startup 6;7=Startup 7;8=Running;9=Stopping;10=Error,3213,uint16,1,R
+com.victronenergy.genset,/ErrorCode,u,0=No error;1=AC voltage L1 too low;2=AC frequency L1 too low;3=AC current too low;4=AC power too low;5=Emergency stop;6=Servo current too low;7=Oil pressure too low;8=Engine temperature too low;9=Winding temperature too low;10=Exhaust temperature too low;13=Starter current too low;14=Glow current too low;15=Glow current too low;16=Fuel holding magnet current too low;17=Stop solenoid hold coil current too low;18=Stop solenoid pull coil current too low;19=Optional DC out current too low;20=5V output voltage too low;21=Boost output current too low;22=Panel supply current too high;25=Starter battery voltage too low;26=Startup aborted (rotation too low);28=Rotation too low;29=Power contactor current too low;30=AC voltage L2 too low;31=AC frequency L2 too low;32=AC current L2 too low;33=AC power L2 too low;34=AC voltage L3 too low;35=AC frequency L3 too low;36=AC current L3 too low;37=AC power L3 too low;62=Fuel temperature too low;63=Fuel level too low;65=AC voltage L1 too high;66=AC frequency too high;67=AC current too high;68=AC power too high;70=Servo current too high;71=Oil pressure too high;72=Engine temperature too high;73=Winding temperature too high;74=Exhaust temperature too low;77=Starter current too low;78=Glow current too high;79=Glow current too high;80=Fuel holding magnet current too high;81=Stop solenoid hold coil current too high;82=Stop solenoid pull coil current too high;83=Optional DC out current too high;84=5V output voltage too high;85=Boost output current too high;89=Starter battery voltage too high;90=Startup aborted (rotation too high);92=Rotation too high;93=Power contactor current too high;94=AC voltage L2 too high;95=AC frequency L2 too high;96=AC current L2 too high;97=AC power L2 too high;98=AC voltage L3 too high;99=AC frequency L3 too high;100=AC current L3 too high;101=AC power L3 too high;126=Fuel temperature too high;127=Fuel level too high;130=Lost control unit;131=Lost panel;132=Service needed;133=Lost 3-phase module;134=Lost AGT module;135=Synchronization failure;137=Intake airfilter;139=Lost sync. module;140=Load-balance failed;141=Sync-mode deactivated;142=Engine controller;148=Rotating field wrong;149=Fuel level sensor lost;150=Init failed;151=Watchdog;152=Out: winding;153=Out: exhaust;154=Out: Cyl. head;155=Inverter over temperature;156=Inverter overload;157=Inverter communication lost;158=Inverter sync failed;159=CAN communication lost;160=L1 overload;161=L2 overload;162=L3 overload;163=DC overload;164=DC overvoltage;165=Emergency stop;166=No connection,3214,uint16,1,R
+com.victronenergy.genset,/AutoStart,u,0=Disabled;1=Enabled,3215,uint16,1,R
+com.victronenergy.genset,/Start,u,0=Stop;1=Start,3223,uint16,1,W
+com.victronenergy.genset,/Engine/Load,d,%,3216,uint16,1,R
+com.victronenergy.genset,/Engine/Speed,d,RPM,3217,uint16,1,R
+com.victronenergy.genset,/Engine/OperatingHours,d,s,3218,uint16,0.01,R
+com.victronenergy.genset,/Engine/CoolantTemperature,d,Degrees celsius,3219,int16,10,R
+com.victronenergy.genset,/Engine/WindingTemperature,d,Degrees celsius,3220,int16,10,R
+com.victronenergy.genset,/Engine/ExaustTemperature,d,Degrees celsius,3221,int16,10,R
+com.victronenergy.genset,/StarterVoltage,d,V DC,3222,uint16,100,R
+com.victronenergy.genset,/Ac/L1/Voltage,d,V AC,3200,uint16,10,R
+com.victronenergy.genset,/Ac/L1/Current,d,A AC,3203,int16,10,R
+com.victronenergy.genset,/Ac/L1/Power,d,W,3206,int16,1,R
+com.victronenergy.genset,/Ac/L1/Frequency,d,Hz,3209,uint16,100,R
+com.victronenergy.genset,/Ac/L2/Voltage,d,V AC,3201,uint16,10,R
+com.victronenergy.genset,/Ac/L2/Current,d,A AC,3204,int16,10,R
+com.victronenergy.genset,/Ac/L2/Power,d,W,3207,int16,1,R
+com.victronenergy.genset,/Ac/L2/Frequency,d,Hz,3210,uint16,100,R
+com.victronenergy.genset,/Ac/L3/Voltage,d,V AC,3202,uint16,10,R
+com.victronenergy.genset,/Ac/L3/Current,d,A AC,3205,int16,10,R
+com.victronenergy.genset,/Ac/L3/Power,d,W,3208,int16,1,R
+com.victronenergy.genset,/Ac/L3/Frequency,d,Hz,3211,uint16,100,R
