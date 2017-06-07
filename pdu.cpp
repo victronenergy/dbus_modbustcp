@@ -46,18 +46,18 @@ const QMap <int,QString> PDU::initExceptionMap()
 }
 const QMap <int,QString> PDU::exceptionMap = initExceptionMap();
 
-PDU::PDU()
+PDU::PDU():
+	mFunctionCode(0),
+	mExeptionCode(NoExeption)
 {
-	mFunctionCode = 0;
-	mExeptionCode = NoExeption;
 }
 
-PDU::PDU(const QByteArray & pduRequest)
-{
+PDU::PDU(const QByteArray & pduRequest):
 	// First 6 byte are MBAP Header so starting with 7
-	mFunctionCode = pduRequest[7];
-	mExeptionCode = NoExeption;
-	mData = pduRequest.mid(8);
+	mFunctionCode(pduRequest[7]),
+	mExeptionCode(NoExeption),
+	mData(pduRequest.mid(8))
+{
 }
 
 void PDU::setData(const QByteArray & data)

@@ -106,7 +106,11 @@ void Mappings::importUnitIDMapping(QTextStream &in)
 			int unitID = values.at(0).toInt(&isNumber);
 			if (isNumber) {
 				int deviceInstance = values.at(1).toInt(&isNumber);
-				if (isNumber) {
+				// Only add unitID if it is not equal to the device instance, because if a unit ID
+				// in a request cannot be found in mUnitIDMap, we will assume
+				// unit ID == device instance. Adding these value pairs will only make mUnitIDMap
+				// longer without changing the behavior of the application.
+				if (isNumber && unitID != deviceInstance) {
 					mUnitIDMap.insert(unitID, deviceInstance);
 					QLOG_TRACE() << "[Mappings] Add" << values;
 				}
@@ -209,8 +213,8 @@ quint16 Mappings::getValue(const QVariant &dbusValue, ModbusTypes modbusType, in
 void Mappings::getValues(MappingRequest *request)
 {
 	DataIterator it(this, request->address(), request->unitId(), request->quantity());
-	int j = 0;
 	QByteArray &replyData = request->data();
+	replyData.reserve(2 * request->quantity());
 	for (;!it.atEnd(); it.next()) {
 		Q_ASSERT(it.error() == NoError);
 		VeQItem *item = it.item();
@@ -221,8 +225,8 @@ void Mappings::getValues(MappingRequest *request)
 		for (int i = 0; i<it.registerCount(); ++i) {
 			quint16 value = getValue(dbusValue, it.data()->modbusType, it.offset() + i,
 									 it.data()->scaleFactor);
-			replyData[j++] = static_cast<char>(value >> 8);
-			replyData[j++] = static_cast<char>(value);
+			replyData.append(static_cast<char>(value >> 8));
+			replyData.append(static_cast<char>(value));
 			QLOG_DEBUG() << "Get dbus value" << it.data()->objectPath
 						 << "offset" << it.offset() << ':' << dbusValue.toString();
 		}
@@ -318,9 +322,14 @@ void Mappings::addPendingRequest(MappingRequest *request, const QList<VeQItem *>
 	VeQItemInitMonitor *monitor = new VeQItemInitMonitor(this);
 	foreach (VeQItem *item, pendingItems)
 		monitor->addItem(item);
-	mPendingRequests[monitor] = request;
-	connect(monitor, SIGNAL(initialized()), this, SLOT(onItemsInitialized()));
 	monitor->start();
+	if (monitor->checkState()) {
+		onItemsInitialized(request);
+		delete  monitor;
+	} else {
+		mPendingRequests[monitor] = request;
+		connect(monitor, SIGNAL(initialized()), this, SLOT(onItemsInitialized()));
+	}
 }
 
 template<class rettype> rettype Mappings::convertFromDbus(const QVariant &value, double scaleFactor)
@@ -448,7 +457,6 @@ Mappings::DataIterator::DataIterator(const Mappings *mappings, int address, int 
 	mQuantity(quantity),
 	mOffset(0),
 	mRegisterCount(0),
-	mServiceRoot(0),
 	mError(NoError)
 {
 	if (quantity <= 0) {
@@ -505,16 +513,14 @@ Mappings::DataIterator::DataIterator(const Mappings *mappings, int address, int 
 	// Get service from the first modbus address. The service must be the same
 	// for the complete address range therefore the service pointer has to be
 	// fetched and checked only once
-	DBusService *service = mMappings->mServices->getService(mCurrent.value()->deviceType,
-															deviceInstance);
-	if (service == 0) {
+	mService = mMappings->mServices->getService(mCurrent.value()->deviceType, deviceInstance);
+	if (mService == 0) {
 		QString msg = QString("Error finding service with device type %1 at device instance %2").
 				arg(mCurrent.value()->deviceType).
 				arg(deviceInstance);
 		setError(ServiceError, msg);
 		return;
 	}
-	mServiceRoot = service->getServiceRoot();
 }
 
 MappingErrors Mappings::DataIterator::error() const
@@ -565,7 +571,7 @@ VeQItem *Mappings::DataIterator::item() const
 {
 	if (mCurrent == mMappings->mDBusModbusMap.end())
 		return 0;
-	return mServiceRoot->itemGetOrCreate(mCurrent.value()->objectPath);
+	return mService->getItem(mCurrent.value()->objectPath);
 }
 
 int Mappings::DataIterator::offset() const

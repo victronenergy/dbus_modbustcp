@@ -13,8 +13,7 @@ public:
 	~ADU();
 
 	QTcpSocket * getSocket() { return mSocket.data(); }
-	QByteArray & getReplyDataRef() { return mReplyData; }
-	//void setReplyData(const QByteArray & replyData) { mReplyData = replyData; }
+	void setReplyData(const QByteArray &replyData) { mReplyData = replyData; }
 	uint getTransID() { return mTransID; }
 	uint getProdID() { return mProdID; }
 	uint getLength() { return mLength; }
