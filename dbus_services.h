@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QList>
-#include <QMap>
+#include <QHash>
 
 class DBusService;
 class VeQItem;
@@ -28,8 +28,8 @@ private slots:
 private:
 	void addService(VeQItem *item);
 
-	QMap<QString, DBusService *> mServicesByName;
-	QMap<QString, QList<DBusService *> > mServiceByType;
+	QHash<QString, DBusService *> mServicesByName;
+	QHash<QString, QList<DBusService *> > mServiceByType;
 	VeQItem *mRoot;
 };
 

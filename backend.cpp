@@ -70,32 +70,8 @@ void Backend::modbusRequest(ADU * const modbusRequest)
 void Backend::requestCompleted(MappingRequest *request)
 {
 	ADU *reply = static_cast<BackendRequest *>(request)->adu();
-	QByteArray &replyData = reply->getReplyDataRef();
 	if (request->error() == NoError) {
-		uint functionCode = reply->getFunctionCode();
-		switch(functionCode) {
-		case PDU::ReadHoldingRegisters:
-		case PDU::ReadInputRegisters:
-			replyData.clear();
-			replyData.append(static_cast<char>(request->data().size()));
-			replyData.append(request->data());
-			break;
-		case PDU::WriteSingleRegister:
-			replyData.clear();
-			replyData.append(static_cast<char>(request->address() >> 8));
-			replyData.append(static_cast<char>(request->address()));
-			replyData.append(request->data());
-			break;
-		case PDU::WriteMultipleRegisters:
-			replyData.clear();
-			replyData.append(static_cast<char>(request->address() >> 8));
-			replyData.append(static_cast<char>(request->address()));
-			replyData.append(static_cast<char>(request->data().size() >> 8));
-			replyData.append(static_cast<char>(request->data().size()));
-			break;
-		default:
-			break;
-		}
+		reply->setReplyData(request->data());
 	} else {
 		logError(request->errorString(), reply);
 		reply->setExceptionCode(getExceptionCode(request->error()));

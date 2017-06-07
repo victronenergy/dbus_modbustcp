@@ -13,14 +13,14 @@ DBusService::DBusService(VeQItem *serviceRoot, QObject *parent) :
 	mDeviceInstance->getValue();
 }
 
-VeQItem *DBusService::getServiceRoot() const
+VeQItem *DBusService::getItem(const QString &path)
 {
-	return mServiceRoot;
-}
-
-VeQItem *DBusService::getDeviceInstance() const
-{
-	return mDeviceInstance;
+	VeQItem *item = mItems.value(path);
+	if (item != 0)
+		return item;
+	item = mServiceRoot->itemGetOrCreate(path);
+	mItems[path] = item;
+	return item;
 }
 
 QString DBusService::getDeviceType(const QString &name)

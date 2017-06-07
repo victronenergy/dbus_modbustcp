@@ -8,6 +8,7 @@
 #include <QObject>
 #include "mapping_request.h"
 
+class DBusService;
 class DBusServices;
 class QTextStream;
 class VeQItem;
@@ -104,7 +105,7 @@ private:
 		int mQuantity;
 		int mOffset;
 		int mRegisterCount;
-		VeQItem *mServiceRoot;
+		DBusService *mService;
 		QString mErrorString;
 		MappingErrors mError;
 	};

@@ -31,12 +31,12 @@ void DBusServices::initialScan()
 
 DBusService *DBusServices::getService(QString deviceType, int deviceInstance)
 {
-	QMap<QString, QList<DBusService *> >::iterator it = mServiceByType.find(deviceType);
-	if (it == mServiceByType.end())
+	QList<DBusService *> services = mServiceByType.value(deviceType);
+	if (services.isEmpty())
 		return 0;
 	DBusService *last = 0;
 	DBusService *lastConnected = 0;
-	foreach (DBusService *service, *it) {
+	foreach (DBusService *service, services) {
 		VeQItem *serviceInstance = service->getDeviceInstance();
 		QVariant v = serviceInstance->getValue();
 		if (v.toInt() == deviceInstance) {
@@ -56,12 +56,12 @@ DBusService *DBusServices::getService(QString deviceType, int deviceInstance)
 void DBusServices::onServiceAdded(VeQItem *item)
 {
 	QString name = item->id();
-	QMap<QString, DBusService *>::Iterator it = mServicesByName.find(name);
-	if (it != mServicesByName.end())
+	DBusService *service = mServicesByName.value(name);
+	if (service != 0)
 		return;
 
 	QLOG_TRACE() << "[DBusServices] Add new service " << name;
-	DBusService *service = new DBusService(item);
+	service = new DBusService(item);
 	mServicesByName.insert(name, service);
 
 	QString deviceType = service->getDeviceType(name);

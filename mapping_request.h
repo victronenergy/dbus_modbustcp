@@ -24,25 +24,49 @@ class MappingRequest
 public:
 	MappingRequest(MappingRequestType type, int address, int unitId, int quantity);
 
-	virtual ~MappingRequest() {}
+	virtual ~MappingRequest();
 
-	MappingRequestType type() const;
+	MappingRequestType type() const
+	{
+		return mType;
+	}
 
-	int address() const;
+	int address() const
+	{
+		return mAddress;
+	}
 
-	int unitId() const;
+	int unitId() const
+	{
+		return mUnitId;
+	}
 
-	int quantity() const;
+	int quantity() const
+	{
+		return mQuantity;
+	}
 
-	QByteArray &data();
+	QByteArray &data()
+	{
+		return mData;
+	}
 
-	const QByteArray &data() const;
+	const QByteArray &data() const
+	{
+		return mData;
+	}
 
 	void setError(MappingErrors error, const QString &errorString);
 
-	MappingErrors error() const;
+	MappingErrors error() const
+	{
+		return mError;
+	}
 
-	QString errorString() const;
+	QString errorString() const
+	{
+		return mErrorString;
+	}
 
 private:
 	MappingRequestType mType;

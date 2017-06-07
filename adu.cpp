@@ -5,23 +5,23 @@
 
 ADU::ADU() :
 	PDU(),
-	mSocket(0)
+	mSocket(0),
+	mTransID(0),
+	mProdID(0),
+	mLength(0),
+	mUnitID(0)
 {
-	mTransID = 0;
-	mProdID = 0;
-	mLength = 0;
-	mUnitID = 0;
 }
 
 ADU::ADU(QTcpSocket * const socket, const QByteArray & aduRequest) :
 	PDU(aduRequest),
-	mSocket(socket)
-{
+	mSocket(socket),
 	// Decode MBAP Header
-	mTransID = (aduRequest[0] << 8) | (quint8)aduRequest[1];
-	mProdID = (aduRequest[2] << 8) | (quint8)aduRequest[3];
-	mLength = (aduRequest[4] << 8) | (quint8)aduRequest[5];
-	mUnitID = aduRequest[6];
+	mTransID((aduRequest[0] << 8) | (quint8)aduRequest[1]),
+	mProdID((aduRequest[2] << 8) | (quint8)aduRequest[3]),
+	mLength((aduRequest[4] << 8) | (quint8)aduRequest[5]),
+	mUnitID(aduRequest[6])
+{
 }
 
 ADU::~ADU()
@@ -30,31 +30,66 @@ ADU::~ADU()
 
 QByteArray ADU::toQByteArray()
 {
-	QByteArray reply;
-
-	uint length;
-	const ExceptionCode exeptionCode = getExceptionCode();
-
-	// Create MBAP Header
-	reply[0] = (quint8)(mTransID >> 8);
-	reply[1] = (quint8)mTransID;
-	reply[2] = (quint8)(mProdID >> 8);
-	reply[3] = (quint8)mProdID;
-	// Length later
-	reply[6] = (quint8)mUnitID;
-	// Create PDU
-	reply[7] = getFunctionCode();
-
+	uint length = 0;
+	uint functionCode = getFunctionCode();
+	ExceptionCode exeptionCode = getExceptionCode();
 	if (exeptionCode == NoExeption) {
-		length = mReplyData.size() + 2; // unit ID + function code + data
-		reply.append(mReplyData);
+		switch(functionCode) {
+		case ReadHoldingRegisters:
+		case ReadInputRegisters:
+			length = 3 + mReplyData.size();
+			break;
+		case WriteSingleRegister:
+			length = 6;
+			break;
+		case WriteMultipleRegisters:
+			length = 6;
+			break;
+		default:
+			break;
+		}
 	} else {
 		length = 3;
-		reply[8] = exeptionCode;
 	}
-	reply[4] = (quint8)(length>> 8);
-	reply[5] = (quint8)length;
 
+	QByteArray reply;
+	reply.reserve(length + 6);
+	// Create MBAP Header
+	reply.append((quint8)(mTransID >> 8));
+	reply.append((quint8)mTransID);
+	reply.append((quint8)(mProdID >> 8));
+	reply.append((quint8)mProdID);
+	reply.append(static_cast<quint8>(length>> 8));
+	reply.append(static_cast<quint8>(length));
+	reply.append((quint8)mUnitID);
+	// Create PDU
+	reply.append(functionCode);
+
+	if (exeptionCode == NoExeption) {
+		switch(functionCode) {
+		case ReadHoldingRegisters:
+		case ReadInputRegisters:
+			reply.append(static_cast<char>(mReplyData.size()));
+			reply.append(mReplyData);
+			break;
+		case WriteSingleRegister:
+			reply.append(static_cast<char>(getAddres() >> 8));
+			reply.append(static_cast<char>(getAddres()));
+			reply.append(mReplyData);
+			break;
+		case WriteMultipleRegisters:
+			reply.append(static_cast<char>(getAddres() >> 8));
+			reply.append(static_cast<char>(getAddres()));
+			reply.append(static_cast<char>(0));
+			reply.append(static_cast<char>(getByteCount() / 2));
+			break;
+		default:
+			break;
+		}
+	} else {
+		reply.append(exeptionCode);
+	}
+	Q_ASSERT(reply.size() == length + 6);
 	return reply;
 }
 
