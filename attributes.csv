@@ -262,6 +262,7 @@ com.victronenergy.tank,/Capacity,d,m3,3001,uint32,10000,R
 com.victronenergy.tank,/FluidType,u,0=Fuel;1=Fresh water;2=Waste water;3=Live well;4=Oil;5=Black water (sewage),3003,uint16,1,R
 com.victronenergy.tank,/Level,d,%,3004,uint16,10,R
 com.victronenergy.tank,/Remaining,d,m3,3005,uint32,10000,R
+com.victronenergy.tank,/Status,u,0=OK;1=Disconnected;2=Short circuited;3=Reverse Polarity;4=Unknown,3007,uint16,1,R
 com.victronenergy.inverter,/ProductId,u,,3127,uint16,1,R
 com.victronenergy.inverter,/FirmwareVersion,u,,3125,uint16,1,R
 com.victronenergy.inverter,/Ac/Out/L1/I,d,A AC,3100,int16,10,R
