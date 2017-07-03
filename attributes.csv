@@ -4,7 +4,7 @@ com.victronenergy.gps,/Course,d,Degrees,2804,uint16,100,R
 com.victronenergy.gps,/Speed,d,m/s,2805,uint16,100,R
 com.victronenergy.gps,/Fix,y,,2806,uint16,1,R
 com.victronenergy.gps,/NrOfSatellites,y,,2807,uint16,1,R
-com.victronenergy.settings,/Settings/CGwacs/BatteryLife/State,i,0=BL Disabled;1=Restarting;2=Self-consumption;3=Self-consumption;4=Self-consumption;5=Discharge disabled;6=Force charge,2900,uint16,1,W
+com.victronenergy.settings,/Settings/CGwacs/BatteryLife/State,i,0=External control or BL disabled;1=Restarting;2=Self-consumption;3=Self-consumption;4=Self-consumption;5=Discharge disabled;6=Force charge;7=Sustain;9=Keep batteries charged;10=BL Disabled;11=BL Disabled (Low SoC),2900,uint16,1,W
 com.victronenergy.settings,/Settings/CGwacs/BatteryLife/MinimumSocLimit,d,%,2901,uint16,10,W
 com.victronenergy.vebus,/Interfaces/Mk2/Version,u,,1,,,R
 com.victronenergy.vebus,/Devices/0/Version,u,,2,,,R
@@ -152,10 +152,11 @@ com.victronenergy.solarcharger,/Serial,s,,770,,,R
 com.victronenergy.solarcharger,/Dc/0/Voltage,d,V DC,771,uint16,100,R
 com.victronenergy.solarcharger,/Dc/0/Current,d,A DC,772,int16,10,R
 com.victronenergy.solarcharger,/Dc/0/Temperature,d,Degrees celsius,773,int16,10,R
-com.victronenergy.solarcharger,/Mode,i,0=Off;1=On;2=Error;3=Unavailable- Unknown,774,uint16,1,W
+com.victronenergy.solarcharger,/Mode,i,1=On;4=Off,774,uint16,1,W
 com.victronenergy.solarcharger,/State,i,0=Off;2=Fault;3=Bulk;4=Absorption;5=Float;6=Storage;7=Equalize;11=Other (Hub-1);252=Hub-1,775,uint16,1,R
 com.victronenergy.solarcharger,/Pv/V,d,V DC,776,uint16,100,R
 com.victronenergy.solarcharger,/Pv/I,d,A DC,777,int16,10,R
+com.victronenergy.solarcharger,/Yield/Power,d,W,789,uint16,10,R
 com.victronenergy.solarcharger,/Equalization/Pending,i,0=No;1=Yes;2=Error;3=Unavailable- Unknown,778,uint16,1,R
 com.victronenergy.solarcharger,/Equalization/TimeRemaining,d,seconds,779,uint16,10,R
 com.victronenergy.solarcharger,/Relay/0/State,i,0=Open;1=Closed,780,uint16,1,R
@@ -168,7 +169,6 @@ com.victronenergy.solarcharger,/History/Daily/1/Yield,d,kWh,786,uint16,10,R
 com.victronenergy.solarcharger,/History/Daily/1/MaxPower,d,W,787,uint16,1,R
 com.victronenergy.solarcharger,/ErrorCode,i,0=No error;1=Battery temperature too high;2=Battery voltage too high;3=Battery temperature sensor miswired (+);4=Battery temperature sensor miswired (-);5=Battery temperature sensor disconnected;6=Battery voltage sense miswired (+);7=Battery voltage sense miswired (-);8=Battery voltage sense disconnected;9=Battery voltage wire losses too high;17=Charger temperature too high;18=Charger over-current;19=Charger current polarity reversed;20=Bulk time limit reached;22=Charger temperature sensor miswired;23=Charger temperature sensor disconnected;34=Input current too high,788,uint16,1,R
 com.victronenergy.solarcharger,/Yield/User,d,kWh,790,uint16,10,R
-com.victronenergy.solarcharger,/Yield/Power,d,W,789,uint16,10,R
 com.victronenergy.system,/Ac/PvOnOutput/L1/Power,d,W,808,uint16,1,R
 com.victronenergy.system,/Ac/PvOnOutput/L2/Power,d,W,809,uint16,1,R
 com.victronenergy.system,/Ac/PvOnOutput/L3/Power,d,W,810,uint16,1,R
