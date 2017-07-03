@@ -5,6 +5,7 @@ com.victronenergy.gps,/Speed,d,m/s,2805,uint16,100,R
 com.victronenergy.gps,/Fix,y,,2806,uint16,1,R
 com.victronenergy.gps,/NrOfSatellites,y,,2807,uint16,1,R
 com.victronenergy.settings,/Settings/CGwacs/BatteryLife/State,i,0=BL Disabled;1=Restarting;2=Self-consumption;3=Self-consumption;4=Self-consumption;5=Discharge disabled;6=Force charge,2900,uint16,1,W
+com.victronenergy.settings,/Settings/CGwacs/BatteryLife/MinimumSocLimit,d,%,2901,uint16,10,W
 com.victronenergy.vebus,/Interfaces/Mk2/Version,u,,1,,,R
 com.victronenergy.vebus,/Devices/0/Version,u,,2,,,R
 com.victronenergy.vebus,/Ac/ActiveIn/L1/V,d,V AC,3,uint16,10,R
