@@ -254,10 +254,10 @@ com.victronenergy.grid,/Ac/L1/Energy/Reverse,d,kWh,2606,uint16,100,R
 com.victronenergy.grid,/Ac/L2/Energy/Reverse,d,kWh,2607,uint16,100,R
 com.victronenergy.grid,/Ac/L3/Energy/Reverse,d,kWh,2608,uint16,100,R
 com.victronenergy.grid,/Serial,s,,2609,string[7],,R
-com.victronenergy.hub4,/AcPowerSetpoint,d,W,2700,int16,1,W
-com.victronenergy.hub4,/AcPowerSetpoint,d,W,2703,int16,0.01,W
-com.victronenergy.hub4,/MaxChargePercentage,d,%,2701,uint16,1,W
-com.victronenergy.hub4,/MaxDischargePercentage,d,%,2702,uint16,1,W
+com.victronenergy.settings,/Settings/CGwacs/AcPowerSetPoint,d,W,2700,int16,1,W
+com.victronenergy.settings,/Settings/CGwacs/AcPowerSetPoint,d,W,2703,int16,0.01,W
+com.victronenergy.settings,/Settings/CGwacs/MaxChargePercentage,d,%,2701,uint16,1,W
+com.victronenergy.settings,/Settings/CGwacs/MaxDischargePercentage,d,%,2702,uint16,1,W
 com.victronenergy.tank,/ProductId,u,,3000,uint16,1,R
 com.victronenergy.tank,/Capacity,d,m3,3001,uint32,10000,R
 com.victronenergy.tank,/FluidType,u,0=Fuel;1=Fresh water;2=Waste water;3=Live well;4=Oil;5=Black water (sewage),3003,uint16,1,R
