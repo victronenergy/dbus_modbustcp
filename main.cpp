@@ -21,6 +21,8 @@ void usage(Arguments & arg)
 {
 	arg.addArg("-h", "Print this help");
 	arg.addArg("-d level", "Debug level: 0=TRACE, 1=DEBUG, 2=INFO...");
+	arg.addArg("--dbus", "D-Bus connection: session, system, ...");
+	arg.addArg("-p", "Modbus TCP port");
 }
 
 int main(int argc, char *argv[])
@@ -33,6 +35,10 @@ int main(int argc, char *argv[])
 		arg.help();
 		exit(0);
 	}
+
+	int tcpPort = 502;
+	if (arg.contains("p"))
+		tcpPort = arg.value("p").toInt();
 
 	QsLogging::Level logLevel = QsLogging::InfoLevel;
 	if (arg.contains("d"))
@@ -55,7 +61,7 @@ int main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 
-	App dbusModbusApp(dbus);
+	App dbusModbusApp(dbus, tcpPort);
 
 	return app.exec();
 }

@@ -12,7 +12,7 @@ class App : public QObject
 {
 	Q_OBJECT
 public:
-	App(const QDBusConnection &dbus, QObject *parent = 0);
+	App(const QDBusConnection &dbus, int tcpPort, QObject *parent = 0);
 
 signals:
 

@@ -1,8 +1,8 @@
 #include "app.h"
 
-App::App(const QDBusConnection &dbus, QObject *parent) :
+App::App(const QDBusConnection &dbus, int tcpPort, QObject *parent) :
 	QObject(parent),
-	mServer(parent),
+	mServer(tcpPort, parent),
 	mBackend(parent),
 	mDBusServices(dbus, parent),
 	mMapping(&mDBusServices, parent)

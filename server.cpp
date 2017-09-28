@@ -4,13 +4,14 @@
 //#define QS_LOG_DISABLE
 #include "QsLog.h"
 
-Server::Server(QObject *parent) :
+Server::Server(int tcpPort, QObject *parent) :
 	QObject(parent)
 {
 	mServer = new QTcpServer(this);
-	if (mServer->listen(QHostAddress::Any, 502))
-	{
-		QLOG_INFO() << "[Server] Server listening at: " << mServer->serverAddress().toString()+":"+QString::number(mServer->serverPort());
+	if (mServer->listen(QHostAddress::Any, tcpPort)) {
+		QLOG_INFO() << QString("[Server] Server listening at: %1:%2").
+					   arg(mServer->serverAddress().toString()).
+					   arg(mServer->serverPort());
 		connect(mServer, SIGNAL(newConnection()), SLOT(newConnection()));
 	}
 	else QLOG_ERROR() << "[Server] QTcpServer error: " + mServer->errorString();
