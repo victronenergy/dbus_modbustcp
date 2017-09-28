@@ -29,6 +29,9 @@ CONFIG   -= app_bundle
 
 TEMPLATE = app
 
+MOC_DIR=.moc
+OBJECTS_DIR=.obj
+
 include(QsLog/QsLog.pri)
 
 SOURCES += main.cpp \
