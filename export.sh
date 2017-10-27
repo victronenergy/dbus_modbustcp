@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# retreive from svn
-svn export --force "https://svn.victronenergy.com/svn/vrm_database/trunk/dataAttributes en deviceTypes.xlsm"
+# retrieve from git
+git archive --remote=git@git.victronenergy.com:venus-remote-systems/vrm-database.git HEAD: 'dataAttributes en deviceTypes.xlsm' | tar -x
 
 #
 # convert Data attributes to csv
