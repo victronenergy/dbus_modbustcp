@@ -3,6 +3,18 @@
 
 #include <QtCore>
 
+inline quint16 toUInt16(const QByteArray &array, int offset)
+{
+	return static_cast<quint16>(
+		(static_cast<quint8>(array[offset]) << 8) |
+		static_cast<quint8>(array[offset + 1]));
+}
+
+inline void appendUInt16(QByteArray &array, quint16 v) {
+	array.append(static_cast<char>(v >> 8));
+	array.append(static_cast<char>(v & 0xFF));
+}
+
 class PDU
 {
 public:
@@ -41,19 +53,19 @@ public:
 		GatewayTargetDeviceFailedToRespond	= 11
 	};
 
-	uint getFunctionCode() { return mFunctionCode; }
+	quint8 getFunctionCode() const { return mFunctionCode; }
 	QByteArray & getData() { return mData; }
-	int getDataSize() { return mData.size(); }
-	quint16 getAddres() { return (mData[0] << 8) | (quint8)mData[1]; }
-	quint16 getQuantity() { return (mData[2] << 8) | (quint8)mData[3]; }
-	quint8 getByteCount() { return mData[4]; }
-	ExceptionCode getExceptionCode() { return mExeptionCode; }
+	int getDataSize() const { return mData.size(); }
+	quint16 getAddres() const { return toUInt16(mData, 0); }
+	quint16 getQuantity() const { return toUInt16(mData, 2); }
+	quint8 getByteCount() const { return static_cast<quint8>(mData[4]); }
+	ExceptionCode getExceptionCode() const { return mExeptionCode; }
 
 	void setData(const QByteArray & data);
 	void setExceptionCode(ExceptionCode code);
 
 	//Helpers
-	QString pduToString();
+	QString pduToString() const;
 
 private:
 	quint8 mFunctionCode;
@@ -61,10 +73,10 @@ private:
 	QByteArray mData;
 
 	// Helpers
-	static const QMap <int,QString> initFunctionMap();
-	static const QMap <int,QString> functionMap;
-	static const QMap <int,QString> initExceptionMap();
-	static const QMap <int,QString> exceptionMap;
+	static const QMap<int,QString> initFunctionMap();
+	static const QMap<int,QString> functionMap;
+	static const QMap<int,QString> initExceptionMap();
+	static const QMap<int,QString> exceptionMap;
 };
 
 #endif // PDU_H

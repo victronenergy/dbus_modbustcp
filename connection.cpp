@@ -17,7 +17,7 @@ void Connection::readyRead()
 	foreach(char byte, tcpReq) {
 		mData.append(byte);
 		if (mData.count() == 6) {
-			mLength = (static_cast<quint8>(mData[4]) << 8 | static_cast<quint8>(mData[5])) + 6;
+			mLength = toUInt16(mData, 4) + 6;
 			mData.reserve(mLength);
 		}
 		if (mData.count() == mLength) {
