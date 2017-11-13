@@ -14,10 +14,6 @@ class App : public QObject
 public:
 	App(VeQItem *subRoot, VeQItem *pubRoot, int tcpPort, QObject *parent = 0);
 
-signals:
-
-public slots:
-
 private:
 	Server mServer;
 	Backend mBackend;

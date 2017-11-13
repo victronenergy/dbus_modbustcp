@@ -14,16 +14,16 @@ public:
 
 	QTcpSocket * getSocket() { return mSocket.data(); }
 	void setReplyData(const QByteArray &replyData) { mReplyData = replyData; }
-	uint getTransID() { return mTransID; }
-	uint getProdID() { return mProdID; }
-	uint getLength() { return mLength; }
-	uint getUnitID() { return mUnitID; }
+	uint getTransID() const { return mTransID; }
+	uint getProdID() const { return mProdID; }
+	uint getLength() const { return mLength; }
+	uint getUnitID() const { return mUnitID; }
 
 	void setTransID(uint id) { mTransID = id; }
-	QByteArray toQByteArray();
+	QByteArray toQByteArray() const;
 
 	// Helpers
-	QString aduToString();
+	QString aduToString() const;
 
 private:
 	QPointer<QTcpSocket> mSocket;

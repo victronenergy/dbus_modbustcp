@@ -54,7 +54,7 @@ PDU::PDU():
 
 PDU::PDU(const QByteArray & pduRequest):
 	// First 6 byte are MBAP Header so starting with 7
-	mFunctionCode(pduRequest[7]),
+	mFunctionCode(static_cast<quint8>(pduRequest[7])),
 	mExeptionCode(NoExeption),
 	mData(pduRequest.mid(8))
 {
@@ -71,7 +71,7 @@ void PDU::setExceptionCode(ExceptionCode code)
 	mExeptionCode = code;
 }
 
-QString PDU::pduToString()
+QString PDU::pduToString() const
 {
 	QString string;
 

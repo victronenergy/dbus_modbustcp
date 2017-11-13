@@ -17,10 +17,10 @@ ADU::ADU(QTcpSocket * const socket, const QByteArray & aduRequest) :
 	PDU(aduRequest),
 	mSocket(socket),
 	// Decode MBAP Header
-	mTransID((aduRequest[0] << 8) | (quint8)aduRequest[1]),
-	mProdID((aduRequest[2] << 8) | (quint8)aduRequest[3]),
-	mLength((aduRequest[4] << 8) | (quint8)aduRequest[5]),
-	mUnitID(aduRequest[6])
+	mTransID(toUInt16(aduRequest, 0)),
+	mProdID(toUInt16(aduRequest, 2)),
+	mLength(toUInt16(aduRequest, 4)),
+	mUnitID(static_cast<quint8>(aduRequest[6]))
 {
 }
 
@@ -28,16 +28,16 @@ ADU::~ADU()
 {
 }
 
-QByteArray ADU::toQByteArray()
+QByteArray ADU::toQByteArray() const
 {
-	uint length = 0;
-	uint functionCode = getFunctionCode();
+	quint16 length = 0;
+	quint8 functionCode = getFunctionCode();
 	ExceptionCode exeptionCode = getExceptionCode();
 	if (exeptionCode == NoExeption) {
 		switch(functionCode) {
 		case ReadHoldingRegisters:
 		case ReadInputRegisters:
-			length = 3 + mReplyData.size();
+			length = static_cast<quint16>(3 + mReplyData.size());
 			break;
 		case WriteSingleRegister:
 			length = 6;
@@ -55,15 +55,12 @@ QByteArray ADU::toQByteArray()
 	QByteArray reply;
 	reply.reserve(length + 6);
 	// Create MBAP Header
-	reply.append((quint8)(mTransID >> 8));
-	reply.append((quint8)mTransID);
-	reply.append((quint8)(mProdID >> 8));
-	reply.append((quint8)mProdID);
-	reply.append(static_cast<quint8>(length>> 8));
-	reply.append(static_cast<quint8>(length));
-	reply.append((quint8)mUnitID);
+	appendUInt16(reply, mTransID);
+	appendUInt16(reply, mProdID);
+	appendUInt16(reply, length);
+	reply.append(static_cast<char>(mUnitID));
 	// Create PDU
-	reply.append(functionCode);
+	reply.append(static_cast<char>(functionCode));
 
 	if (exeptionCode == NoExeption) {
 		switch(functionCode) {
@@ -73,13 +70,11 @@ QByteArray ADU::toQByteArray()
 			reply.append(mReplyData);
 			break;
 		case WriteSingleRegister:
-			reply.append(static_cast<char>(getAddres() >> 8));
-			reply.append(static_cast<char>(getAddres()));
+			appendUInt16(reply, getAddres());
 			reply.append(mReplyData);
 			break;
 		case WriteMultipleRegisters:
-			reply.append(static_cast<char>(getAddres() >> 8));
-			reply.append(static_cast<char>(getAddres()));
+			appendUInt16(reply, getAddres());
 			reply.append(static_cast<char>(0));
 			reply.append(static_cast<char>(getByteCount() / 2));
 			break;
@@ -93,7 +88,7 @@ QByteArray ADU::toQByteArray()
 	return reply;
 }
 
-QString ADU::aduToString()
+QString ADU::aduToString() const
 {
 	QString string;
 

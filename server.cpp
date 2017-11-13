@@ -68,8 +68,7 @@ void Server::modbusReply(ADU *modbusReply)
 
 void Server::bytesWritten(qint64 bytes)
 {
-	QTcpSocket * socket = static_cast<QTcpSocket *>(sender());
-
+	QTcpSocket *socket = static_cast<QTcpSocket *>(sender());
 	QLOG_TRACE() << QString("[Server] bytes written: %1 %2:%3").
 					arg(bytes).
 					arg(socket->peerAddress().toString()).
