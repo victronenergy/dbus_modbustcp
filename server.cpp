@@ -1,6 +1,8 @@
+#include "connection.h"
 #include "server.h"
 #include "backend.h"
 #include "QsLog.h"
+
 
 Server::Server(int tcpPort, QObject *parent) :
 	QObject(parent)
@@ -19,15 +21,15 @@ Server::Server(int tcpPort, QObject *parent) :
 
 void Server::newConnection()
 {
-	QTcpSocket * newConnection = mServer->nextPendingConnection();
+	QTcpSocket *socket = mServer->nextPendingConnection();
+	Connection *newConnection = new Connection(socket);
 
-	newConnection->socketOption(QAbstractSocket::LowDelayOption);
+	socket->socketOption(QAbstractSocket::LowDelayOption);
 	QLOG_TRACE() << QString("[Server] New connecion: %1:%2").
-					arg(newConnection->peerAddress().toString()).
-					arg(newConnection->peerPort());
-	connect(newConnection, SIGNAL(readyRead()), SLOT(readyRead()));
-	connect(newConnection, SIGNAL(disconnected()), SLOT(disconnected()));
-	connect(newConnection, SIGNAL(bytesWritten(qint64)), SLOT(bytesWritten(qint64)));
+					arg(socket->peerAddress().toString()).
+					arg(socket->peerPort());
+	connect(newConnection, SIGNAL(modbusRequest(ADU *)), SIGNAL(modbusRequest(ADU *)));
+	connect(socket, SIGNAL(bytesWritten(qint64)), SLOT(bytesWritten(qint64)));
 }
 
 void Server::readyRead()
