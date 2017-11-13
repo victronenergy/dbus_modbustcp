@@ -50,7 +50,8 @@ SOURCES += main.cpp \
     backend_request.cpp \
     mapping_request.cpp \
     diagnostics_service.cpp \
-    ve_qitem_init_monitor.cpp
+    ve_qitem_init_monitor.cpp \
+    connection.cpp
 
 HEADERS += \
     server.h \
@@ -67,7 +68,8 @@ HEADERS += \
     backend_request.h \
     mapping_request.h \
     diagnostics_service.h \
-    ve_qitem_init_monitor.h
+    ve_qitem_init_monitor.h \
+    connection.h
 
 OTHER_FILES += \
     attributes.csv \

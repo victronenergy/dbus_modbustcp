@@ -5,8 +5,6 @@
 #include <QTcpServer>
 
 #include "adu.h"
-#include "backend.h"
-#include "dbus_services.h"
 
 class Server : public QObject
 {
