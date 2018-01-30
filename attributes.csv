@@ -34,7 +34,7 @@ com.victronenergy.vebus,/Ac/Out/L3/P,i,VA or Watts,25,int16,0.1,R
 com.victronenergy.vebus,/Dc/0/Voltage,d,V DC,26,uint16,100,R
 com.victronenergy.vebus,/Dc/0/Current,d,A DC,27,int16,10,R
 com.victronenergy.vebus,/Ac/NumberOfPhases,u,count,28,uint16,1,R
-com.victronenergy.vebus,/Ac/ActiveIn/ActiveInput,u,0=AC Input 1;1=AC Input 2,29,uint16,1,R
+com.victronenergy.vebus,/Ac/ActiveIn/ActiveInput,u,0=AC Input 1;1=AC Input 2;240=Disconnected,29,uint16,1,R
 com.victronenergy.vebus,/Soc,d,%,30,uint16,10,W
 com.victronenergy.vebus,/State,u,0=Off;1=Low Power;2=Fault;3=Bulk;4=Absorption;5=Float;6=Storage;7=Equalize;8=Passthru;9=Inverting;10=Power assist;11=Power supply;252=Bulk protection,31,uint16,1,R
 com.victronenergy.vebus,/VebusError,u,0=No error;1=VE.Bus Error 1: Device is switched off because one of the other phases in the system has switched off;2=VE.Bus Error 2: New and old types MK2 are mixed in the system;3=VE.Bus Error 3: Not all- or more than- the expected devices were found in the system;4=VE.Bus Error 4: No other device whatsoever detected;5=VE.Bus Error 5: Overvoltage on AC-out;6=VE.Bus Error 6: Error in DDC Program;7=VE.Bus BMS connected- which requires an Assistant- but no assistant found;10=VE.Bus Error 10: System time synchronisation problem occurred;14=VE.Bus Error 14: Device cannot transmit data;16=VE.Bus Error 16: Dongle missing;17=VE.Bus Error 17: One of the devices assumed master status because the original master failed;18=VE.Bus Error 18: AC Overvoltage on the output of a slave has occurred while already switched off;22=VE.Bus Error 22: This device cannot function as slave;24=VE.Bus Error 24: Switch-over system protection initiated;25=VE.Bus Error 25: Firmware incompatibility. The firmware of one of the connected device is not sufficiently up to date to operate in conjunction with this device;26=VE.Bus Error 26: Internal error,32,uint16,1,R
@@ -190,6 +190,7 @@ com.victronenergy.system,/Ac/Grid/L3/Power,d,W,822,int16,1,R
 com.victronenergy.system,/Ac/Genset/L1/Power,d,W,823,int16,1,R
 com.victronenergy.system,/Ac/Genset/L2/Power,d,W,824,int16,1,R
 com.victronenergy.system,/Ac/Genset/L3/Power,d,W,825,int16,1,R
+com.victronenergy.system,/Ac/ActiveIn/Source,u,0=Not available;1=Grid;2=Generator;3=Shore power;240=Not connected,826,int16,1,R
 com.victronenergy.system,/Dc/System/Power,d,W,860,int16,1,R
 com.victronenergy.system,/Dc/Battery/Voltage,d,V DC,840,uint16,10,R
 com.victronenergy.system,/Dc/Battery/Current,d,A DC,841,int16,10,R
@@ -254,6 +255,12 @@ com.victronenergy.grid,/Ac/L1/Energy/Reverse,d,kWh,2606,uint16,100,R
 com.victronenergy.grid,/Ac/L2/Energy/Reverse,d,kWh,2607,uint16,100,R
 com.victronenergy.grid,/Ac/L3/Energy/Reverse,d,kWh,2608,uint16,100,R
 com.victronenergy.grid,/Serial,s,,2609,string[7],,R
+com.victronenergy.grid,/Ac/L1/Voltage,d,V AC,2616,uint16,10,R
+com.victronenergy.grid,/Ac/L1/Current,d,A AC,2617,int16,10,R
+com.victronenergy.grid,/Ac/L2/Voltage,d,V AC,2618,uint16,10,R
+com.victronenergy.grid,/Ac/L2/Current,d,A AC,2619,int16,10,R
+com.victronenergy.grid,/Ac/L3/Voltage,d,V AC,2620,uint16,10,R
+com.victronenergy.grid,/Ac/L3/Current,d,A AC,2621,int16,10,R
 com.victronenergy.settings,/Settings/CGwacs/AcPowerSetPoint,d,W,2700,int16,1,W
 com.victronenergy.settings,/Settings/CGwacs/AcPowerSetPoint,d,W,2703,int16,0.01,W
 com.victronenergy.settings,/Settings/CGwacs/MaxChargePercentage,d,%,2701,uint16,1,W
@@ -309,3 +316,9 @@ com.victronenergy.temperature,/Offset,d,,3302,int16,100,R
 com.victronenergy.temperature,/TemperatureType,u,0=Battery;1=Fridge;2=Generic,3303,uint16,1,R
 com.victronenergy.temperature,/Temperature,d,Degrees celsius,3304,int16,100,R
 com.victronenergy.temperature,/Status,u,0=OK;1=Disconnected;2=Short circuited;3=Reverse Polarity;4=Unknown,3305,uint16,1,R
+com.victronenergy.pulsemeter,/Aggregate,i,,3400,uint32,1,R
+com.victronenergy.pulsemeter,/Count,i,,3402,uint32,1,R
+com.victronenergy.digitalinput,/Count,i,,3420,uint32,1,R
+com.victronenergy.digitalinput,/State,i,,3422,uint16,1,R
+com.victronenergy.digitalinput,/Alarm,i,0=No alarm;2=Alarm,3423,uint16,1,R
+com.victronenergy.digitalinput,/Type,i,2=Door;3=Bilge pump;4=Bilge alarm;5=Burglar alarm;6=Smoke alarm;7=Fire alarm;8=CO2 alarm,3424,uint16,1,R
