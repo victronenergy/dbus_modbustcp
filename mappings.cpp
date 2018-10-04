@@ -26,9 +26,10 @@ void Mappings::dbusServiceFound(DBusService * service)
 	}
 }
 
-quint16 Mappings::getValue(const DBusService * service, const QString & objectPath, const ModbusTypes modbusType, const int offset, const double scaleFactor) const
+quint16 Mappings::getValue(const DBusService * service, const QString & objectPath, const ModbusTypes modbusType, const int offset, const double scaleFactor, Mappings::MappingErrors &error) const
 {
 	QVariant dbusValue = service->getValue(objectPath);
+	error = NoError;
 	if (dbusValue.isValid()) {
 		switch (modbusType) {
 		case mb_type_int16:
@@ -61,6 +62,7 @@ quint16 Mappings::getValue(const DBusService * service, const QString & objectPa
 			break;
 		}
 	}
+	error = AddressError;
 	return 0;
 }
 
@@ -109,7 +111,9 @@ void Mappings::getValues(const int modbusAddress, const int unitID, const int qu
 		if (baseAddress != -1) {
 			itemProperties = mDBusModbusMap.value(baseAddress);
 			int offset = modbusAddress+i-baseAddress;
-			value = getValue(service, itemProperties->objectPath, itemProperties->modbusType, offset, itemProperties->scaleFactor);
+			value = getValue(service, itemProperties->objectPath, itemProperties->modbusType, offset, itemProperties->scaleFactor, error);
+			if (error != NoError)
+				return;
 			QLOG_DEBUG() << "Value from" << itemProperties->deviceType
 						 << itemProperties->objectPath << "@offset" << offset << ": " << value;
 			replyData[j++] = (quint8)(value >> 8);
