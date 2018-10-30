@@ -96,6 +96,12 @@ com.victronenergy.battery,/Alarms/LowFusedVoltage,u,0=No alarm;2=Alarm,276,uint1
 com.victronenergy.battery,/Alarms/HighFusedVoltage,u,0=No alarm;2=Alarm,277,uint16,1,R
 com.victronenergy.battery,/Alarms/FuseBlown,u,0=No alarm;2=Alarm,278,uint16,1,R
 com.victronenergy.battery,/Alarms/HighInternalTemperature,u,0=No alarm;2=Alarm,279,uint16,1,R
+com.victronenergy.battery,/Alarms/HighChargeCurrent,u,0=No alarm;2=Alarm,320,uint16,1,R
+com.victronenergy.battery,/Alarms/HighDischargeCurrent,u,0=No alarm;2=Alarm,321,uint16,1,R
+com.victronenergy.battery,/Alarms/CellImbalance,u,0=No alarm;2=Alarm,322,uint16,1,R
+com.victronenergy.battery,/Alarms/InternalFailure,u,0=No alarm;2=Alarm,323,uint16,1,R
+com.victronenergy.battery,/Alarms/HighChargeTemperature,u,0=No alarm;2=Alarm,324,uint16,1,R
+com.victronenergy.battery,/Alarms/LowChargeTemperature,u,0=No alarm;2=Alarm,325,uint16,1,R
 com.victronenergy.battery,/Relay/0/State,y,0=Open;1=Closed,280,uint16,1,R
 com.victronenergy.battery,/History/DeepestDischarge,d,Ah,281,uint16,-10,R
 com.victronenergy.battery,/History/LastDischarge,d,Ah,282,uint16,-10,R
