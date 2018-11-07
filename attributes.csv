@@ -102,7 +102,7 @@ com.victronenergy.battery,/Alarms/CellImbalance,u,0=No alarm;2=Alarm,322,uint16,
 com.victronenergy.battery,/Alarms/InternalFailure,u,0=No alarm;2=Alarm,323,uint16,1,R
 com.victronenergy.battery,/Alarms/HighChargeTemperature,u,0=No alarm;2=Alarm,324,uint16,1,R
 com.victronenergy.battery,/Alarms/LowChargeTemperature,u,0=No alarm;2=Alarm,325,uint16,1,R
-com.victronenergy.battery,/Relay/0/State,y,0=Open;1=Closed,280,uint16,1,R
+com.victronenergy.battery,/Relay/0/State,y,0=Open;1=Closed,280,uint16,1,W
 com.victronenergy.battery,/History/DeepestDischarge,d,Ah,281,uint16,-10,R
 com.victronenergy.battery,/History/LastDischarge,d,Ah,282,uint16,-10,R
 com.victronenergy.battery,/History/AverageDischarge,d,Ah,283,uint16,-10,R
