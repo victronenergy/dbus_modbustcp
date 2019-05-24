@@ -232,6 +232,9 @@ com.victronenergy.pvinverter,/Ac/L3/Voltage,d,V AC,1035,uint16,10,R
 com.victronenergy.pvinverter,/Ac/L3/Current,d,A AC,1036,int16,10,R
 com.victronenergy.pvinverter,/Ac/L3/Power,i,W,1037,uint16,1,R
 com.victronenergy.pvinverter,/Ac/L3/Energy/Forward,u,kWh,1038,uint16,100,R
+com.victronenergy.pvinverter,/Ac/L1/Energy/Forward,u,kWh,1040,uint32,100,R
+com.victronenergy.pvinverter,/Ac/L2/Energy/Forward,u,kWh,1042,uint32,100,R
+com.victronenergy.pvinverter,/Ac/L3/Energy/Forward,u,kWh,1044,uint32,100,R
 com.victronenergy.motordrive,/Motor/RPM,d,RPM,2048,int16,1,R
 com.victronenergy.motordrive,/Motor/Temperature,d,Degrees celsius,2049,int16,10,R
 com.victronenergy.motordrive,/Dc/0/Voltage,d,V DC,2050,uint16,100,R
