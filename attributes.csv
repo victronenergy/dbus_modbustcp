@@ -216,6 +216,7 @@ com.victronenergy.system,/Dc/Battery/TimeToGo,d,s,846,uint16,0.01,R
 com.victronenergy.system,/Relay/0/State,i,0=Open;1=Closed,806,uint16,1,W
 com.victronenergy.system,/Relay/1/State,i,0=Open;1=Closed,807,uint16,1,W
 com.victronenergy.system,/Serial,s,,800,string[6],1,R
+com.victronenergy.system,/Ac/Alarms/GridLost,i,0=No alarm;2=Alarm,830,uint16,1,R
 com.victronenergy.pvinverter,/ProductId,u,,1024,,,R
 com.victronenergy.pvinverter,/FirmwareVersion,s,,1025,,,R
 com.victronenergy.pvinverter,/Position,i,0=AC input 1;1=AC output;2=AC input 2,1026,uint16,1,R
