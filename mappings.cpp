@@ -94,7 +94,7 @@ void Mappings::getValues(const int modbusAddress, const int unitID, const int qu
 	 */
 	DBusModbusData * itemProperties = mDBusModbusMap.value(baseAddress);
 	DBusService * service = mServices->getService(itemProperties->deviceType, deviceInstance);
-	if (!(service && service->getConnected())) {
+	if (!service) {
 		QLOG_ERROR() << "Error finding service with device type" << itemProperties->deviceType
 					 << "at device instance" << deviceInstance;
 		error = ServiceError;
