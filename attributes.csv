@@ -124,8 +124,8 @@ com.victronenergy.battery,/History/LowStarterVoltageAlarms,i,count,293,uint16,1,
 com.victronenergy.battery,/History/HighStarterVoltageAlarms,i,count,294,uint16,1,R
 com.victronenergy.battery,/History/MinimumStarterVoltage,d,V DC,295,uint16,100,R
 com.victronenergy.battery,/History/MaximumStarterVoltage,d,V DC,296,uint16,100,R
-com.victronenergy.battery,/History/LowFusedVoltageAlarms,,count,297,uint16,1,R
-com.victronenergy.battery,/History/HighFusedVoltageAlarms,,count,298,uint16,1,R
+com.victronenergy.battery,/History/LowFusedVoltageAlarms,i,count,297,uint16,1,R
+com.victronenergy.battery,/History/HighFusedVoltageAlarms,i,count,298,uint16,1,R
 com.victronenergy.battery,/History/MinimumFusedVoltage,d,V DC,299,uint16,100,R
 com.victronenergy.battery,/History/MaximumFusedVoltage,d,V DC,300,uint16,100,R
 com.victronenergy.battery,/History/DischargedEnergy,d,kWh,301,uint16,10,R
@@ -171,7 +171,7 @@ com.victronenergy.solarcharger,/Yield/Power,d,W,789,uint16,10,R
 com.victronenergy.solarcharger,/Equalization/Pending,i,0=No;1=Yes;2=Error;3=Unavailable- Unknown,778,uint16,1,R
 com.victronenergy.solarcharger,/Equalization/TimeRemaining,d,seconds,779,uint16,10,R
 com.victronenergy.solarcharger,/Relay/0/State,i,0=Open;1=Closed,780,uint16,1,R
-com.victronenergy.solarcharger,/Alarms/Alarm,,0=No alarm;2=Alarm,781,uint16,1,R
+com.victronenergy.solarcharger,/Alarms/Alarm,i,0=No alarm;2=Alarm,781,uint16,1,R
 com.victronenergy.solarcharger,/Alarms/LowVoltage,i,0=No alarm;2=Alarm,782,uint16,1,R
 com.victronenergy.solarcharger,/Alarms/HighVoltage,i,0=No alarm;2=Alarm,783,uint16,1,R
 com.victronenergy.solarcharger,/History/Daily/0/Yield,d,kWh,784,uint16,10,R
