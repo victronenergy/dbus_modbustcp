@@ -56,6 +56,11 @@ DBusService *DBusServices::getService(QString deviceType, int deviceInstance)
 void DBusServices::onServiceAdded(VeQItem *item)
 {
 	QString name = item->id();
+
+	// Skip our own service
+	if (name == "com.victronenergy.modbustcp")
+		return;
+
 	DBusService *service = mServicesByName.value(name);
 	if (service != 0)
 		return;
