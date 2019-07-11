@@ -514,7 +514,7 @@ Mappings::DataIterator::DataIterator(const Mappings *mappings, int address, int 
 	// for the complete address range therefore the service pointer has to be
 	// fetched and checked only once
 	mService = mMappings->mServices->getService(mCurrent.value()->deviceType, deviceInstance);
-	if (mService == 0) {
+	if (mService == 0 || !mService->getConnected()) {
 		QString msg = QString("Error finding service with device type %1 at device instance %2").
 				arg(mCurrent.value()->deviceType).
 				arg(deviceInstance);

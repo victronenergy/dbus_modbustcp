@@ -49,3 +49,8 @@ void DBusService::onDeviceInstanceChanged()
 		break;
 	}
 }
+
+bool DBusService::getConnected()
+{
+	return mServiceRoot->getState() != VeQItem::Offline;
+}

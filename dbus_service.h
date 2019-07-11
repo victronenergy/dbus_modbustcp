@@ -22,6 +22,7 @@ public:
 	}
 	VeQItem *getItem(const QString &path);
 	static QString getDeviceType(const QString &serviceName);
+	bool getConnected();
 
 private slots:
 	void onDeviceInstanceChanged();
