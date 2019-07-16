@@ -1,0 +1,9 @@
+com.victronenergy.settings
+/Settings/CGwacs/BatteryLife/State,i,4
+/Settings/CGwacs/BatteryLife/MinimumSocLimit,d,25
+/Settings/CGwacs/Hub4Mode,i,1
+/Settings/CGwacs/AcPowerSetPoint,d,500
+/Settings/CGwacs/MaxChargePercentage,d,100
+/Settings/CGwacs/MaxDischargePercentage,d,100
+/Settings/CGwacs/MaxDischargePower,d,800
+/Settings/SystemSetup/MaxChargeCurrent,d,-1
