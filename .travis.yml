@@ -1,13 +1,11 @@
 language: c++
 
 before_install:
- - sudo apt-add-repository -y ppa:ubuntu-toolchain-r/test
- - sudo apt-get update -qq
- - sudo apt-get install -qq libqt4-dev qt4-qmake g++-4.8
- - export CXX="g++-4.8"
+ - sudo apg-get install qtbase5-dev qt5-qmake-bin qtchooser
 
 script:
  - qmake --version
  - $CXX --version
  - build.sh
  - test.sh
+ - testregisters.sh
