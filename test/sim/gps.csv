@@ -1,0 +1,9 @@
+com.victronenergy.gps.ttyUSB0
+/DeviceInstance,q,1
+/Position/Latitude,d,-34.08662
+/Position/Longitude,d,18.81088
+/Fix,y,1
+/NrOfSatellites,y,5
+/Course,d,179
+/Speed,d,343
+/Altitude,d,1.2

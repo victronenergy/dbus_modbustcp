@@ -187,6 +187,11 @@ class RegisterTest(unittest.TestCase):
 			self.check_register(30, 2616, 6, [2310, 10, 2320, 20, 2330, 30])
 			self.check_register(30, 2603, 6, [1100, 1200, 1300, 2100, 2200, 2300])
 			self.check_register(30, 2622, 12, [0, 1100, 0, 1200, 0, 1300, 0, 2100, 0, 2200, 0, 2300])
+	
+	def test_gps(self):
+		with Simulation('gps.csv'):
+			self.check_register(1, 2800, 10,
+				[60334, 52072, 2870, 20480, 17900, 34300, 1, 5, 0, 12])
 
 	def test_none_existent(self):
 		with self.assertRaises(AttributeError):
