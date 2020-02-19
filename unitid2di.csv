@@ -5,6 +5,10 @@ Unit ID, /DeviceInstance,Remark
 243,260,Venus GX VE.Direct 2 port (ttyO4)
 242,261,Venus GX VE.Bus port (ttyO5)
 228,275,EasySolar-II/Multiplus-II GX VE.Bus port (ttyS3)
+227,276,Cerbo GX VE.Bus port (ttyS4)
+226,279,Cerbo GX VE.Direct port 1 (ttyS7)
+224,278,Cerbo GX VE.Direct port 2 (ttyS6)
+223,277,Cerbo GX VE.Direct port 3 (ttyS5)
 0,0,VE.Can device instance 0 and system service
 1,1,VE.Can device instance 1
 2,2,VE.Can device instance 2
