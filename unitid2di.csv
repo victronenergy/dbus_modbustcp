@@ -4,6 +4,8 @@ Unit ID, /DeviceInstance,Remark
 245,258,"CCGX VE.Direct 2 port, Venus GX VE.Direct 1 port (ttyO2)"
 243,260,Venus GX VE.Direct 2 port (ttyO4)
 242,261,Venus GX VE.Bus port (ttyO5)
+230,273,EasySolar-II/Multiplus-II GX VE.Direct port (ttyS1)
+229,274,EasySolar-II/Multiplus-II GX VE.Direct port (ttyS2)
 228,275,EasySolar-II/Multiplus-II GX VE.Bus port (ttyS3)
 227,276,Cerbo GX VE.Bus port (ttyS4)
 226,279,Cerbo GX VE.Direct port 1 (ttyS7)
