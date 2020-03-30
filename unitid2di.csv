@@ -48,9 +48,12 @@ Unit ID, /DeviceInstance,Remark
 46,46,Redflow battery (Modbus-RTU ID 6)
 100,0,Workaround for clients that do not support unit ID 0
 239,288,VE.Direct via USB (ttyUSB0)
-238,289,VE.Direct via USB (ttyUSB1)
-237,290,VE.Direct via USB (ttyUSB2)
-236,291,VE.Direct via USB (ttyUSB3)
-235,292,VE.Direct via USB (ttyUSB4)
-233,293,VE.Direct via USB (ttyUSB5)
+238,289,VE.Direct via USB, Octo GX VE.Direct 3 (ttyUSB1)
+237,290,VE.Direct via USB, Octo GX VE.Direct 4 (ttyUSB2)
+236,291,VE.Direct via USB, Octo GX VE.Direct 5 (ttyUSB3)
+235,292,VE.Direct via USB, Octo GX VE.Direct 6 (ttyUSB4)
+233,293,VE.Direct via USB, Octo GX VE.Direct 7 (ttyUSB5)
+232,294,VE.Direct via USB, Octo GX VE.Direct 8 (ttyUSB6)
+231,295,VE.Direct via USB, Octo GX VE.Direct 9 (ttyUSB7)
+234,296,VE.Direct via USB, Octo GX VE.Direct 10 (ttyUSB8)
 225,512,CAN-bus BMS
