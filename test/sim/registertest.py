@@ -132,6 +132,7 @@ class RegisterTest(unittest.TestCase):
 			self.check_register(246, 34, 3, [1, 1, 1])
 			self.check_register(246, 42, 14, 14*[1])
 			self.check_register(246, 63, 1, [2])
+			self.check_register(246, 830, 1, [2])
 
 			# Setpoints
 			self.check_register(246, 37, 5, [111, 1, 1, 222, 333])

@@ -50,6 +50,7 @@ com.victronenergy.vebus.ttyO1
 /Alarms/L3/LowBattery,u,1
 /Alarms/L3/Overload,u,1
 /Alarms/L3/Ripple,u,1
+/Alarms/GridLost,u,2
 /Hub4/L1/AcPowerSetpoint,d,111
 /Hub4/DisableCharge,u,1
 /Hub4/DisableFeedIn,u,1
