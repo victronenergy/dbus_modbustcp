@@ -290,6 +290,7 @@ com.victronenergy.settings,/Settings/CGwacs/MaxChargePercentage,d,%,2701,uint16,
 com.victronenergy.settings,/Settings/CGwacs/MaxDischargePercentage,d,%,2702,uint16,1,W
 com.victronenergy.settings,/Settings/CGwacs/MaxDischargePower,d,W,2704,uint16,0.1,W
 com.victronenergy.settings,/Settings/SystemSetup/MaxChargeCurrent,d,A,2705,int16,1,W
+com.victronenergy.settings,/Settings/CGwacs/MaxFeedInPower,d,W,2706,int16,0.01,W
 com.victronenergy.tank,/ProductId,u,,3000,uint16,1,R
 com.victronenergy.tank,/Capacity,d,m3,3001,uint32,10000,R
 com.victronenergy.tank,/FluidType,u,0=Fuel;1=Fresh water;2=Waste water;3=Live well;4=Oil;5=Black water (sewage),3003,uint16,1,R

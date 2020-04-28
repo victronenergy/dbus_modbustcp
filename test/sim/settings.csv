@@ -7,3 +7,4 @@ com.victronenergy.settings
 /Settings/CGwacs/MaxDischargePercentage,d,100
 /Settings/CGwacs/MaxDischargePower,d,800
 /Settings/SystemSetup/MaxChargeCurrent,d,-1
+/Settings/CGwacs/MaxFeedInPower,d,1000
