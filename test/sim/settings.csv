@@ -8,3 +8,5 @@ com.victronenergy.settings
 /Settings/CGwacs/MaxDischargePower,d,800
 /Settings/SystemSetup/MaxChargeCurrent,d,-1
 /Settings/CGwacs/MaxFeedInPower,d,1000
+/Settings/CGwacs/OvervoltageFeedIn,i,1
+/Settings/CGwacs/PreventFeedback,i,0

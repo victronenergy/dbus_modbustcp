@@ -148,6 +148,7 @@ class RegisterTest(unittest.TestCase):
 			self.check_register(0, 2900, 3, [4, 250, 1])
 			self.check_register(0, 2700, 4, [500, 100, 100, 5])
 			self.check_register(0, 2704, 3, [80, 65535, 10]) # 65535 means -1
+			self.check_register(0, 2707, 2, [1, 0])
 
 	def test_battery(self):
 		with Simulation('battery.csv'):
