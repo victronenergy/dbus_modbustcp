@@ -63,3 +63,7 @@ com.victronenergy.vebus.ttyO1
 /Bms/Error,u,1
 /Dc/0/Temperature,d,23.4
 /Alarms/PhaseRotation,u,2
+/Hub4/DoNotFeedInOvervoltage,i,0
+/Hub4/L1/MaxFeedInPower,d,1000
+/Hub4/L2/MaxFeedInPower,d,2000
+/Hub4/L3/MaxFeedInPower,d,3000

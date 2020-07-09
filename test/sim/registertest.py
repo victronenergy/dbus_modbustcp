@@ -143,6 +143,9 @@ class RegisterTest(unittest.TestCase):
 			# Temperature
 			self.check_register(246, 61, 1, [234])
 
+			# Other mode3 registers
+			self.check_register(246, 65, 4, [0, 10, 20, 30])
+
 	def test_settings(self):
 		with Simulation('settings.csv'):
 			self.check_register(0, 2900, 3, [4, 250, 1])
