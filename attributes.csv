@@ -359,6 +359,9 @@ com.victronenergy.generator,/Generator0/ManualStart,i,0=Stop generator;1=Start g
 com.victronenergy.generator,/Generator0/RunningByConditionCode,i,0=Stopped;1=Manual;2=TestRun;3=LossOfComms;4=Soc;5=AcLoad;6=BatteryCurrent;7=BatteryVoltage;8=InverterTemperatur;9=InverterOverload;10=StopOnAc1,3501,uint16,1,R
 com.victronenergy.generator,/Generator0/Runtime,i,seconds,3502,uint16,1,R
 com.victronenergy.generator,/Generator0/Runtime,u,seconds,3504,uint32,1,R
+com.victronenergy.generator,/Generator0/State,i,0=Stopped;1=Running;10=Error,3506,uint16,1,R
+com.victronenergy.generator,/Generator0/Error,i,0=No Error;1=Remote disabled;2=Remote fault,3507,uint16,1,R
+com.victronenergy.generator,/Generator0/Alarms/NoGeneratorAtAcIn,i,0=No Alarm;2=Alarm,3508,uint16,1,R
 com.victronenergy.meteo,/Irradiance,d,W/m^2,3600,uint16,10,R
 com.victronenergy.meteo,/WindSpeed,d,m/s,3601,uint16,10,R
 com.victronenergy.meteo,/CellTemperature,d,Degrees celsius,3602,int16,10,R
