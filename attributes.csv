@@ -187,6 +187,30 @@ com.victronenergy.solarcharger,/History/Daily/1/MaxPower,d,W,787,uint16,1,R
 com.victronenergy.solarcharger,/ErrorCode,i,0=No error;1=Battery temperature too high;2=Battery voltage too high;3=Battery temperature sensor miswired (+);4=Battery temperature sensor miswired (-);5=Battery temperature sensor disconnected;6=Battery voltage sense miswired (+);7=Battery voltage sense miswired (-);8=Battery voltage sense disconnected;9=Battery voltage wire losses too high;17=Charger temperature too high;18=Charger over-current;19=Charger current polarity reversed;20=Bulk time limit reached;22=Charger temperature sensor miswired;23=Charger temperature sensor disconnected;34=Input current too high,788,uint16,1,R
 com.victronenergy.solarcharger,/Yield/User,d,kWh,790,uint16,10,R
 com.victronenergy.solarcharger,/MppOperationMode,i,0=Off;1=Voltage/current limited;2=MPPT active;255=Not available,791,uint16,1,R
+com.victronenergy.solarcharger,/Pv/0/V,d,V DC,3700,uint16,100,R
+com.victronenergy.solarcharger,/Pv/1/V,d,V DC,3701,uint16,100,R
+com.victronenergy.solarcharger,/Pv/2/V,d,V DC,3702,uint16,100,R
+com.victronenergy.solarcharger,/Pv/3/V,d,V DC,3703,uint16,100,R
+com.victronenergy.solarcharger,/Pv/0/I,d,A DC,3704,int16,10,R
+com.victronenergy.solarcharger,/Pv/1/I,d,A DC,3705,int16,10,R
+com.victronenergy.solarcharger,/Pv/2/I,d,A DC,3706,int16,10,R
+com.victronenergy.solarcharger,/Pv/3/I,d,A DC,3707,int16,10,R
+com.victronenergy.solarcharger,/History/Daily/0/Pv/0/Yield,d,kWh,3708,uint16,10,R
+com.victronenergy.solarcharger,/History/Daily/0/Pv/1/Yield,d,kWh,3709,uint16,10,R
+com.victronenergy.solarcharger,/History/Daily/0/Pv/2/Yield,d,kWh,3710,uint16,10,R
+com.victronenergy.solarcharger,/History/Daily/0/Pv/3/Yield,d,kWh,3711,uint16,10,R
+com.victronenergy.solarcharger,/History/Daily/1/Pv/0/Yield,d,kWh,3712,uint16,10,R
+com.victronenergy.solarcharger,/History/Daily/1/Pv/1/Yield,d,kWh,3713,uint16,10,R
+com.victronenergy.solarcharger,/History/Daily/1/Pv/2/Yield,d,kWh,3714,uint16,10,R
+com.victronenergy.solarcharger,/History/Daily/1/Pv/3/Yield,d,kWh,3715,uint16,10,R
+com.victronenergy.solarcharger,/History/Daily/0/Pv/0/MaxPower,d,W,3716,uint16,1,R
+com.victronenergy.solarcharger,/History/Daily/0/Pv/1/MaxPower,d,W,3717,uint16,1,R
+com.victronenergy.solarcharger,/History/Daily/0/Pv/2/MaxPower,d,W,3718,uint16,1,R
+com.victronenergy.solarcharger,/History/Daily/0/Pv/3/MaxPower,d,W,3719,uint16,1,R
+com.victronenergy.solarcharger,/History/Daily/1/Pv/0/MaxPower,d,W,3720,uint16,1,R
+com.victronenergy.solarcharger,/History/Daily/1/Pv/1/MaxPower,d,W,3721,uint16,1,R
+com.victronenergy.solarcharger,/History/Daily/1/Pv/2/MaxPower,d,W,3722,uint16,1,R
+com.victronenergy.solarcharger,/History/Daily/1/Pv/3/MaxPower,d,W,3723,uint16,1,R
 com.victronenergy.system,/Ac/PvOnOutput/L1/Power,d,W,808,uint16,1,R
 com.victronenergy.system,/Ac/PvOnOutput/L2/Power,d,W,809,uint16,1,R
 com.victronenergy.system,/Ac/PvOnOutput/L3/Power,d,W,810,uint16,1,R
