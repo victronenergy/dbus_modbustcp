@@ -392,3 +392,19 @@ com.victronenergy.meteo,/Irradiance,d,W/m^2,3600,uint16,10,R
 com.victronenergy.meteo,/WindSpeed,d,m/s,3601,uint16,10,R
 com.victronenergy.meteo,/CellTemperature,d,Degrees celsius,3602,int16,10,R
 com.victronenergy.meteo,/ExternalTemperature,d,Degrees celsius,3603,int16,10,R
+com.victronenergy.evcharger,/ProductId,u,,3800,uint16,1,R
+com.victronenergy.evcharger,/FirmwareVersion,u,,3802,uint32,1,R
+com.victronenergy.evcharger,/Serial,s,,3804,string[6],,R
+com.victronenergy.evcharger,/Model,s,,3810,string[4],,R
+com.victronenergy.evcharger,/MaxCurrent,d,A,3814,uint16,1,W
+com.victronenergy.evcharger,/Mode,u,0=Manual;1=Auto,3815,uint16,1,W
+com.victronenergy.evcharger,/Ac/Energy/Forward,d,kWh,3816,uint32,100,R
+com.victronenergy.evcharger,/Ac/L1/Power,d,W,3818,uint16,1,R
+com.victronenergy.evcharger,/Ac/L2/Power,d,W,3819,uint16,1,R
+com.victronenergy.evcharger,/Ac/L3/Power,d,W,3820,uint16,1,R
+com.victronenergy.evcharger,/Ac/Power,d,W,3821,uint16,1,R
+com.victronenergy.evcharger,/ChargingTime,d,s,3822,uint16,0.01,R
+com.victronenergy.evcharger,/Current,d,A,3823,uint16,1,W
+com.victronenergy.evcharger,/Status,u,0=Disconnected; 1=Connected; 2=Charging; 3=Charged; 4=Waiting for sun; 5=Waiting for RFID; 6=Waiting for start; 7=Low SOC; 8=Ground fault; 9=Welded contacts; 10=CP Input shorted; 11=Residual current detected; 12=Under voltage detected; 13=Overvoltage detected; 14=Overheating detected,3824,uint16,1,R
+com.victronenergy.evcharger,/SetCurrent,d,A,3825,uint16,1,W
+com.victronenergy.evcharger,/StartStop,u,0=Stop;1=Start,3826,uint16,1,W
