@@ -322,6 +322,7 @@ com.victronenergy.settings,/Settings/SystemSetup/MaxChargeCurrent,d,A,2705,int16
 com.victronenergy.settings,/Settings/CGwacs/MaxFeedInPower,d,W,2706,int16,0.01,W
 com.victronenergy.settings,/Settings/CGwacs/OvervoltageFeedIn,i,0=Don't feed excess DC-coupled PV into grid;1=Feed excess DC-coupled PV into the grid,2707,uint16,1,W
 com.victronenergy.settings,/Settings/CGwacs/PreventFeedback,i,0=Feed excess AC-coupled PV into grid;1=Don't feed excess AC-coupled PV into the grid,2708,uint16,1,W
+com.victronenergy.settings,/Settings/SystemSetup/MaxChargeVoltage,d,V,2710,uint16,1,V
 com.victronenergy.hub4,/PvPowerLimiterActive,i,0=Feed-in limiting inactive;1=Feed-in limiting active,2709,uint16,1,R
 com.victronenergy.tank,/ProductId,u,,3000,uint16,1,R
 com.victronenergy.tank,/Capacity,d,m3,3001,uint32,10000,R
