@@ -76,7 +76,8 @@ com.victronenergy.vebus,/Hub4/DoNotFeedInOvervoltage,i,0=Feed in overvoltage;1=D
 com.victronenergy.vebus,/Hub4/L1/MaxFeedInPower,d,W,66,uint16,0.01,W
 com.victronenergy.vebus,/Hub4/L2/MaxFeedInPower,d,W,67,uint16,0.01,W
 com.victronenergy.vebus,/Hub4/L3/MaxFeedInPower,d,W,68,uint16,0.01,W
-com.victronenergy.vebus,/Ac/State/IgnoreAcInput,i,0=AC input not ignored; 1=AC input ignored,69,uint16,1,R
+com.victronenergy.vebus,/Ac/State/IgnoreAcIn1,i,0=AC input not ignored; 1=AC input ignored,69,uint16,1,R
+com.victronenergy.vebus,/Ac/State/IgnoreAcIn2,i,0=AC input not ignored; 1=AC input ignored,70,uint16,1,R
 com.victronenergy.battery,/ProductId,u,,256,,,R
 com.victronenergy.battery,/FirmwareVersion,u,,257,,,R
 com.victronenergy.battery,/Serial,s,,258,,,R
