@@ -8,6 +8,7 @@ com.victronenergy.gps,/Altitude,d,m,2808,int32,10,R
 com.victronenergy.settings,/Settings/CGwacs/BatteryLife/State,i,0=BL disabled;1=Restarting;2=Self-consumption;3=Self-consumption;4=Self-consumption;5=Discharge disabled;6=Force charge;7=Sustain;9=Keep batteries charged;10=BL Disabled;11=BL Disabled (Low SoC),2900,uint16,1,W
 com.victronenergy.settings,/Settings/CGwacs/BatteryLife/MinimumSocLimit,d,%,2901,uint16,10,W
 com.victronenergy.settings,/Settings/CGwacs/Hub4Mode,i,1=ESS with Phase Compensation;2=ESS without phase compensation;3=Disabled/External Control,2902,uint16,1,W
+com.victronenergy.settings,/Settings/CGwacs/BatteryLife/SocLimit,d,%,2903,uint16,10,R
 com.victronenergy.vebus,/Interfaces/Mk2/Version,u,,1,,,R
 com.victronenergy.vebus,/Devices/0/Version,u,,2,,,R
 com.victronenergy.vebus,/Ac/ActiveIn/L1/V,d,V AC,3,uint16,10,R
