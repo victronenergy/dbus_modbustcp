@@ -447,16 +447,16 @@ com.victronenergy.evcharger,/Current,d,A,3823,uint16,1,W
 com.victronenergy.evcharger,/Status,u,0=Disconnected; 1=Connected; 2=Charging; 3=Charged; 4=Waiting for sun; 5=Waiting for RFID; 6=Waiting for start; 7=Low SOC; 8=Ground fault; 9=Welded contacts; 10=CP Input shorted; 11=Residual current detected; 12=Under voltage detected; 13=Overvoltage detected; 14=Overheating detected,3824,uint16,1,R
 com.victronenergy.evcharger,/SetCurrent,d,A,3825,uint16,1,W
 com.victronenergy.evcharger,/StartStop,u,0=Stop;1=Start,3826,uint16,1,W
-com.victronenergy.acmeter,/Ac/L1/Power,d,W,3900,int16,1,R
-com.victronenergy.acmeter,/Ac/L2/Power,d,W,3901,int16,1,R
-com.victronenergy.acmeter,/Ac/L3/Power,d,W,3902,int16,1,R
-com.victronenergy.acmeter,/Serial,s,,3903,string[7],,R
-com.victronenergy.acmeter,/Ac/L1/Voltage,d,V AC,3910,uint16,10,R
-com.victronenergy.acmeter,/Ac/L1/Current,d,A AC,3911,int16,10,R
-com.victronenergy.acmeter,/Ac/L2/Voltage,d,V AC,3912,uint16,10,R
-com.victronenergy.acmeter,/Ac/L2/Current,d,A AC,3913,int16,10,R
-com.victronenergy.acmeter,/Ac/L3/Voltage,d,V AC,3914,uint16,10,R
-com.victronenergy.acmeter,/Ac/L3/Current,d,A AC,3915,int16,10,R
-com.victronenergy.acmeter,/Ac/L1/Energy/Forward,d,kWh,3916,uint32,100,R
-com.victronenergy.acmeter,/Ac/L2/Energy/Forward,d,kWh,3918,uint32,100,R
-com.victronenergy.acmeter,/Ac/L3/Energy/Forward,d,kWh,3920,uint32,100,R
+com.victronenergy.acload,/Ac/L1/Power,d,W,3900,int16,1,R
+com.victronenergy.acload,/Ac/L2/Power,d,W,3901,int16,1,R
+com.victronenergy.acload,/Ac/L3/Power,d,W,3902,int16,1,R
+com.victronenergy.acload,/Serial,s,,3903,string[7],,R
+com.victronenergy.acload,/Ac/L1/Voltage,d,V AC,3910,uint16,10,R
+com.victronenergy.acload,/Ac/L1/Current,d,A AC,3911,int16,10,R
+com.victronenergy.acload,/Ac/L2/Voltage,d,V AC,3912,uint16,10,R
+com.victronenergy.acload,/Ac/L2/Current,d,A AC,3913,int16,10,R
+com.victronenergy.acload,/Ac/L3/Voltage,d,V AC,3914,uint16,10,R
+com.victronenergy.acload,/Ac/L3/Current,d,A AC,3915,int16,10,R
+com.victronenergy.acload,/Ac/L1/Energy/Forward,d,kWh,3916,uint32,100,R
+com.victronenergy.acload,/Ac/L2/Energy/Forward,d,kWh,3918,uint32,100,R
+com.victronenergy.acload,/Ac/L3/Energy/Forward,d,kWh,3920,uint32,100,R
