@@ -460,3 +460,22 @@ com.victronenergy.acload,/Ac/L3/Current,d,A AC,3915,int16,10,R
 com.victronenergy.acload,/Ac/L1/Energy/Forward,d,kWh,3916,uint32,100,R
 com.victronenergy.acload,/Ac/L2/Energy/Forward,d,kWh,3918,uint32,100,R
 com.victronenergy.acload,/Ac/L3/Energy/Forward,d,kWh,3920,uint32,100,R
+com.victronenergy.fuelcell,/Dc/0/Voltage,d,V DC,4000,uint16,100,R
+com.victronenergy.fuelcell,/Dc/0/Current,d,A DC,4001,int16,10,R
+com.victronenergy.fuelcell,/History/DischargedEnergy,d,kWh,4002,uint32,100,R
+com.victronenergy.alternator,/Dc/0/Voltage,d,V DC,4100,uint16,100,R
+com.victronenergy.alternator,/Dc/0/Current,d,A DC,4101,int16,10,R
+com.victronenergy.alternator,/History/DischargedEnergy,d,kWh,4102,uint32,100,R
+com.victronenergy.alternator,/Dc/0/Temperature,d,Degrees celsius,4104,int16,10,R
+com.victronenergy.dcsource,/Dc/0/Voltage,d,V DC,4200,uint16,100,R
+com.victronenergy.dcsource,/Dc/0/Current,d,A DC,4201,int16,10,R
+com.victronenergy.dcsource,/History/DischargedEnergy,d,kWh,4202,uint32,100,R
+com.victronenergy.dcload,/Dc/0/Voltage,d,V DC,4300,uint16,100,R
+com.victronenergy.dcload,/Dc/0/Current,d,A DC,4301,int16,10,R
+com.victronenergy.dcload,/History/ChargedEnergy,d,kWh,4302,uint32,100,R
+com.victronenergy.dcsystem,/Dc/0/Voltage,d,V DC,4400,uint16,100,R
+com.victronenergy.dcsystem,/Dc/0/Current,d,A DC,4401,int16,10,R
+com.victronenergy.dcsystem,/History/DischargedEnergy,d,kWh,4402,uint32,100,R
+com.victronenergy.dcsystem,/History/ChargedEnergy,d,kWh,4404,uint32,100,R
+com.victronenergy.dcsystem,/Alarms/LowVoltage,u,0=No alarm;2=Alarm,4406,uint16,1,R
+com.victronenergy.dcsystem,/Alarms/HighVoltage,u,0=No alarm;2=Alarm,4407,uint16,1,R
