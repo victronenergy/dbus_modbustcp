@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 	QString dbusConnection = arg.contains("dbus") ? arg.value("dbus") : "system";
 
 	NostorageQItemProducer producer(VeQItems::getRoot(), "sub", true, false);
-	producer.setListenIndividually(true);
+	producer.setAutoCreateItems(false);
 	producer.open(dbusConnection);
 
 	VeQItemProducer pub(VeQItems::getRoot(), "pub");
