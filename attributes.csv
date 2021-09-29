@@ -462,7 +462,7 @@ com.victronenergy.fuelcell,/Dc/0/Voltage,d,V DC,4000,uint16,100,R
 com.victronenergy.fuelcell,/Dc/0/Current,d,A DC,4001,int16,10,R
 com.victronenergy.fuelcell,/Dc/1/Voltage,d,V DC,4002,int16,10,R
 com.victronenergy.fuelcell,/Dc/0/Temperature,d,Degrees celsius,4003,int16,10,R
-com.victronenergy.fuelcell,/History/DischargedEnergy,d,kWh,4004,uint32,100,R
+com.victronenergy.fuelcell,/History/EnergyOut,d,kWh,4004,uint32,100,R
 com.victronenergy.fuelcell,/Alarms/LowVoltage,u,0=No alarm;2=Alarm,4006,uint16,1,R
 com.victronenergy.fuelcell,/Alarms/HighVoltage,u,0=No alarm;2=Alarm,4007,uint16,1,R
 com.victronenergy.fuelcell,/Alarms/LowStarterVoltage,u,0=No alarm;2=Alarm,4008,uint16,1,R
@@ -473,7 +473,7 @@ com.victronenergy.alternator,/Dc/0/Voltage,d,V DC,4100,uint16,100,R
 com.victronenergy.alternator,/Dc/0/Current,d,A DC,4101,int16,10,R
 com.victronenergy.alternator,/Dc/1/Voltage,d,V DC,4102,int16,10,R
 com.victronenergy.alternator,/Dc/0/Temperature,d,Degrees celsius,4103,int16,10,R
-com.victronenergy.alternator,/History/DischargedEnergy,d,kWh,4104,uint32,100,R
+com.victronenergy.alternator,/History/EnergyOut,d,kWh,4104,uint32,100,R
 com.victronenergy.alternator,/Alarms/LowVoltage,u,0=No alarm;2=Alarm,4106,uint16,1,R
 com.victronenergy.alternator,/Alarms/HighVoltage,u,0=No alarm;2=Alarm,4107,uint16,1,R
 com.victronenergy.alternator,/Alarms/LowStarterVoltage,u,0=No alarm;2=Alarm,4108,uint16,1,R
@@ -484,7 +484,7 @@ com.victronenergy.dcsource,/Dc/0/Voltage,d,V DC,4200,uint16,100,R
 com.victronenergy.dcsource,/Dc/0/Current,d,A DC,4201,int16,10,R
 com.victronenergy.dcsource,/Dc/1/Voltage,d,V DC,4202,int16,10,R
 com.victronenergy.dcsource,/Dc/0/Temperature,d,Degrees centigrade,4203,int16,10,R
-com.victronenergy.dcsource,/History/DischargedEnergy,d,kWh,4204,uint32,100,R
+com.victronenergy.dcsource,/History/EnergyOut,d,kWh,4204,uint32,100,R
 com.victronenergy.dcsource,/Alarms/LowVoltage,u,0=No alarm;2=Alarm,4206,uint16,1,R
 com.victronenergy.dcsource,/Alarms/HighVoltage,u,0=No alarm;2=Alarm,4207,uint16,1,R
 com.victronenergy.dcsource,/Alarms/LowStarterVoltage,u,0=No alarm;2=Alarm,4208,uint16,1,R
@@ -495,7 +495,7 @@ com.victronenergy.dcload,/Dc/0/Voltage,d,V DC,4300,uint16,100,R
 com.victronenergy.dcload,/Dc/0/Current,d,A DC,4301,int16,10,R
 com.victronenergy.dcload,/Dc/1/Voltage,d,V DC,4302,int16,10,R
 com.victronenergy.dcload,/Dc/0/Temperature,d,Degrees centigrade,4303,int16,10,R
-com.victronenergy.dcload,/History/ChargedEnergy,d,kWh,4304,uint32,100,R
+com.victronenergy.dcload,/History/EnergyIn,d,kWh,4304,uint32,100,R
 com.victronenergy.dcload,/Alarms/LowVoltage,u,0=No alarm;2=Alarm,4306,uint16,1,R
 com.victronenergy.dcload,/Alarms/HighVoltage,u,0=No alarm;2=Alarm,4307,uint16,1,R
 com.victronenergy.dcload,/Alarms/LowStarterVoltage,u,0=No alarm;2=Alarm,4308,uint16,1,R
@@ -506,8 +506,8 @@ com.victronenergy.dcsystem,/Dc/0/Voltage,d,V DC,4400,uint16,100,R
 com.victronenergy.dcsystem,/Dc/0/Current,d,A DC,4401,int16,10,R
 com.victronenergy.dcsystem,/Dc/1/Voltage,d,V DC,4402,int16,10,R
 com.victronenergy.dcsystem,/Dc/0/Temperature,d,Degrees centigrade,4403,int16,10,R
-com.victronenergy.dcsystem,/History/DischargedEnergy,d,kWh,4404,uint32,100,R
-com.victronenergy.dcsystem,/History/ChargedEnergy,d,kWh,4406,uint32,100,R
+com.victronenergy.dcsystem,/History/EnergyOut,d,kWh,4404,uint32,100,R
+com.victronenergy.dcsystem,/History/EnergyIn,d,kWh,4406,uint32,100,R
 com.victronenergy.dcsystem,/Alarms/LowVoltage,u,0=No alarm;2=Alarm,4408,uint16,1,R
 com.victronenergy.dcsystem,/Alarms/HighVoltage,u,0=No alarm;2=Alarm,4409,uint16,1,R
 com.victronenergy.dcsystem,/Alarms/LowStarterVoltage,u,0=No alarm;2=Alarm,4410,uint16,1,R
