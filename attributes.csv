@@ -319,6 +319,8 @@ com.victronenergy.grid,/Ac/L3/Energy/Forward,d,kWh,2626,uint32,100,R
 com.victronenergy.grid,/Ac/L1/Energy/Reverse,d,kWh,2628,uint32,100,R
 com.victronenergy.grid,/Ac/L2/Energy/Reverse,d,kWh,2630,uint32,100,R
 com.victronenergy.grid,/Ac/L3/Energy/Reverse,d,kWh,2632,uint32,100,R
+com.victronenergy.grid,/Ac/Energy/Forward,d,kWh,2634,uint32,100,R
+com.victronenergy.grid,/Ac/Energy/Reverse,d,kWh,2636,uint32,100,R
 com.victronenergy.settings,/Settings/CGwacs/AcPowerSetPoint,d,W,2700,int16,1,W
 com.victronenergy.settings,/Settings/CGwacs/AcPowerSetPoint,d,W,2703,int16,0.01,W
 com.victronenergy.settings,/Settings/CGwacs/MaxChargePercentage,d,%,2701,uint16,1,W
