@@ -416,6 +416,7 @@ com.victronenergy.temperature,/Temperature,d,Degrees celsius,3304,int16,100,R
 com.victronenergy.temperature,/Status,u,0=OK;1=Disconnected;2=Short circuited;3=Reverse Polarity;4=Unknown,3305,uint16,1,R
 com.victronenergy.temperature,/Humidity,u,%,3306,uint16,10,R
 com.victronenergy.temperature,/BatteryVoltage,d,V,3307,uint16,100,R
+com.victronenergy.temperature,/Pressure,u,hPa,3308,uint16,1,R
 com.victronenergy.pulsemeter,/Aggregate,i,,3400,uint32,1,R
 com.victronenergy.pulsemeter,/Count,i,,3402,uint32,1,R
 com.victronenergy.digitalinput,/Count,i,,3420,uint32,1,R
