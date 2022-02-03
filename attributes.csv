@@ -177,6 +177,7 @@ com.victronenergy.solarcharger,/Dc/0/Temperature,d,Degrees celsius,773,int16,10,
 com.victronenergy.solarcharger,/Mode,i,1=On;4=Off,774,uint16,1,W
 com.victronenergy.solarcharger,/State,i,0=Off;2=Fault;3=Bulk;4=Absorption;5=Float;6=Storage;7=Equalize;11=Other (Hub-1);252=Hub-1,775,uint16,1,R
 com.victronenergy.solarcharger,/Pv/V,d,V DC,776,uint16,100,R
+com.victronenergy.solarcharger,/Pv/I,d,A DC,777,,10,R,HANDLED IN mappings.c
 com.victronenergy.solarcharger,/Yield/Power,d,W,789,uint16,10,R
 com.victronenergy.solarcharger,/Equalization/Pending,i,0=No;1=Yes;2=Error;3=Unavailable- Unknown,778,uint16,1,R
 com.victronenergy.solarcharger,/Equalization/TimeRemaining,d,seconds,779,uint16,10,R
