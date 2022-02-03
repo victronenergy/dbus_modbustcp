@@ -82,6 +82,17 @@ void Mappings::importCSV(QTextStream &in)
 			}
 		}
 	}
+
+	// Backwards compatibility registers
+	mDBusModbusMap.insert(777, new DBusModbusData(
+		"com.victronenergy.solarcharger",
+		QStringList() << "/Yield/Power" << "/Pv/V", // objectPaths
+		10, // scaleFactor
+		1, // size
+		mb_type_int16, // modbus type
+		QMetaType::Double, // dbus type
+		Mappings::mb_perm_read,
+		&mDivOperation)); // Divide power by voltage
 }
 
 void Mappings::importUnitIDMapping(const QString &filename)
