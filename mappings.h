@@ -60,7 +60,11 @@ private:
 		mb_perm_write
 	};
 
+	class Operation;
 	struct DBusModbusData {
+		DBusModbusData(QString _deviceType, QStringList _objectPaths,
+			double _scaleFactor, int _size, ModbusTypes _modbusType, QMetaType::Type _dbusType,
+			Permissions _accessRights, Operation *_operation);
 		QString deviceType;
 		QStringList objectPaths;
 		double scaleFactor;
@@ -70,6 +74,7 @@ private:
 		ModbusTypes modbusType;
 		QMetaType::Type dbusType;
 		Permissions accessRights;
+		Operation *operation;
 	};
 
 	/// Iterates over all VeQItems involved in a single modbus request.
@@ -125,7 +130,6 @@ private:
 	QMetaType::Type convertDbusType(const QString &typeString);
 	Permissions convertPermissions(const QString &permissions);
 	int convertStringSize(const QString &typeString);
-
 	DBusServices *mServices;
 	// modbus register -> unit id -> dbus <-> modbus data
 	QMap<int, DBusModbusData *> mDBusModbusMap;
@@ -134,6 +138,20 @@ private:
 	QHash<int, int> mUnitIDMap;
 
 	QMap<VeQItemInitMonitor *, MappingRequest *> mPendingRequests;
+
+	// Simple operations that can be done to values
+	class Operation {
+	public:
+		virtual QVariant calculate(QList<QVariant> args) = 0;
+		virtual ~Operation();
+	};
+
+	class DivOperation : public Operation { QVariant calculate(QList<QVariant> args); };
+	class NopOperation : public Operation { QVariant calculate(QList<QVariant> args); };
+
+	// class level instances of operations
+	DivOperation mDivOperation;
+	NopOperation mNopOperation;
 };
 
 #endif // MAPPINGS_H

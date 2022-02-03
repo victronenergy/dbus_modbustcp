@@ -43,36 +43,35 @@ void Mappings::importCSV(QTextStream &in)
 		if (values.size() >= 8) {
 			ModbusTypes modbusType = convertModbusType(values.at(5));
 			if (modbusType != mb_type_none) {
-				DBusModbusData * item = new DBusModbusData();
-				item->deviceType = DBusService::getDeviceType(values.at(0));
-				item->objectPaths = values.at(1).split(";");
-				item->modbusType = convertModbusType(values.at(5));
-				item->scaleFactor = values.at(6).toDouble();
-				if (item->scaleFactor == 0)
-					item->scaleFactor = 1;
-				item->dbusType = convertDbusType(values.at(2));
+				int item_size = 1;
+				switch (modbusType) {
+				case mb_type_string:
+					item_size = convertStringSize(values.at(5));
+					break;
+				case mb_type_int32:
+				case mb_type_uint32:
+					item_size = 2;
+					break;
+				default:
+					item_size = 1;
+					break;
+				}
+
+				DBusModbusData * item = new DBusModbusData(
+					DBusService::getDeviceType(values.at(0)),
+					QStringList() << values.at(1), // objectPaths
+					values.at(6).toDouble(), // scaleFactor
+					item_size,
+					modbusType,
+					convertDbusType(values.at(2)),
+					convertPermissions(values.at(7)),
+					&mNopOperation);
+
 				if (item->dbusType == QMetaType::Void) {
 					QLOG_WARN() << "[Mappings] Register" << values.at(4)
 								<< ": register has no type";
 				}
-				item->accessRights = convertPermissions(values.at(7));
-				switch (item->modbusType) {
-				case mb_type_string:
-					item->size = convertStringSize(values.at(5));
-					if (item->accessRights == mb_perm_write) {
-						item->accessRights = mb_perm_read;
-						QLOG_WARN() << "[Mappings] Register" << values.at(4)
-									<< ": cannot write string values";
-					}
-					break;
-				case mb_type_int32:
-				case mb_type_uint32:
-					item->size = 2;
-					break;
-				default:
-					item->size = 1;
-					break;
-				}
+
 				int reg = values.at(4).toInt();
 				if (mDBusModbusMap.find(reg) != mDBusModbusMap.end()) {
 					QLOG_WARN() << "[Mappings] Register" << reg
@@ -230,7 +229,9 @@ void Mappings::getValues(MappingRequest *request)
 			dbusValues.append(item->getValue());
 		}
 
-		QVariant dbusValue = dbusValues[0]; // TODO handle operation
+		// Apply data transformation
+		QVariant dbusValue = it.data()->operation->calculate(dbusValues);
+
 		for (int i = 0; i<it.registerCount(); ++i) {
 			quint16 value = getValue(dbusValue, it.data()->modbusType, it.offset() + i,
 									 it.data()->scaleFactor);
@@ -610,4 +611,38 @@ void Mappings::DataIterator::setError(MappingErrors error, const QString &errorS
 	mCurrent = mMappings->mDBusModbusMap.end();
 	mError = error;
 	mErrorString = errorString;
+}
+
+Mappings::DBusModbusData::DBusModbusData(QString _deviceType, QStringList _objectPaths,
+	double _scaleFactor, int _size, ModbusTypes _modbusType, QMetaType::Type _dbusType,
+	Permissions _accessRights, Operation *_operation) :
+	deviceType(_deviceType), objectPaths(_objectPaths), size(_size),
+	modbusType(_modbusType), dbusType(_dbusType), operation(_operation)
+{
+	if (_scaleFactor == 0)
+		_scaleFactor = 1;
+	scaleFactor = _scaleFactor;
+
+	if (_modbusType == mb_type_string && _accessRights == mb_perm_write) {
+		_accessRights = mb_perm_read;
+		QLOG_WARN() << "[Mappings] Register" << _deviceType << _objectPaths[0]
+					<< ": cannot write string values";
+	}
+	accessRights = _accessRights;
+}
+
+// Machinery for doing simple operations between registers
+// Oversimplified: Only supports two values for now. Extend if ever required.
+Mappings::Operation::~Operation()
+{
+}
+
+QVariant Mappings::DivOperation::calculate(QList<QVariant> args)
+{
+	return QVariant(args[0].toDouble() / args[1].toDouble());
+}
+
+QVariant Mappings::NopOperation::calculate(QList<QVariant> args)
+{
+	return args[0];
 }
