@@ -45,7 +45,7 @@ void Mappings::importCSV(QTextStream &in)
 			if (modbusType != mb_type_none) {
 				DBusModbusData * item = new DBusModbusData();
 				item->deviceType = DBusService::getDeviceType(values.at(0));
-				item->objectPath = values.at(1);
+				item->objectPaths = values.at(1).split(";");
 				item->modbusType = convertModbusType(values.at(5));
 				item->scaleFactor = values.at(6).toDouble();
 				if (item->scaleFactor == 0)
@@ -139,7 +139,7 @@ void Mappings::handleRequest(MappingRequest *request)
 			emit requestCompleted(request);
 			return;
 		}
-		pendingItems.append(it.item());
+		pendingItems.append(it.items());
 	}
 	if (it.error() != NoError) {
 		request->setError(it.error(), it.errorString());
@@ -217,17 +217,26 @@ void Mappings::getValues(MappingRequest *request)
 	replyData.reserve(2 * request->quantity());
 	for (;!it.atEnd(); it.next()) {
 		Q_ASSERT(it.error() == NoError);
-		VeQItem *item = it.item();
-		if (item->getState() == VeQItem::Offline) {
-			QLOG_TRACE() << "Value not available" << it.data()->objectPath;
+		QList<VeQItem *> items = it.items();
+
+		foreach(VeQItem *item, items) {
+			if (item->getState() == VeQItem::Offline) {
+				QLOG_TRACE() << "Value not available" << item->uniqueId();
+			}
 		}
-		QVariant dbusValue = item->getValue();
+
+		QVariantList dbusValues;
+		foreach(VeQItem *item, items) {
+			dbusValues.append(item->getValue());
+		}
+
+		QVariant dbusValue = dbusValues[0]; // TODO handle operation
 		for (int i = 0; i<it.registerCount(); ++i) {
 			quint16 value = getValue(dbusValue, it.data()->modbusType, it.offset() + i,
 									 it.data()->scaleFactor);
 			replyData.append(static_cast<char>(value >> 8));
 			replyData.append(static_cast<char>(value));
-			QLOG_DEBUG() << "Get dbus value" << it.data()->objectPath
+			QLOG_DEBUG() << "Get dbus value" << it.data()->objectPaths.join(", ")
 						 << "offset" << it.offset() << ':' << dbusValue.toString();
 		}
 	}
@@ -246,7 +255,9 @@ void Mappings::setValues(MappingRequest *request)
 	const QByteArray &data = request->data();
 	for (;!it.atEnd(); it.next()) {
 		Q_ASSERT(it.error() == NoError);
-		VeQItem *item = it.item();
+		// Where a register is calculated from multiple items, a WRITE should not be possible,
+		// hence we are taking the easy solution of assuming there is only one item.
+		VeQItem *item = it.items()[0];
 		Q_ASSERT(item->getState() != VeQItem::Requested && item->getState() != VeQItem::Idle);
 		quint32 value = 0;
 		if (it.registerCount() < it.data()->size || it.offset() > 0) {
@@ -290,16 +301,16 @@ void Mappings::setValues(MappingRequest *request)
 		}
 		if (!dbusValue.isValid()) {
 			QString errorString = QString("Could not convert value from %1").
-					arg(it.data()->objectPath);
+					arg(it.data()->objectPaths.join(", "));
 			request->setError(ServiceError, errorString);
 			emit requestCompleted(request);
 			return;
 		}
-		QLOG_DEBUG() << "Set dbus value" << it.data()->objectPath
+		QLOG_DEBUG() << "Set dbus value" << it.data()->objectPaths.join(", ")
 					 << "value to" << dbusValue.toString();
 		if (item->setValue(dbusValue) != 0) {
 			QString errorString = QString("SetValue failed on %1").
-					arg(it.data()->objectPath);
+					arg(it.data()->objectPaths.join(", "));
 			request->setError(ServiceError, errorString);
 			emit requestCompleted(request);
 			return;
@@ -567,11 +578,16 @@ const Mappings::DBusModbusData *Mappings::DataIterator::data() const
 	return mCurrent == mMappings->mDBusModbusMap.end() ? 0 : *mCurrent;
 }
 
-VeQItem *Mappings::DataIterator::item() const
+QList<VeQItem *> Mappings::DataIterator::items() const
 {
 	if (mCurrent == mMappings->mDBusModbusMap.end())
-		return 0;
-	return mService->getItem(mCurrent.value()->objectPath);
+		return QList<VeQItem *>();
+
+	QList<VeQItem *> l;
+	foreach(QString p, mCurrent.value()->objectPaths) {
+		l.append(mService->getItem(p));
+	}
+	return l;
 }
 
 int Mappings::DataIterator::offset() const

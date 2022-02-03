@@ -3,6 +3,7 @@
 
 #include <QHash>
 #include <QList>
+#include <QStringList>
 #include <QMap>
 #include <QMetaType>
 #include <QObject>
@@ -61,7 +62,7 @@ private:
 
 	struct DBusModbusData {
 		QString deviceType;
-		QString objectPath;
+		QStringList objectPaths;
 		double scaleFactor;
 		/// Number of registers used for single object. 1 for all uin16 types,
 		/// >= 1 for strings.
@@ -89,7 +90,7 @@ private:
 		void next();
 		bool atEnd() const;
 		const DBusModbusData *data() const;
-		VeQItem *item() const;
+		QList<VeQItem *> items() const;
 		/// The difference (counted in registers) between the address from the modbus request
 		/// and the address associated with the current VeQItem.
 		int offset() const;
