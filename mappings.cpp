@@ -85,7 +85,7 @@ void Mappings::importCSV(QTextStream &in)
 
 	// Backwards compatibility registers
 	mDBusModbusMap.insert(777, new DBusModbusData(
-		"com.victronenergy.solarcharger",
+		"solarcharger",
 		QStringList() << "/Yield/Power" << "/Pv/V", // objectPaths
 		10, // scaleFactor
 		1, // size
