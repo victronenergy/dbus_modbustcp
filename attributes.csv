@@ -580,3 +580,31 @@ com.victronenergy.multi,/Energy/SolarToAcIn1,d,kWh,4566,uint32,100,R
 com.victronenergy.multi,/Energy/SolarToAcIn2,d,kWh,4568,uint32,100,R
 com.victronenergy.multi,/Energy/SolarToAcOut,d,kWh,4570,uint32,100,R
 com.victronenergy.multi,/Energy/SolarToBattery,d,kWh,4572,uint32,100,R
+com.victronenergy.multi,/History/Daily/0/Yield,d,kWh,4574,uint16,10,R
+com.victronenergy.multi,/History/Daily/0/MaxPower,d,W,4575,uint16,1,R
+com.victronenergy.multi,/History/Daily/1/Yield,d,kWh,4576,uint16,10,R
+com.victronenergy.multi,/History/Daily/1/MaxPower,d,W,4577,uint16,1,R
+com.victronenergy.multi,/History/Daily/0/Pv/0/Yield,d,kWh,4578,uint16,10,R
+com.victronenergy.multi,/History/Daily/0/Pv/1/Yield,d,kWh,4579,uint16,10,R
+com.victronenergy.multi,/History/Daily/0/Pv/2/Yield,d,kWh,4580,uint16,10,R
+com.victronenergy.multi,/History/Daily/0/Pv/3/Yield,d,kWh,4581,uint16,10,R
+com.victronenergy.multi,/History/Daily/1/Pv/0/Yield,d,kWh,4582,uint16,10,R
+com.victronenergy.multi,/History/Daily/1/Pv/1/Yield,d,kWh,4583,uint16,10,R
+com.victronenergy.multi,/History/Daily/1/Pv/2/Yield,d,kWh,4584,uint16,10,R
+com.victronenergy.multi,/History/Daily/1/Pv/3/Yield,d,kWh,4585,uint16,10,R
+com.victronenergy.multi,/History/Daily/0/Pv/0/MaxPower,d,W,4586,uint16,1,R
+com.victronenergy.multi,/History/Daily/0/Pv/1/MaxPower,d,W,4587,uint16,1,R
+com.victronenergy.multi,/History/Daily/0/Pv/2/MaxPower,d,W,4588,uint16,1,R
+com.victronenergy.multi,/History/Daily/0/Pv/3/MaxPower,d,W,4589,uint16,1,R
+com.victronenergy.multi,/History/Daily/1/Pv/0/MaxPower,d,W,4590,uint16,1,R
+com.victronenergy.multi,/History/Daily/1/Pv/1/MaxPower,d,W,4591,uint16,1,R
+com.victronenergy.multi,/History/Daily/1/Pv/2/MaxPower,d,W,4592,uint16,1,R
+com.victronenergy.multi,/History/Daily/1/Pv/3/MaxPower,d,W,4593,uint16,1,R
+com.victronenergy.multi,/Pv/0/V,d,V DC,4594,uint16,10,R
+com.victronenergy.multi,/Pv/1/V,d,V DC,4595,uint16,10,R
+com.victronenergy.multi,/Pv/2/V,d,V DC,4596,uint16,10,R
+com.victronenergy.multi,/Pv/3/V,d,V DC,4597,uint16,10,R
+com.victronenergy.multi,/Pv/0/P,d,W,4598,uint16,1,R
+com.victronenergy.multi,/Pv/1/P,d,W,4599,uint16,1,R
+com.victronenergy.multi,/Pv/2/P,d,W,4600,uint16,1,R
+com.victronenergy.multi,/Pv/3/P,d,W,4601,uint16,1,R
