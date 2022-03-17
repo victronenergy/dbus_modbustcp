@@ -9,8 +9,6 @@ com.victronenergy.settings,/Settings/CGwacs/BatteryLife/State,i,0=BL disabled;1=
 com.victronenergy.settings,/Settings/CGwacs/BatteryLife/MinimumSocLimit,d,%,2901,uint16,10,W
 com.victronenergy.settings,/Settings/CGwacs/Hub4Mode,i,1=ESS with Phase Compensation;2=ESS without phase compensation;3=Disabled/External Control,2902,uint16,1,W
 com.victronenergy.settings,/Settings/CGwacs/BatteryLife/SocLimit,d,%,2903,uint16,10,R
-com.victronenergy.vebus,/Interfaces/Mk2/Version,u,,1,,,R
-com.victronenergy.vebus,/Devices/0/Version,u,,2,,,R
 com.victronenergy.vebus,/Ac/ActiveIn/L1/V,d,V AC,3,uint16,10,R
 com.victronenergy.vebus,/Ac/ActiveIn/L2/V,d,V AC,4,uint16,10,R
 com.victronenergy.vebus,/Ac/ActiveIn/L3/V,d,V AC,5,uint16,10,R
@@ -79,11 +77,8 @@ com.victronenergy.vebus,/Hub4/L2/MaxFeedInPower,d,W,67,uint16,0.01,W
 com.victronenergy.vebus,/Hub4/L3/MaxFeedInPower,d,W,68,uint16,0.01,W
 com.victronenergy.vebus,/Ac/State/IgnoreAcIn1,i,0=AC input not ignored; 1=AC input ignored,69,uint16,1,R
 com.victronenergy.vebus,/Ac/State/IgnoreAcIn2,i,0=AC input not ignored; 1=AC input ignored,70,uint16,1,R
-com.victronenergy.vebus,/Hub4/TargetPowerIsMaxFeedIn,i,0=AcPowerSetpoint interpreted normally; 1=AcPowerSetpoint as OvervoltageFeedIn limit,71,uint16,W
-com.victronenergy.vebus,/Hub4/FixSolarOffsetTo100mV,i,0=OvervoltageFeedIn uses 1V offset; 1=OvervoltageFeedIn uses 0.1V offset,72,uint16,W
-com.victronenergy.battery,/ProductId,u,,256,,,R
-com.victronenergy.battery,/FirmwareVersion,u,,257,,,R
-com.victronenergy.battery,/Serial,s,,258,,,R
+com.victronenergy.vebus,/Hub4/TargetPowerIsMaxFeedIn,i,0=AcPowerSetpoint interpreted normally; 1=AcPowerSetpoint as OvervoltageFeedIn limit,71,uint16,,W
+com.victronenergy.vebus,/Hub4/FixSolarOffsetTo100mV,i,0=OvervoltageFeedIn uses 1V offset; 1=OvervoltageFeedIn uses 0.1V offset,72,uint16,,W
 com.victronenergy.battery,/Dc/0/Voltage,d,V DC,259,uint16,100,R
 com.victronenergy.battery,/Dc/1/Voltage,d,V DC,260,uint16,100,R
 com.victronenergy.battery,/Dc/0/Current,d,A DC,261,int16,10,R
@@ -168,9 +163,6 @@ com.victronenergy.battery,/Io/AllowToDischarge,y,0=No;1=Yes,1298,uint16,1,R
 com.victronenergy.battery,/Io/ExternalRelay,y,0=Inactive;1=Active,1299,uint16,1,R
 com.victronenergy.battery,/History/MinimumCellVoltage,d,V DC,1300,uint16,100,R
 com.victronenergy.battery,/History/MaximumCellVoltage,d,V DC,1301,uint16,100,R
-com.victronenergy.solarcharger,/ProductId,u,,768,,,R
-com.victronenergy.solarcharger,/FirmwareVersion,u,,769,,,R
-com.victronenergy.solarcharger,/Serial,s,,770,,,R
 com.victronenergy.solarcharger,/Dc/0/Voltage,d,V DC,771,uint16,100,R
 com.victronenergy.solarcharger,/Dc/0/Current,d,A DC,772,int16,10,R
 com.victronenergy.solarcharger,/Dc/0/Temperature,d,Degrees celsius,773,int16,10,R
@@ -251,8 +243,6 @@ com.victronenergy.system,/Dc/Battery/TimeToGo,d,s,846,uint16,0.01,R
 com.victronenergy.system,/Relay/0/State,i,0=Open;1=Closed,806,uint16,1,W
 com.victronenergy.system,/Relay/1/State,i,0=Open;1=Closed,807,uint16,1,W
 com.victronenergy.system,/Serial,s,,800,string[6],1,R
-com.victronenergy.pvinverter,/ProductId,u,,1024,,,R
-com.victronenergy.pvinverter,/FirmwareVersion,s,,1025,,,R
 com.victronenergy.pvinverter,/Position,i,0=AC input 1;1=AC output;2=AC input 2,1026,uint16,1,R
 com.victronenergy.pvinverter,/Serial,s,,1039,string[7],1,R
 com.victronenergy.pvinverter,/Ac/L1/Voltage,d,V AC,1027,uint16,10,R
@@ -279,9 +269,6 @@ com.victronenergy.motordrive,/Dc/0/Voltage,d,V DC,2050,uint16,100,R
 com.victronenergy.motordrive,/Dc/0/Current,d,A DC,2051,int16,10,R
 com.victronenergy.motordrive,/Dc/0/Power,d,W,2052,int16,10,R
 com.victronenergy.motordrive,/Controller/Temperature,d,Degrees celsius,2053,int16,10,R
-com.victronenergy.charger,/ProductId,,,2304,,,R
-com.victronenergy.charger,/FirmwareVersion,,,2305,,,R
-com.victronenergy.charger,/Serial,,,2306,,,R
 com.victronenergy.charger,/Dc/0/Voltage,d,V DC,2307,uint16,100,R
 com.victronenergy.charger,/Dc/0/Current,d,A DC,2308,int16,10,R
 com.victronenergy.charger,/Dc/0/Temperature,d,Degrees celsius,2309,int16,10,R
