@@ -333,7 +333,7 @@ com.victronenergy.settings,/Settings/SystemSetup/MaxChargeVoltage,d,V,2710,uint1
 com.victronenergy.hub4,/PvPowerLimiterActive,i,0=Feed-in limiting inactive;1=Feed-in limiting active,2709,uint16,1,R
 com.victronenergy.tank,/ProductId,u,,3000,uint16,1,R
 com.victronenergy.tank,/Capacity,d,m3,3001,uint32,10000,R
-com.victronenergy.tank,/FluidType,u,0=Fuel;1=Fresh water;2=Waste water;3=Live well;4=Oil;5=Black water (sewage),3003,uint16,1,R
+com.victronenergy.tank,/FluidType,u,0=Fuel;1=Fresh water;2=Waste water;3=Live well;4=Oil;5=Black water (sewage);6=Gasoline;7=Diesel;8=LPG;9=LNG;10=Hydraulic oil;11=Raw water,3003,uint16,1,R
 com.victronenergy.tank,/Level,d,%,3004,uint16,10,R
 com.victronenergy.tank,/Remaining,d,m3,3005,uint32,10000,R
 com.victronenergy.tank,/Status,u,0=OK;1=Disconnected;2=Short circuited;3=Reverse Polarity;4=Unknown,3007,uint16,1,R
