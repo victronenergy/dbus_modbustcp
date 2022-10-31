@@ -149,7 +149,7 @@ com.victronenergy.battery,/History/MaximumFusedVoltage,d,V DC,300,uint16,100,R
 com.victronenergy.battery,/History/DischargedEnergy,d,kWh,301,uint16,10,R
 com.victronenergy.battery,/History/ChargedEnergy,d,kWh,302,uint16,10,R
 com.victronenergy.battery,/Capacity,d,Ah,309,uint16,10,R
-com.victronenergy.battery,/State,y,0=Initializing (Wait start);1=Initializing (before boot);2=Initializing (Before boot delay);3=Initializing (Wait boot);4=Initializing;5=Initializing (Measure battery voltage);6=Initializing (Calculate battery voltage);7=Initializing (Wait bus voltage);8=Initializing (Wait for lynx shunt);9=Running;10=Error (10);11=Error (11),1282,uint16,1,R
+com.victronenergy.battery,/State,y,0=Initializing (Wait start);1=Initializing (before boot);2=Initializing (Before boot delay);3=Initializing (Wait boot);4=Initializing;5=Initializing (Measure battery voltage);6=Initializing (Calculate battery voltage);7=Initializing (Wait bus voltage);8=Initializing (Wait for lynx shunt);9=Running;10=Error;11=Unused;12=Shutdown;13=Slave updating;14=Standby;15=Going to run;16=Per-charging,1282,uint16,1,R
 com.victronenergy.battery,/ErrorCode,y,0=No error;1=Battery initialization error;2=No batteries connected;3=Unknown battery connected;4=Different battery type;5=Number of batteries incorrect;6=Lynx Shunt not found;7=Battery measure error;8=Internal calculation error;9=Batteries in series not ok;10=Number of batteries incorrect;11=Hardware error;12=Watchdog error;13=Over voltage;14=Under voltage;15=Over temperature;16=Under temperature;17=Hardware fault;18=Standby shutdown;19=Pre-charge charge error;20=Safety contactor check error;21=Pre-charge discharge error;22=ADC error;23=Slave error;24=Slave warning;25=Pre-charge error;26=Safety contactor error;27=Over current;28=Slave update failed;29=Slave update unavailable,1283,uint16,1,R
 com.victronenergy.battery,/SystemSwitch,y,0=Disabled;1=Enabled,1284,uint16,1,R
 com.victronenergy.battery,/Balancing,y,0=Inactive;1=Active,1285,uint16,1,R
@@ -183,6 +183,7 @@ com.victronenergy.battery,/System/MinVoltageCellId,s,,1306,string[4],1,R
 com.victronenergy.battery,/System/MaxVoltageCellId,s,,1310,string[4],1,R
 com.victronenergy.battery,/System/MinTemperatureCellId,s,,1314,string[4],1,R
 com.victronenergy.battery,/System/MaxTemperatureCellId,s,,1318,string[4],1,R
+com.victronenergy.battery,/Mode,i,3=On;252=Standby,1319,uint16,1,W
 com.victronenergy.solarcharger,/Dc/0/Voltage,d,V DC,771,uint16,100,R
 com.victronenergy.solarcharger,/Dc/0/Current,d,A DC,772,int16,10,R
 com.victronenergy.solarcharger,/Dc/0/Temperature,d,Degrees celsius,773,int16,10,R
