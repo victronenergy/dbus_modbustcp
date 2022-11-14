@@ -626,3 +626,8 @@ com.victronenergy.multi,/Pv/1/P,d,W,4599,uint16,1,R
 com.victronenergy.multi,/Pv/2/P,d,W,4600,uint16,1,R
 com.victronenergy.multi,/Pv/3/P,d,W,4601,uint16,1,R
 com.victronenergy.multi,/Alarms/LowSoc,u,,4602,uint16,1,R
+com.victronenergy.pump,/State,d,0=Stopped;1=Running,4700,uint16,1,R
+com.victronenergy.settings,/Settings/Pump0/AutoStartEnabled,d,0=Disabled;1=Enabled,4701,uint16,1,W
+com.victronenergy.settings,/Settings/Pump0/Mode,d,0=Auto;1=On;2=Off,4702,uint16,1,W
+com.victronenergy.settings,/Settings/Pump0/StartValue,d,%,4703,uint16,1,W
+com.victronenergy.settings,/Settings/Pump0/StopValue,d,%,4704,uint16,1,W
