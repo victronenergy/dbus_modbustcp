@@ -67,6 +67,7 @@ com.victronenergy.vebus,/Bms/AllowToCharge,u,0=No;1=Yes,57,uint16,1,R
 com.victronenergy.vebus,/Bms/AllowToDischarge,u,0=No;1=Yes,58,uint16,1,R
 com.victronenergy.vebus,/Bms/BmsExpected,u,0=No;1=Yes,59,uint16,1,R
 com.victronenergy.vebus,/Bms/Error,u,0=No;1=Yes,60,uint16,1,R
+com.victronenergy.vebus,/Bms/PreAlarm,u,0=OK;1=Pre-Alarm,94,uint16,1,R
 com.victronenergy.vebus,/Dc/0/Temperature,d,Degrees celsius,61,int16,10,R
 com.victronenergy.vebus,/SystemReset,y,0=No action;1=VE.Bus Reset,62,uint16,1,W
 com.victronenergy.vebus,/Alarms/PhaseRotation,u,0=Ok;1=Warning,63,uint16,1,R
