@@ -230,6 +230,7 @@ com.victronenergy.solarcharger,/Pv/0/P,d,W,3724,uint16,1,R
 com.victronenergy.solarcharger,/Pv/1/P,d,W,3725,uint16,1,R
 com.victronenergy.solarcharger,/Pv/2/P,d,W,3726,uint16,1,R
 com.victronenergy.solarcharger,/Pv/3/P,d,W,3727,uint16,1,R
+com.victronenergy.solarcharger,/Yield/User,d,kWh,3728,uint32,1,R
 com.victronenergy.system,/Ac/PvOnOutput/L1/Power,d,W,808,uint16,1,R
 com.victronenergy.system,/Ac/PvOnOutput/L2/Power,d,W,809,uint16,1,R
 com.victronenergy.system,/Ac/PvOnOutput/L3/Power,d,W,810,uint16,1,R
@@ -627,6 +628,7 @@ com.victronenergy.multi,/Pv/1/P,d,W,4599,uint16,1,R
 com.victronenergy.multi,/Pv/2/P,d,W,4600,uint16,1,R
 com.victronenergy.multi,/Pv/3/P,d,W,4601,uint16,1,R
 com.victronenergy.multi,/Alarms/LowSoc,u,,4602,uint16,1,R
+com.victronenergy.multi,/Yield/User,d,kWh,4603,uint32,1,R
 com.victronenergy.pump,/State,d,0=Stopped;1=Running,4700,uint16,1,R
 com.victronenergy.settings,/Settings/Pump0/AutoStartEnabled,d,0=Disabled;1=Enabled,4701,uint16,1,W
 com.victronenergy.settings,/Settings/Pump0/Mode,d,0=Auto;1=On;2=Off,4702,uint16,1,W
