@@ -1,4 +1,3 @@
-#include <QsLog.h>
 #include <velib/qt/ve_qitem.hpp>
 #include "dbus_service.h"
 #include "dbus_services.h"
@@ -65,7 +64,6 @@ void DBusServices::onServiceAdded(VeQItem *item)
 	if (service != 0)
 		return;
 
-	QLOG_TRACE() << "[DBusServices] Add new service " << name;
 	service = new DBusService(item);
 	mServicesByName.insert(name, service);
 

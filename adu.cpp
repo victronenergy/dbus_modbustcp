@@ -1,8 +1,5 @@
 #include "adu.h"
 
-//#define QS_LOG_DISABLE
-#include "QsLog.h"
-
 ADU::ADU() :
 	PDU(),
 	mSocket(0),

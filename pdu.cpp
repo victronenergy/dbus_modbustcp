@@ -1,7 +1,6 @@
 #include "pdu.h"
 
 #define QS_LOG_DISABLE
-#include "QsLog.h"
 
 const QMap <int,QString> PDU::initFunctionMap()
 {

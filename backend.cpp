@@ -4,7 +4,6 @@
 #include "adu.h"
 #include "backend.h"
 #include "backend_request.h"
-#include "QsLog.h"
 
 Backend::Backend(QObject *parent) :
 	QObject(parent)
@@ -21,7 +20,7 @@ void Backend::modbusRequest(ADU * const modbusRequest)
 	case PDU::ReadInputRegisters:
 	{
 		quint16 quantity = modbusRequest->getQuantity();
-		QLOG_TRACE() << "Read registers" << functionCode << "address =" << address << "quantity =" << quantity;
+		qDebug() << "Read registers" << functionCode << "address =" << address << "quantity =" << quantity;
 		if (quantity == 0 || quantity > 125) {
 			logError("Requested quantity invalid for this function", modbusRequest);
 			modbusRequest->setExceptionCode(PDU::IllegalDataValue);
@@ -34,7 +33,7 @@ void Backend::modbusRequest(ADU * const modbusRequest)
 	}
 	case PDU::WriteSingleRegister:
 	{
-		QLOG_TRACE() << "PDU::WriteSingleRegister Address = " << address;
+		qDebug() << "PDU::WriteSingleRegister Address = " << address;
 		BackendRequest *r = new BackendRequest(modbusRequest, WriteValues, address, unitID, 1);
 		r->data() = modbusRequest->getData();
 		r->data().remove(0, 2); // Remove header
@@ -45,7 +44,7 @@ void Backend::modbusRequest(ADU * const modbusRequest)
 	{
 		quint16 quantity = modbusRequest->getQuantity();
 		quint8 byteCount = modbusRequest->getByteCount();
-		QLOG_TRACE() << "Write multiple registers" << functionCode << "address =" << address << "quantity =" << quantity;
+		qDebug() << "Write multiple registers" << functionCode << "address =" << address << "quantity =" << quantity;
 
 		if ((quantity == 0 || quantity > 125) || (byteCount != (quantity * 2))) {
 			logError("Requested quantity invalid for this function", modbusRequest);
@@ -89,7 +88,7 @@ void Backend::logError(const QString &message, ADU *request)
 			arg(request->getQuantity()).
 			arg(request->getSocket()->peerAddress().toString()).
 			arg(message);
-	QLOG_ERROR() << errorMessage;
+	qCritical() << errorMessage;
 }
 
 PDU::ExceptionCode Backend::getExceptionCode(MappingErrors error)
@@ -110,7 +109,7 @@ PDU::ExceptionCode Backend::getExceptionCode(MappingErrors error)
 	case PermissionError:
 		return PDU::IllegalDataAddress;
 	default:
-		QLOG_ERROR() << "Pitfall for error code handling:" + QString::number(error);
+		qCritical() << "Pitfall for error code handling:" + QString::number(error);
 		return PDU::IllegalDataAddress;
 	}
 }

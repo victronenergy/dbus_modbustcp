@@ -1,5 +1,4 @@
 #include <QHostAddress>
-#include <QsLog.h>
 #include "connection.h"
 
 Connection::Connection(QTcpSocket *socket, QObject *parent):
@@ -21,12 +20,12 @@ void Connection::readyRead()
 			mData.reserve(mLength);
 		}
 		if (mData.count() == mLength) {
-			QLOG_DEBUG() << QString("[Server] request from: %1:%2").
+			qDebug() << QString("[Server] request from: %1:%2").
 							arg(mSocket->peerAddress().toString()).
 							arg(mSocket->peerPort());
-			QLOG_TRACE() << "[Server] request data " << tcpReq.toHex().toUpper();
+			qDebug() << "[Server] request data " << tcpReq.toHex().toUpper();
 			ADU *request = new ADU(mSocket, mData);
-			QLOG_TRACE() << "[Server] Request:" << request->aduToString();
+			qDebug() << "[Server] Request:" << request->aduToString();
 			mLength = -1;
 			mData.resize(0);
 			mData.reserve(6);
@@ -38,7 +37,7 @@ void Connection::readyRead()
 void Connection::disconnected()
 {
 	QTcpSocket *socket = static_cast<QTcpSocket *>(sender());
-	QLOG_TRACE() << QString("[Server] Disconnected: %1:%2").
+	qDebug() << QString("[Server] Disconnected: %1:%2").
 					arg(socket->peerAddress().toString()).
 					arg(socket->peerPort());
 	socket->deleteLater();

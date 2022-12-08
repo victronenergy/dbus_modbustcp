@@ -4,7 +4,14 @@
 #include <QDateTime>
 #include <QObject>
 #include <QPointer>
-#include <QsLog.h>
+#include <QString>
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include <QMessageLogContext>
+#else
+#define QtMessageHandler QtMsgHandler
+#define qInstallMessageHandler qInstallMsgHandler
+#endif
 
 class DBusService;
 class DBusServices;
@@ -28,8 +35,15 @@ class DiagnosticsService : public QObject
 	Q_OBJECT
 public:
 	DiagnosticsService(DBusServices *services, Mappings *mappings, VeQItem *root, QObject *parent = 0);
+	virtual ~DiagnosticsService();
 
 	void setError(const QString &error);
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+	static void messageHandler(QtMsgType, const QMessageLogContext &, const QString &);
+#else
+	static void messageHandler(QtMsgType, const char*);
+#endif
 
 private slots:
 	void onServiceFound(DBusService *service);
@@ -41,6 +55,10 @@ private slots:
 	void onLastErrorTimer();
 
 private:
+	static DiagnosticsService *current;
+
+	QtMessageHandler oldMessageHandler;
+
 	VeQItem *getServiceItem(VeQItem *serviceRoot, VeQItem *deviceInstance);
 
 	VeQItem *getServiceItem(VeQItem *serviceRoot);
@@ -53,35 +71,11 @@ private:
 	QDateTime mLastErrorTime;
 	/// This timer is used to ensure that mLastError is not updated more than once per second.
 	QTimer *mLastErrorTimer;
-	DBusServices *mServices;
 	Mappings *mMappings;
 	VeQItem *mRoot;
 	VeQItem *mLastError;
 	VeQItem *mLastErrorTimeStamp;
 	VeQItem *mServiceCount;
-};
-
-class DiagnosticsDestination : public QsLogging::Destination
-{
-public:
-	DiagnosticsDestination(DiagnosticsService *service):
-		mService(service)
-	{
-	}
-
-	virtual void write(const QString& message, QsLogging::Level level)
-	{
-		if (mService && level == QsLogging::ErrorLevel)
-			mService->setError(message);
-	}
-
-	virtual bool isValid()
-	{
-		return mService;
-	}
-
-private:
-	QPointer<DiagnosticsService> mService;
 };
 
 #endif // DIAGNOSTICSSERVICE_H

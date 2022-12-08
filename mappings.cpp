@@ -7,7 +7,6 @@
 #include "dbus_services.h"
 #include "mappings.h"
 #include "mapping_request.h"
-#include "QsLog.h"
 #include "ve_qitem_init_monitor.h"
 
 const QString stringType = "string";
@@ -28,7 +27,7 @@ void Mappings::importCSV(const QString &filename)
 {
 	QFile file(QCoreApplication::applicationDirPath() + "/" + filename);
 	if (!file.open(QIODevice::ReadOnly)) {
-		QLOG_ERROR() << "Can not open file" << filename;
+		qCritical() << "Can not open file" << filename;
 		return;
 	}
 	QTextStream in(&file);
@@ -68,17 +67,17 @@ void Mappings::importCSV(QTextStream &in)
 					&mNopOperation);
 
 				if (item->dbusType == QMetaType::Void) {
-					QLOG_WARN() << "[Mappings] Register" << values.at(4)
+					qWarning() << "[Mappings] Register" << values.at(4)
 								<< ": register has no type";
 				}
 
 				int reg = values.at(4).toInt();
 				if (mDBusModbusMap.find(reg) != mDBusModbusMap.end()) {
-					QLOG_WARN() << "[Mappings] Register" << reg
+					qWarning() << "[Mappings] Register" << reg
 								<< "reserved more than once. Check attributes file.";
 				}
 				mDBusModbusMap.insert(reg, item);
-				QLOG_TRACE() << "[Mappings] Add" << values;
+				qDebug() << "[Mappings] Add" << values;
 			}
 		}
 	}
@@ -99,7 +98,7 @@ void Mappings::importUnitIDMapping(const QString &filename)
 {
 	QFile file(QCoreApplication::applicationDirPath() + "/" + filename);
 	if (!file.open(QIODevice::ReadOnly)) {
-		QLOG_ERROR() << "Can not open file" << filename;
+		qCritical() << "Can not open file" << filename;
 		return;
 	}
 	QTextStream in(&file);
@@ -122,7 +121,7 @@ void Mappings::importUnitIDMapping(QTextStream &in)
 				// longer without changing the behavior of the application.
 				if (isNumber && unitID != deviceInstance) {
 					mUnitIDMap.insert(unitID, deviceInstance);
-					QLOG_TRACE() << "[Mappings] Add" << values;
+					qDebug() << "[Mappings] Add" << values;
 				}
 			}
 		}
@@ -231,7 +230,7 @@ void Mappings::getValues(MappingRequest *request)
 
 		foreach(VeQItem *item, items) {
 			if (item->getState() == VeQItem::Offline) {
-				QLOG_TRACE() << "Value not available" << item->uniqueId();
+				qDebug() << "Value not available" << item->uniqueId();
 			}
 		}
 
@@ -248,7 +247,7 @@ void Mappings::getValues(MappingRequest *request)
 									 it.data()->scaleFactor);
 			replyData.append(static_cast<char>(value >> 8));
 			replyData.append(static_cast<char>(value));
-			QLOG_DEBUG() << "Get dbus value" << it.data()->objectPaths.join(", ")
+			qDebug() << "Get dbus value" << it.data()->objectPaths.join(", ")
 						 << "offset" << it.offset() << ':' << dbusValue.toString();
 		}
 	}
@@ -318,8 +317,8 @@ void Mappings::setValues(MappingRequest *request)
 			emit requestCompleted(request);
 			return;
 		}
-		QLOG_DEBUG() << "Set dbus value" << it.data()->objectPaths.join(", ")
-					 << "value to" << dbusValue.toString();
+		qDebug() << "Set dbus value" << it.data()->objectPaths.join(", ")
+				 << "value to" << dbusValue.toString();
 		if (item->setValue(dbusValue) != 0) {
 			QString errorString = QString("SetValue failed on %1").
 					arg(it.data()->objectPaths.join(", "));
@@ -379,7 +378,7 @@ template<class rettype> rettype Mappings::convertFromDbus(const QVariant &value,
 	case QMetaType::Bool:
 		return static_cast<rettype>(value.toBool());
 	default:
-		QLOG_WARN() << "[Mappings] convert from dbus type tries to convert an unsupported type:"
+		qWarning() << "[Mappings] convert from dbus type tries to convert an unsupported type:"
 					<< value.type() << "(" << value.typeName() << ")";
 		return 0;
 	}
@@ -407,7 +406,7 @@ template<class argtype> QVariant Mappings::convertToDbus(QMetaType::Type dbusTyp
 	case QMetaType::Bool:
 		return QVariant::fromValue(static_cast<int>(value));
 	default:
-		QLOG_WARN() << "[Mappings] convert to dbus type tries to convert an unsupported type:"
+		qWarning() << "[Mappings] convert to dbus type tries to convert an unsupported type:"
 					<< dbusType;
 		return QVariant();
 	}
@@ -636,7 +635,7 @@ Mappings::DBusModbusData::DBusModbusData(QString _deviceType, QStringList _objec
 
 	if (_modbusType == mb_type_string && _accessRights == mb_perm_write) {
 		_accessRights = mb_perm_read;
-		QLOG_WARN() << "[Mappings] Register" << _deviceType << _objectPaths[0]
+		qWarning() << "[Mappings] Register" << _deviceType << _objectPaths[0]
 					<< ": cannot write string values";
 	}
 	accessRights = _accessRights;

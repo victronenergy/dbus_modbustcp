@@ -1,4 +1,3 @@
-#include <QsLog.h>
 #include <velib/qt/ve_qitem.hpp>
 #include "ve_qitem_init_monitor.h"
 

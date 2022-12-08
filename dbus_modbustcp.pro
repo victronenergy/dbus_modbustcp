@@ -30,11 +30,9 @@ TEMPLATE = app
 MOC_DIR=.moc
 OBJECTS_DIR=.obj
 
-include(ext/QsLog/QsLog.pri)
 include(ext/velib/src/qt/ve_qitems.pri)
 
 INCLUDEPATH += \
-    ext/QsLog \
     ext/velib/inc
 
 SOURCES += main.cpp \
@@ -69,7 +67,8 @@ HEADERS += \
     mapping_request.h \
     diagnostics_service.h \
     ve_qitem_init_monitor.h \
-    connection.h
+    connection.h \
+    logging.h
 
 OTHER_FILES += \
     attributes.csv \

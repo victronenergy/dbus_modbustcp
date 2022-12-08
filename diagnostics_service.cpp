@@ -6,20 +6,21 @@
 #include "diagnostics_service.h"
 #include "mappings.h"
 
+// This is somewhat like a singleton. We keep track of the single instance
+// of this class that should ever exist, so that our message handler
+// can use this.
+DiagnosticsService* DiagnosticsService::current = 0;
+
 DiagnosticsService::DiagnosticsService(DBusServices *services, Mappings *mappings, VeQItem *root,
 									   QObject *parent):
 	QObject(parent),
 	mLastErrorTimer(new QTimer(this)),
-	mServices(services),
 	mMappings(mappings),
 	mRoot(root),
 	mLastError(root->itemGetOrCreate("LastError/Message")),
 	mLastErrorTimeStamp(root->itemGetOrCreate("LastError/Timestamp")),
 	mServiceCount(root->itemGetOrCreate("Services/Count"))
 {
-	QsLogging::Logger &logger = QsLogging::Logger::instance();
-	QsLogging::DestinationPtr dest(new DiagnosticsDestination(this));
-	logger.addDestination(dest);
 	mServiceCount->produceValue(0);
 	mServiceCount->produceText("0");
 	mRoot->produceValue(QVariant(), VeQItem::Synchronized);
@@ -30,6 +31,14 @@ DiagnosticsService::DiagnosticsService(DBusServices *services, Mappings *mapping
 	connect(services, SIGNAL(dbusServiceFound(DBusService *)),
 			this, SLOT(onServiceFound(DBusService *)));
 	connect(mLastErrorTimer, SIGNAL(timeout()), this, SLOT(onLastErrorTimer()));
+
+	// Catch errors so it can be shown on the GUI
+	current = this;
+	oldMessageHandler = qInstallMessageHandler(messageHandler);
+}
+
+DiagnosticsService::~DiagnosticsService() {
+	qInstallMessageHandler(oldMessageHandler);
 }
 
 void DiagnosticsService::setError(const QString &error)
@@ -154,3 +163,19 @@ void DiagnosticsService::updateService(VeQItem *serviceEntry, VeQItem *serviceRo
 	isActive->produceValue(a);
 	isActive->produceText(QString::number(a));
 }
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+void DiagnosticsService::messageHandler(QtMsgType type, const QMessageLogContext &ctx, const QString &msg)
+{
+	current->oldMessageHandler(type, ctx, msg);
+	if (type == QtCriticalMsg)
+		current->setError(msg);
+}
+#else
+void DiagnosticsService::messageHandler(QtMsgType type, const char *msg)
+{
+	current->oldMessageHandler(type, msg);
+	if (type == QtCriticalMsg)
+		current->setError(msg);
+}
+#endif

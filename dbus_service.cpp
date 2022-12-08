@@ -1,7 +1,8 @@
 #include <QStringList>
+#include <QtDebug>
 #include <velib/qt/ve_qitem.hpp>
 #include "dbus_service.h"
-#include "QsLog.h"
+#include "logging.h"
 
 DBusService::DBusService(VeQItem *serviceRoot, QObject *parent) :
 	QObject(parent),
@@ -36,12 +37,12 @@ void DBusService::onDeviceInstanceChanged()
 {
 	switch (mDeviceInstance->getState()) {
 	case VeQItem::Synchronized:
-		QLOG_INFO() << QString("[DBusService] Service online: %1 (%2)").
+		qInfo() << QString("[DBusService] Service online: %1 (%2)").
 					   arg(mServiceRoot->id()).
 					   arg(mDeviceInstance->getValue().toInt());
 		break;
 	case VeQItem::Offline:
-		QLOG_INFO() << QString("[DBusService] Service offline: %1 (%2)").
+		qInfo() << QString("[DBusService] Service offline: %1 (%2)").
 					   arg(mServiceRoot->id()).
 					   arg(mDeviceInstance->getValue().toInt());
 		break;

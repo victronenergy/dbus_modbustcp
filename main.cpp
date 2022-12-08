@@ -4,26 +4,11 @@
 #include "app.h"
 #include "arguments.h"
 #include "nostorage_qitem_producer.h"
-#include "QsLog.h"
-
-void initLogger(QsLogging::Level logLevel)
-{
-	QsLogging::Logger &logger = QsLogging::Logger::instance();
-	QsLogging::DestinationPtr debugDestination(
-			QsLogging::DestinationFactory::MakeDebugOutputDestination() );
-	logger.addDestination(debugDestination);
-	logger.setIncludeTimestamp(false);
-
-	QLOG_INFO() << "dbus_modbustcp" << "v" VERSION << "started";
-	QLOG_INFO() << "Built with Qt" << QT_VERSION_STR << "running on" << qVersion();
-	QLOG_INFO() << "Built on" << __DATE__ << "at" << __TIME__;
-	logger.setLoggingLevel(logLevel);
-}
+#include "logging.h"
 
 void usage(Arguments &arg)
 {
 	arg.addArg("-h", "Print this help");
-	arg.addArg("-d level", "Debug level: 0=TRACE, 1=DEBUG, 2=INFO...");
 	arg.addArg("--dbus", "D-Bus connection: session, system, ...");
 	arg.addArg("-p", "Modbus TCP port");
 }
@@ -43,10 +28,9 @@ int main(int argc, char *argv[])
 	if (arg.contains("p"))
 		tcpPort = arg.value("p").toInt();
 
-	QsLogging::Level logLevel = QsLogging::InfoLevel;
-	if (arg.contains("d"))
-		logLevel = static_cast<QsLogging::Level>(arg.value("d").toInt());
-	initLogger(logLevel);
+	qInfo() << "dbus_modbustcp" << "v" VERSION << "started";
+	qInfo() << "Built with Qt" << QT_VERSION_STR << "running on" << qVersion();
+	qInfo() << "Built on" << __DATE__ << "at" << __TIME__;
 
 	QString dbusConnection = arg.contains("dbus") ? arg.value("dbus") : "system";
 
