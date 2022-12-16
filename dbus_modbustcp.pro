@@ -76,6 +76,9 @@ OTHER_FILES += \
     unitid2di.csv \
     modbustcp_tb.py
 
+# Silence a heap of moaning about internal QT4 definitions
+equals(QT_MAJOR_VERSION, 4): QMAKE_CXXFLAGS += -Wno-deprecated-copy -Wno-class-memaccess
+
 *g++* {
 # suppress the mangling of va_arg has changed for gcc 4.4
 QMAKE_CXXFLAGS += -Wno-psabi
