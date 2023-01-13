@@ -232,6 +232,7 @@ com.victronenergy.solarcharger,/Pv/1/P,d,W,3725,uint16,1,R
 com.victronenergy.solarcharger,/Pv/2/P,d,W,3726,uint16,1,R
 com.victronenergy.solarcharger,/Pv/3/P,d,W,3727,uint16,1,R
 com.victronenergy.solarcharger,/Yield/User,d,kWh,3728,uint32,1,R
+com.victronenergy.solarcharger,/Yield/Power,d,W,3730,uint16,1,R
 com.victronenergy.system,/Ac/PvOnOutput/L1/Power,d,W,808,uint16,1,R
 com.victronenergy.system,/Ac/PvOnOutput/L2/Power,d,W,809,uint16,1,R
 com.victronenergy.system,/Ac/PvOnOutput/L3/Power,d,W,810,uint16,1,R
