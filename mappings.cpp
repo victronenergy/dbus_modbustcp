@@ -11,6 +11,7 @@
 #include "ve_qitem_init_monitor.h"
 
 const QString stringType = "string";
+const QString reservedType = "reserved";
 
 Mappings::Mappings(DBusServices *services, QObject *parent) :
 	QObject(parent),
@@ -44,9 +45,14 @@ void Mappings::importCSV(QTextStream &in)
 			ModbusTypes modbusType = convertModbusType(values.at(5));
 			if (modbusType != mb_type_none) {
 				int item_size = 1;
+				Operation *operation = &mNopOperation;
 				switch (modbusType) {
 				case mb_type_string:
-					item_size = convertStringSize(values.at(5));
+					item_size = convertSize(stringType, values.at(5));
+					break;
+				case mb_type_reserved:
+					item_size = convertSize(reservedType, values.at(5));
+					operation = new ReservedOperation(item_size);
 					break;
 				case mb_type_int32:
 				case mb_type_uint32:
@@ -65,7 +71,7 @@ void Mappings::importCSV(QTextStream &in)
 					modbusType,
 					convertDbusType(values.at(2)),
 					convertPermissions(values.at(7)),
-					&mNopOperation);
+					operation);
 
 				if (item->dbusType == QMetaType::Void) {
 					QLOG_WARN() << "[Mappings] Register" << values.at(4)
@@ -215,6 +221,8 @@ quint16 Mappings::getValue(const QVariant &dbusValue, ModbusTypes modbusType, in
 			return v;
 		return v | b[index];
 	}
+	case mb_type_reserved:
+		return dbusValue.toInt();
 	default:
 		return 0;
 	}
@@ -425,6 +433,8 @@ Mappings::ModbusTypes Mappings::convertModbusType(const QString &typeString)
 		return mb_type_uint32;
 	if (typeString.startsWith(stringType))
 		return mb_type_string;
+	if (typeString.startsWith(reservedType))
+		return mb_type_reserved;
 	return mb_type_none;
 }
 
@@ -462,15 +472,15 @@ Mappings::Permissions Mappings::convertPermissions(const QString &permissions)
 	return Mappings::mb_perm_none;
 }
 
-int Mappings::convertStringSize(const QString &typeString)
+int Mappings::convertSize(const QString &identifier, const QString &typeString)
 {
-	if (typeString.size() <= stringType.size() + 2 ||
-		typeString[stringType.size()] != '[' ||
+	if (typeString.size() <= identifier.size() + 2 ||
+		typeString[identifier.size()] != '[' ||
 		!typeString.endsWith(']')) {
 		return 0;
 	}
-	int offset = stringType.size() + 1;
-	int count = typeString.size() - stringType.size() - 2;
+	int offset = identifier.size() + 1;
+	int count = typeString.size() - identifier.size() - 2;
 	return typeString.mid(offset, count).toInt();
 }
 
@@ -656,4 +666,14 @@ QVariant Mappings::DivOperation::calculate(QList<QVariant> args)
 QVariant Mappings::NopOperation::calculate(QList<QVariant> args)
 {
 	return args[0];
+}
+
+Mappings::ReservedOperation::ReservedOperation(int size) : mSize(size)
+{
+}
+
+QVariant Mappings::ReservedOperation::calculate(QList<QVariant> args)
+{
+	Q_UNUSED(args);
+	return QVariant(0xFFFF);
 }

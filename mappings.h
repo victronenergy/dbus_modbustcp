@@ -51,7 +51,8 @@ private:
 		mb_type_int16,
 		mb_type_uint32,
 		mb_type_int32,
-		mb_type_string
+		mb_type_string,
+		mb_type_reserved
 	};
 
 	enum Permissions {
@@ -129,7 +130,7 @@ private:
 	ModbusTypes convertModbusType(const QString &typeString);
 	QMetaType::Type convertDbusType(const QString &typeString);
 	Permissions convertPermissions(const QString &permissions);
-	int convertStringSize(const QString &typeString);
+	int convertSize(const QString &identifier, const QString &typeString);
 	DBusServices *mServices;
 	// modbus register -> unit id -> dbus <-> modbus data
 	QMap<int, DBusModbusData *> mDBusModbusMap;
@@ -148,6 +149,15 @@ private:
 
 	class DivOperation : public Operation { QVariant calculate(QList<QVariant> args); };
 	class NopOperation : public Operation { QVariant calculate(QList<QVariant> args); };
+
+	// To mark reserved ranges
+	class ReservedOperation : public Operation {
+	public:
+		ReservedOperation(int size);
+		QVariant calculate(QList<QVariant> args);
+	private:
+		int mSize;
+	};
 
 	// class level instances of operations
 	DivOperation mDivOperation;
