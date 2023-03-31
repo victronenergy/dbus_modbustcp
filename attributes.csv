@@ -211,6 +211,7 @@ com.victronenergy.solarcharger,/Pv/0/V,d,V DC,3700,uint16,100,R
 com.victronenergy.solarcharger,/Pv/1/V,d,V DC,3701,uint16,100,R
 com.victronenergy.solarcharger,/Pv/2/V,d,V DC,3702,uint16,100,R
 com.victronenergy.solarcharger,/Pv/3/V,d,V DC,3703,uint16,100,R
+com.victronenergy.solarcharger,RESERVED,d,,3704,reserved[4],1,R
 com.victronenergy.solarcharger,/History/Daily/0/Pv/0/Yield,d,kWh,3708,uint16,10,R
 com.victronenergy.solarcharger,/History/Daily/0/Pv/1/Yield,d,kWh,3709,uint16,10,R
 com.victronenergy.solarcharger,/History/Daily/0/Pv/2/Yield,d,kWh,3710,uint16,10,R
