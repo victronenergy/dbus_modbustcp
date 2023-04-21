@@ -67,11 +67,11 @@ com.victronenergy.vebus,/Bms/AllowToCharge,u,0=No;1=Yes,57,uint16,1,R
 com.victronenergy.vebus,/Bms/AllowToDischarge,u,0=No;1=Yes,58,uint16,1,R
 com.victronenergy.vebus,/Bms/BmsExpected,u,0=No;1=Yes,59,uint16,1,R
 com.victronenergy.vebus,/Bms/Error,u,0=No;1=Yes,60,uint16,1,R
-com.victronenergy.vebus,/Bms/PreAlarm,u,0=OK;1=Pre-Alarm,94,uint16,1,R
 com.victronenergy.vebus,/Dc/0/Temperature,d,Degrees celsius,61,int16,10,R
 com.victronenergy.vebus,/SystemReset,y,0=No action;1=VE.Bus Reset,62,uint16,1,W
 com.victronenergy.vebus,/Alarms/PhaseRotation,u,0=Ok;1=Warning,63,uint16,1,R
 com.victronenergy.vebus,/Alarms/GridLost,i,0=No alarm;2=Alarm,64,uint16,1,R
+com.victronenergy.vebus,/Alarms/BmsPreAlarm,u,0=OK;1=Pre-Alarm,94,uint16,1,R
 com.victronenergy.vebus,/Hub4/DoNotFeedInOvervoltage,i,0=Feed in overvoltage;1=Don't feed in overvoltage,65,uint16,1,W
 com.victronenergy.vebus,/Hub4/L1/MaxFeedInPower,d,W,66,uint16,0.01,W
 com.victronenergy.vebus,/Hub4/L2/MaxFeedInPower,d,W,67,uint16,0.01,W
@@ -211,6 +211,7 @@ com.victronenergy.solarcharger,/Pv/0/V,d,V DC,3700,uint16,100,R
 com.victronenergy.solarcharger,/Pv/1/V,d,V DC,3701,uint16,100,R
 com.victronenergy.solarcharger,/Pv/2/V,d,V DC,3702,uint16,100,R
 com.victronenergy.solarcharger,/Pv/3/V,d,V DC,3703,uint16,100,R
+com.victronenergy.solarcharger,RESERVED,d,,3704,reserved[4],1,R
 com.victronenergy.solarcharger,/History/Daily/0/Pv/0/Yield,d,kWh,3708,uint16,10,R
 com.victronenergy.solarcharger,/History/Daily/0/Pv/1/Yield,d,kWh,3709,uint16,10,R
 com.victronenergy.solarcharger,/History/Daily/0/Pv/2/Yield,d,kWh,3710,uint16,10,R
@@ -232,6 +233,7 @@ com.victronenergy.solarcharger,/Pv/1/P,d,W,3725,uint16,1,R
 com.victronenergy.solarcharger,/Pv/2/P,d,W,3726,uint16,1,R
 com.victronenergy.solarcharger,/Pv/3/P,d,W,3727,uint16,1,R
 com.victronenergy.solarcharger,/Yield/User,d,kWh,3728,uint32,1,R
+com.victronenergy.solarcharger,/Yield/Power,d,W,3730,uint16,1,R
 com.victronenergy.system,/Ac/PvOnOutput/L1/Power,d,W,808,uint16,1,R
 com.victronenergy.system,/Ac/PvOnOutput/L2/Power,d,W,809,uint16,1,R
 com.victronenergy.system,/Ac/PvOnOutput/L3/Power,d,W,810,uint16,1,R
@@ -343,6 +345,8 @@ com.victronenergy.settings,/Settings/CGwacs/MaxFeedInPower,d,W,2706,int16,0.01,W
 com.victronenergy.settings,/Settings/CGwacs/OvervoltageFeedIn,i,0=Don't feed excess DC-coupled PV into grid;1=Feed excess DC-coupled PV into the grid,2707,uint16,1,W
 com.victronenergy.settings,/Settings/CGwacs/PreventFeedback,i,0=Feed excess AC-coupled PV into grid;1=Don't feed excess AC-coupled PV into the grid,2708,uint16,1,W
 com.victronenergy.settings,/Settings/SystemSetup/MaxChargeVoltage,d,V,2710,uint16,10,W
+com.victronenergy.settings,/Settings/SystemSetup/AcInput1,u,0=Unused;1=Grid;2=Genset;3=Shore,2711,uint16,1,W
+com.victronenergy.settings,/Settings/SystemSetup/AcInput2,u,0=Unused;1=Grid;2=Genset;3=Shore,2712,uint16,1,W
 com.victronenergy.hub4,/PvPowerLimiterActive,i,0=Feed-in limiting inactive;1=Feed-in limiting active,2709,uint16,1,R
 com.victronenergy.tank,/ProductId,u,,3000,uint16,1,R
 com.victronenergy.tank,/Capacity,d,m3,3001,uint32,10000,R
@@ -462,7 +466,7 @@ com.victronenergy.evcharger,/Ac/L3/Power,d,W,3820,uint16,1,R
 com.victronenergy.evcharger,/Ac/Power,d,W,3821,uint16,1,R
 com.victronenergy.evcharger,/ChargingTime,d,s,3822,uint16,0.01,R
 com.victronenergy.evcharger,/Current,d,A,3823,uint16,1,W
-com.victronenergy.evcharger,/Status,u,0=Disconnected; 1=Connected; 2=Charging; 3=Charged; 4=Waiting for sun; 5=Waiting for RFID; 6=Waiting for start; 7=Low SOC; 8=Ground fault; 9=Welded contacts; 10=CP Input shorted; 11=Residual current detected; 12=Under voltage detected; 13=Overvoltage detected; 14=Overheating detected,3824,uint16,1,R
+com.victronenergy.evcharger,/Status,u,0=Disconnected;1=Connected;2=Charging;3=Charged;4=Waiting for sun;5=Waiting for RFID;6=Waiting for start;7=Low SOC;8=Ground fault;9=Welded contacts;10=CP Input shorted;11=Residual current detected;12=Under voltage detected;13=Overvoltage detected;14=Overheating detected,3824,uint16,1,R
 com.victronenergy.evcharger,/SetCurrent,d,A,3825,uint16,1,W
 com.victronenergy.evcharger,/StartStop,u,0=Stop;1=Start,3826,uint16,1,W
 com.victronenergy.evcharger,/Position,i,0=AC input 1;1=AC output;2=AC input 2,3827,uint16,1,W
