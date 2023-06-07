@@ -413,8 +413,7 @@ com.victronenergy.genset,/Engine/CoolantTemperature,d,Degrees celsius,3219,int16
 com.victronenergy.genset,/Engine/WindingTemperature,d,Degrees celsius,3220,int16,10,R
 com.victronenergy.genset,/Engine/ExaustTemperature,d,Degrees celsius,3221,int16,10,R
 com.victronenergy.genset,/StarterVoltage,d,V DC,3222,uint16,100,R
-com.victronenergy.genset,/FuelLevel,d,%,3224,uint16,uint16,1,R
-com.victronenergy.genset,/Engine/OilPressure,d,kPa,3225,int16,1,R
+com.victronenergy.genset,/Engine/OilPressure,d,kPa,3224,int16,1,R
 com.victronenergy.genset,/Ac/L1/Voltage,d,V AC,3200,uint16,10,R
 com.victronenergy.genset,/Ac/L1/Current,d,A AC,3203,int16,10,R
 com.victronenergy.genset,/Ac/L1/Power,d,W,3206,int16,1,R
