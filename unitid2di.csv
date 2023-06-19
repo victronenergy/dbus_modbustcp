@@ -1,59 +1,24 @@
 Unit ID, /DeviceInstance,Remark
+100,0,Workaround for clients that do not support unit ID 0
+223,277,Cerbo GX VE.Direct port 3 (ttyS5)
+224,278,Cerbo GX VE.Direct port 2 (ttyS6)
+225,512,CAN-bus BMS
+226,279,Cerbo GX VE.Direct port 1 (ttyS7)
+227,276,Cerbo GX VE.Bus port (ttyS4)
+228,275,EasySolar-II/Multiplus-II GX VE.Bus port (ttyS3)
+229,274,EasySolar-II/Multiplus-II GX VE.Direct port (ttyS2)
+230,273,EasySolar-II/Multiplus-II GX VE.Direct port (ttyS1)
+231,295,VE.Direct via USB, Octo GX VE.Direct 9 (ttyUSB7)
+232,294,VE.Direct via USB, Octo GX VE.Direct 8 (ttyUSB6)
+233,293,VE.Direct via USB, Octo GX VE.Direct 7 (ttyUSB5)
+234,296,VE.Direct via USB, Octo GX VE.Direct 10 (ttyUSB8)
+235,292,VE.Direct via USB, Octo GX VE.Direct 6 (ttyUSB4)
+236,291,VE.Direct via USB, Octo GX VE.Direct 5 (ttyUSB3)
+237,290,VE.Direct via USB, Octo GX VE.Direct 4 (ttyUSB2)
+238,289,VE.Direct via USB, Octo GX VE.Direct 3 (ttyUSB1)
+239,288,VE.Direct via USB (ttyUSB0)
+242,261,Venus GX VE.Bus port (ttyO5)
+243,260,Venus GX VE.Direct 2 port (ttyO4)
+245,258,"CCGX VE.Direct 2 port, Venus GX VE.Direct 1 port (ttyO2)"
 246,257,CCGX VE.Bus port (ttyO1)
 247,256,CCGX VE.Direct 1 port (ttyO0)
-245,258,"CCGX VE.Direct 2 port, Venus GX VE.Direct 1 port (ttyO2)"
-243,260,Venus GX VE.Direct 2 port (ttyO4)
-242,261,Venus GX VE.Bus port (ttyO5)
-230,273,EasySolar-II/Multiplus-II GX VE.Direct port (ttyS1)
-229,274,EasySolar-II/Multiplus-II GX VE.Direct port (ttyS2)
-228,275,EasySolar-II/Multiplus-II GX VE.Bus port (ttyS3)
-227,276,Cerbo GX VE.Bus port (ttyS4)
-226,279,Cerbo GX VE.Direct port 1 (ttyS7)
-224,278,Cerbo GX VE.Direct port 2 (ttyS6)
-223,277,Cerbo GX VE.Direct port 3 (ttyS5)
-0,0,VE.Can device instance 0 and system service
-1,1,VE.Can device instance 1
-2,2,VE.Can device instance 2
-3,3,VE.Can device instance 3
-4,4,VE.Can device instance 4
-5,5,VE.Can device instance 5
-6,6,VE.Can device instance 6
-7,7,VE.Can device instance 7
-8,8,VE.Can device instance 8
-9,9,VE.Can device instance 9
-10,10,VE.Bus AC-Sensor on input 1
-11,11,VE.Bus AC-Sensor on output
-12,12,VE.Bus AC-Sensor on input 2
-20,20,PV Inverter instance 0
-21,21,PV Inverter instance 1
-22,22,PV Inverter instance 2
-23,23,PV Inverter instance 3
-24,24,PV Inverter instance 4
-25,25,PV Inverter instance 5
-26,26,PV Inverter instance 6
-27,27,PV Inverter instance 7
-28,28,PV Inverter instance 8
-29,29,PV Inverter instance 9
-30,30,Carlo Gavazi grid meters instance 0
-31,31,Carlo Gavazi grid meters instance 1
-32,32,Carlo Gavazi grid meters instance 2
-33,33,Carlo Gavazi grid meters instance 3
-34,34,Carlo Gavazi grid meters instance 4
-40,40,Redflow system totals
-41,41,Redflow battery (Modbus-RTU ID 1)
-42,42,Redflow battery (Modbus-RTU ID 2)
-43,43,Redflow battery (Modbus-RTU ID 3)
-44,44,Redflow battery (Modbus-RTU ID 4)
-45,45,Redflow battery (Modbus-RTU ID 5)
-46,46,Redflow battery (Modbus-RTU ID 6)
-100,0,Workaround for clients that do not support unit ID 0
-239,288,VE.Direct via USB (ttyUSB0)
-238,289,VE.Direct via USB, Octo GX VE.Direct 3 (ttyUSB1)
-237,290,VE.Direct via USB, Octo GX VE.Direct 4 (ttyUSB2)
-236,291,VE.Direct via USB, Octo GX VE.Direct 5 (ttyUSB3)
-235,292,VE.Direct via USB, Octo GX VE.Direct 6 (ttyUSB4)
-233,293,VE.Direct via USB, Octo GX VE.Direct 7 (ttyUSB5)
-232,294,VE.Direct via USB, Octo GX VE.Direct 8 (ttyUSB6)
-231,295,VE.Direct via USB, Octo GX VE.Direct 9 (ttyUSB7)
-234,296,VE.Direct via USB, Octo GX VE.Direct 10 (ttyUSB8)
-225,512,CAN-bus BMS
