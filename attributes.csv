@@ -95,6 +95,9 @@ com.victronenergy.vebus,/VebusChargeState,u,0=Initialising;1=Bulk;2=Absorption;3
 com.victronenergy.vebus,/Hub4/L1/AcPowerSetpoint,d,W,96,int32,1,W
 com.victronenergy.vebus,/Hub4/L2/AcPowerSetpoint,d,W,98,int32,1,W
 com.victronenergy.vebus,/Hub4/L3/AcPowerSetpoint,d,W,100,int32,1,W
+com.victronenergy.vebus,/Dc/0/PreferRenewableEnergy,i,0=Not preferred;1=Preferred,102,uint16,1,W
+com.victronenergy.vebus,/Ac/Control/RemoteGeneratorSelected,i,0=Generator not selected;1=Generator selected,103,uint16,1,W
+com.victronenergy.vebus,/Ac/State/RemoteGeneratorSelected,i,0=Generator not selected;1=Generator selected,104,uint16,1,R
 com.victronenergy.battery,/Dc/0/Power,i,W,258,int16,1,R
 com.victronenergy.battery,/Dc/0/Voltage,d,V DC,259,uint16,100,R
 com.victronenergy.battery,/Dc/1/Voltage,d,V DC,260,uint16,100,R
