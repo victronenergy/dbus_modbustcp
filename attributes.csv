@@ -299,6 +299,9 @@ com.victronenergy.pvinverter,/Ac/L3/Energy/Forward,u,kWh,1050,uint32,100,R
 com.victronenergy.pvinverter,/Ac/Power,i,kW,1052,int32,1,W
 com.victronenergy.pvinverter,/Ac/MaxPower,u,kW,1054,uint32,1,W
 com.victronenergy.pvinverter,/Ac/PowerLimit,u,kW,1056,uint32,1,W
+com.victronenergy.pvinverter,/Ac/L1/Power,i,W,1058,uint32,1,R
+com.victronenergy.pvinverter,/Ac/L2/Power,i,W,1060,uint32,1,R
+com.victronenergy.pvinverter,/Ac/L3/Power,i,W,1062,uint32,1,R
 com.victronenergy.motordrive,/Motor/RPM,d,RPM,2048,int16,1,R
 com.victronenergy.motordrive,/Motor/Temperature,d,Degrees celsius,2049,int16,10,R
 com.victronenergy.motordrive,/Dc/0/Voltage,d,V DC,2050,uint16,100,R
@@ -345,6 +348,9 @@ com.victronenergy.grid,/Ac/L2/Energy/Reverse,d,kWh,2630,uint32,100,R
 com.victronenergy.grid,/Ac/L3/Energy/Reverse,d,kWh,2632,uint32,100,R
 com.victronenergy.grid,/Ac/Energy/Forward,d,kWh,2634,uint32,100,R
 com.victronenergy.grid,/Ac/Energy/Reverse,d,kWh,2636,uint32,100,R
+com.victronenergy.grid,/Ac/L1/Power,d,W,2638,int32,1,R
+com.victronenergy.grid,/Ac/L2/Power,d,W,2640,int32,1,R
+com.victronenergy.grid,/Ac/L3/Power,d,W,2642,int32,1,R
 com.victronenergy.settings,/Settings/CGwacs/AcPowerSetPoint,d,W,2700,int16,1,W
 com.victronenergy.settings,/Settings/CGwacs/AcPowerSetPoint,d,W,2703,int16,0.01,W
 com.victronenergy.settings,/Settings/CGwacs/MaxChargePercentage,d,%,2701,uint16,1,W
