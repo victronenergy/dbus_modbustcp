@@ -476,6 +476,7 @@ com.victronenergy.meteo,/Irradiance,d,W/m^2,3600,uint16,10,R
 com.victronenergy.meteo,/WindSpeed,d,m/s,3601,uint16,10,R
 com.victronenergy.meteo,/CellTemperature,d,Degrees celsius,3602,int16,10,R
 com.victronenergy.meteo,/ExternalTemperature,d,Degrees celsius,3603,int16,10,R
+com.victronenergy.meteo,/ExternalTemperature2,d,Degrees celsius,3604,int16,10,R
 com.victronenergy.evcharger,/ProductId,u,,3800,uint16,1,R
 com.victronenergy.evcharger,/FirmwareVersion,u,,3802,uint32,1,R
 com.victronenergy.evcharger,/Serial,s,,3804,string[6],,R
