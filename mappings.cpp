@@ -2,6 +2,7 @@
 #include <QFile>
 #include <qmath.h>
 #include <QStringList>
+#include <QDateTime>
 #include <velib/qt/ve_qitem.hpp>
 #include "dbus_service.h"
 #include "dbus_services.h"
@@ -102,6 +103,11 @@ void Mappings::importCSV(QTextStream &in)
 		QMetaType::Double, // dbus type
 		Mappings::mb_perm_read,
 		&mDivOperation)); // Divide power by voltage
+
+	// Date and time
+	mDBusModbusMap.insert(830, new DBusModbusData(
+		"system", QStringList(), 1, 4, mb_type_uint64, QMetaType::ULongLong,
+		Mappings::mb_perm_read, &mTimeOperation));
 }
 
 void Mappings::importUnitIDMapping(const QString &filename)
@@ -693,4 +699,11 @@ QVariant Mappings::ReservedOperation::calculate(QList<QVariant> args)
 {
 	Q_UNUSED(args);
 	return QVariant(0xFFFF);
+}
+
+QVariant Mappings::TimeOperation::calculate(QList<QVariant> args)
+{
+	Q_UNUSED(args);
+	return QVariant(
+		QDateTime::currentDateTimeUtc().currentMSecsSinceEpoch()/1000);
 }

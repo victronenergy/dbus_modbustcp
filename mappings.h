@@ -150,6 +150,7 @@ private:
 
 	class DivOperation : public Operation { QVariant calculate(QList<QVariant> args); };
 	class NopOperation : public Operation { QVariant calculate(QList<QVariant> args); };
+	class TimeOperation : public Operation { QVariant calculate(QList<QVariant> args); };
 
 	// To mark reserved ranges
 	class ReservedOperation : public Operation {
@@ -163,6 +164,7 @@ private:
 	// class level instances of operations
 	DivOperation mDivOperation;
 	NopOperation mNopOperation;
+	TimeOperation mTimeOperation;
 };
 
 #endif // MAPPINGS_H
