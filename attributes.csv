@@ -667,3 +667,14 @@ com.victronenergy.settings,/Settings/Pump0/AutoStartEnabled,d,0=Disabled;1=Enabl
 com.victronenergy.settings,/Settings/Pump0/Mode,d,0=Auto;1=On;2=Off,4702,uint16,1,W
 com.victronenergy.settings,/Settings/Pump0/StartValue,d,%,4703,uint16,1,W
 com.victronenergy.settings,/Settings/Pump0/StopValue,d,%,4704,uint16,1,W
+com.victronenergy.dcdc,/ProductId,u,,4800,uint16,1,R
+com.victronenergy.dcdc,/FirmwareVersion,u,,4801,uint32,1,R
+com.victronenergy.dcdc,/ErrorCode,i,0=No error;1=Battery temperature too high;2=Battery voltage too high;3=Battery temperature sensor miswired (+);4=Battery temperature sensor miswired (-);5=Battery temperature sensor disconnected;6=Battery voltage sense miswired (+);7=Battery voltage sense miswired (-);8=Battery voltage sense disconnected;9=Battery voltage wire losses too high;17=Charger temperature too high;18=Charger over-current;19=Charger current polarity reversed;20=Bulk time limit reached;22=Charger temperature sensor miswired;23=Charger temperature sensor disconnected;34=Input current too high,4803,uint16,1,R
+com.victronenergy.dcdc,/Dc/0/Voltage,d,V DC,4804,uint16,100,R
+com.victronenergy.dcdc,/Dc/0/Current,d,A DC,4805,int16,10,R
+com.victronenergy.dcdc,/Dc/0/Temperature,d,Degrees celsius,4806,int16,10,R
+com.victronenergy.dcdc,/Mode,u,1=On;4=Off,4807,uint16,1,W
+com.victronenergy.dcdc,/State,i,0=Off;2=Fault;3=Bulk;4=Absorption;5=Float;6=Storage;7=Equalize,4808,uint16,1,R
+com.victronenergy.dcdc,/Dc/In/V,d,V DC,4809,uint16,100,R
+com.victronenergy.dcdc,/Dc/In/P,d,W,4810,uint16,1,R
+com.victronenergy.dcdc,/History/Cumulative/User/ChargedAh,d,Ah,4811,uint16,10,R
