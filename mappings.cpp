@@ -58,6 +58,9 @@ void Mappings::importCSV(QTextStream &in)
 				case mb_type_uint32:
 					item_size = 2;
 					break;
+				case mb_type_uint64:
+					item_size = 4;
+					break;
 				default:
 					item_size = 1;
 					break;
@@ -209,6 +212,14 @@ quint16 Mappings::getValue(const QVariant &dbusValue, ModbusTypes modbusType, in
 		quint32 v = convertFromDbus<quint32>(dbusValue, scaleFactor);
 		return offset == 0 ? v >> 16 : v & 0xFFFF;
 	}
+	case mb_type_uint64:
+	{
+		// For 64-bit, multiplying an int by a double causes errors
+		// in the LSB part. Therefore assume scaleFactor is always
+		// an integer in this case.
+		quint64 v = dbusValue.toULongLong() * int(scaleFactor);
+		return (v >> (16 * (3 - offset))) & 0xFFFF;
+	}
 	case mb_type_string:
 	{
 		QByteArray b = dbusValue.toString().toLatin1();
@@ -313,6 +324,10 @@ void Mappings::setValues(MappingRequest *request)
 			break;
 		case mb_type_uint32:
 			dbusValue = convertToDbus(it.data()->dbusType, static_cast<quint32>(value),
+									  it.data()->scaleFactor);
+			break;
+		case mb_type_uint64:
+			dbusValue = convertToDbus(it.data()->dbusType, static_cast<quint64>(value),
 									  it.data()->scaleFactor);
 			break;
 		default:
@@ -431,6 +446,8 @@ Mappings::ModbusTypes Mappings::convertModbusType(const QString &typeString)
 		return mb_type_int32;
 	if (typeString == "uint32")
 		return mb_type_uint32;
+	if (typeString == "uint64")
+		return mb_type_uint64;
 	if (typeString.startsWith(stringType))
 		return mb_type_string;
 	if (typeString.startsWith(reservedType))
