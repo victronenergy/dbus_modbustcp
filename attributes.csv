@@ -266,6 +266,8 @@ com.victronenergy.system,/Ac/Genset/L1/Power,d,W,823,int16,1,R
 com.victronenergy.system,/Ac/Genset/L2/Power,d,W,824,int16,1,R
 com.victronenergy.system,/Ac/Genset/L3/Power,d,W,825,int16,1,R
 com.victronenergy.system,/Ac/ActiveIn/Source,u,0=Not available;1=Grid;2=Generator;3=Shore power;240=Not connected,826,int16,1,R
+com.victronenergy.system,RESERVED,d,,827,reserved[3],1,R
+com.victronenergy.system,RESERVED,d,,830,reserved[10],1,R
 com.victronenergy.system,/Dc/System/Power,d,W,860,int16,1,R
 com.victronenergy.system,/Dc/Battery/Voltage,d,V DC,840,uint16,10,R
 com.victronenergy.system,/Dc/Battery/Current,d,A DC,841,int16,10,R
