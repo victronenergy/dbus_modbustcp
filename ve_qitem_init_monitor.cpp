@@ -1,5 +1,5 @@
 #include <QsLog.h>
-#include <velib/qt/ve_qitem.hpp>
+#include <veutil/qt/ve_qitem.hpp>
 #include "ve_qitem_init_monitor.h"
 
 VeQItemInitMonitor::VeQItemInitMonitor(QObject *parent):
@@ -30,7 +30,7 @@ void VeQItemInitMonitor::start()
 			item->getValue();
 			// Fall through
 		case VeQItem::Requested:
-			connect(item, SIGNAL(stateChanged(VeQItem *, State)), this, SLOT(onStateChanged()));
+			connect(item, SIGNAL(stateChanged(VeQItem::State)), this, SLOT(onStateChanged()));
 			break;
 		default:
 			// Do nothing

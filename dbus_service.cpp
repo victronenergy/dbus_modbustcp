@@ -1,5 +1,5 @@
 #include <QStringList>
-#include <velib/qt/ve_qitem.hpp>
+#include <veutil/qt/ve_qitem.hpp>
 #include "dbus_service.h"
 #include "QsLog.h"
 
@@ -8,7 +8,7 @@ DBusService::DBusService(VeQItem *serviceRoot, QObject *parent) :
 	mServiceRoot(serviceRoot),
 	mDeviceInstance(serviceRoot->itemGetOrCreate("/DeviceInstance"))
 {
-	connect(mDeviceInstance, SIGNAL(valueChanged(VeQItem *, QVariant)),
+	connect(mDeviceInstance, SIGNAL(valueChanged(QVariant)),
 			this, SLOT(onDeviceInstanceChanged()));
 	mDeviceInstance->getValue();
 }

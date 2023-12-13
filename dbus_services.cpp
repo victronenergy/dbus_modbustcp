@@ -1,5 +1,5 @@
 #include <QsLog.h>
-#include <velib/qt/ve_qitem.hpp>
+#include <veutil/qt/ve_qitem.hpp>
 #include "dbus_service.h"
 #include "dbus_services.h"
 

@@ -1,6 +1,6 @@
 #include <QDateTime>
 #include <QTimer>
-#include <velib/qt/ve_qitem.hpp>
+#include <veutil/qt/ve_qitem.hpp>
 #include "dbus_service.h"
 #include "dbus_services.h"
 #include "diagnostics_service.h"
@@ -42,14 +42,15 @@ void DiagnosticsService::setError(const QString &error)
 
 void DiagnosticsService::onServiceFound(DBusService *service)
 {
-	connect(service->getDeviceInstance(), SIGNAL(valueChanged(VeQItem *, QVariant)),
-			this, SLOT(onDeviceInstanceChanged(VeQItem *)));
-	connect(service->getServiceRoot(), SIGNAL(stateChanged(VeQItem *, State)),
-			this, SLOT(onServiceStateChanged(VeQItem *)));
+	connect(service->getDeviceInstance(), SIGNAL(valueChanged(QVariant)),
+			this, SLOT(onDeviceInstanceChanged()));
+	connect(service->getServiceRoot(), SIGNAL(stateChanged(VeQItem::State)),
+			this, SLOT(onServiceStateChanged()));
 }
 
-void DiagnosticsService::onDeviceInstanceChanged(VeQItem *deviceInstanceItem)
+void DiagnosticsService::onDeviceInstanceChanged()
 {
+	VeQItem *deviceInstanceItem = static_cast<VeQItem *>(sender());
 	VeQItem *serviceRoot = deviceInstanceItem->itemParent();
 	VeQItem *serviceEntry = getServiceItem(serviceRoot, deviceInstanceItem);
 	if (serviceEntry == 0)
@@ -59,8 +60,9 @@ void DiagnosticsService::onDeviceInstanceChanged(VeQItem *deviceInstanceItem)
 	updateService(serviceEntry, serviceRoot);
 }
 
-void DiagnosticsService::onServiceStateChanged(VeQItem *item)
+void DiagnosticsService::onServiceStateChanged()
 {
+	VeQItem *item = static_cast<VeQItem *>(sender());
 	VeQItem *serviceEntry = 0;
 	if (item->getState() == VeQItem::Offline) {
 		serviceEntry = getServiceItem(item);

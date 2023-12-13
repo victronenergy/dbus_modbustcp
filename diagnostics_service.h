@@ -34,9 +34,9 @@ public:
 private slots:
 	void onServiceFound(DBusService *service);
 
-	void onDeviceInstanceChanged(VeQItem *item);
+	void onDeviceInstanceChanged();
 
-	void onServiceStateChanged(VeQItem *item);
+	void onServiceStateChanged();
 
 	void onLastErrorTimer();
 

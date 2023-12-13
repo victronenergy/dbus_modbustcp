@@ -1,7 +1,7 @@
 #ifndef NOSTORAGE_QITEM_PRODUCER_H
 #define NOSTORAGE_QITEM_PRODUCER_H
 
-#include <velib/qt/ve_qitems_dbus.hpp>
+#include <veutil/qt/ve_qitems_dbus.hpp>
 
 /**
  * A VeQItemDbus that forces the item's state back to Synchronized after a call to setValue.

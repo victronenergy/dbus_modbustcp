@@ -31,7 +31,7 @@ MOC_DIR=.moc
 OBJECTS_DIR=.obj
 
 include(ext/QsLog/QsLog.pri)
-include(ext/velib/src/qt/ve_qitems.pri)
+include(ext/veutil/veutil.pri)
 
 INCLUDEPATH += \
     ext/QsLog \
