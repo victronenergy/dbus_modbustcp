@@ -574,6 +574,10 @@ com.victronenergy.alternator,/ErrorCode,u,12=High battery temperature;13=High ba
 com.victronenergy.alternator,/Engine/Speed,d,RPM,4114,uint16,1,R
 com.victronenergy.alternator,/Speed,d,RPM,4115,uint16,1,R
 com.victronenergy.alternator,/FieldDrive,q,%,4116,uint16,1,R
+com.victronenergy.alternator,/Dc/In/V,d,V DC,4117,uint16,100,R
+com.victronenergy.alternator,/Dc/In/P,d,W,4118,uint16,1,R
+com.victronenergy.alternator,/Mode,u,1=On;4=Off,4119,uint16,1,W
+com.victronenergy.alternator,/History/Cumulative/User/ChargedAh,d,Ah,4120,uint32,10,R
 com.victronenergy.dcsource,/Dc/0/Voltage,d,V DC,4200,uint16,100,R
 com.victronenergy.dcsource,/Dc/0/Current,d,A DC,4201,int16,10,R
 com.victronenergy.dcsource,/Dc/1/Voltage,d,V DC,4202,int16,10,R
