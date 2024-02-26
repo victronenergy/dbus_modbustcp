@@ -98,6 +98,43 @@ com.victronenergy.vebus,/Hub4/L3/AcPowerSetpoint,d,W,100,int32,1,W
 com.victronenergy.vebus,/Dc/0/PreferRenewableEnergy,i,0=Not preferred;1=Preferred,102,uint16,1,W
 com.victronenergy.vebus,/Ac/Control/RemoteGeneratorSelected,i,0=Generator not selected;1=Generator selected,103,uint16,1,W
 com.victronenergy.vebus,/Ac/State/RemoteGeneratorSelected,i,0=Generator not selected;1=Generator selected,104,uint16,1,R
+com.victronenergy.vebus,RESERVED,d,,105,reserved[1],1,R
+com.victronenergy.vebus,/Devices/0/Settings/AssistCurrentBoostFactor,d,,106,uint16,100,W
+com.victronenergy.vebus,/Devices/1/Settings/AssistCurrentBoostFactor,d,,107,uint16,100,W
+com.victronenergy.vebus,/Devices/2/Settings/AssistCurrentBoostFactor,d,,108,uint16,100,W
+com.victronenergy.vebus,/Devices/3/Settings/AssistCurrentBoostFactor,d,,109,uint16,100,W
+com.victronenergy.vebus,/Devices/4/Settings/AssistCurrentBoostFactor,d,,110,uint16,100,W
+com.victronenergy.vebus,/Devices/5/Settings/AssistCurrentBoostFactor,d,,111,uint16,100,W
+com.victronenergy.vebus,/Devices/6/Settings/AssistCurrentBoostFactor,d,,112,uint16,100,W
+com.victronenergy.vebus,/Devices/7/Settings/AssistCurrentBoostFactor,d,,113,uint16,100,W
+com.victronenergy.vebus,/Devices/8/Settings/AssistCurrentBoostFactor,d,,114,uint16,100,W
+com.victronenergy.vebus,/Devices/9/Settings/AssistCurrentBoostFactor,d,,115,uint16,100,W
+com.victronenergy.vebus,/Devices/10/Settings/AssistCurrentBoostFactor,d,,116,uint16,100,W
+com.victronenergy.vebus,/Devices/11/Settings/AssistCurrentBoostFactor,d,,117,uint16,100,W
+com.victronenergy.vebus,/Devices/0/Settings/InverterOutputVoltage,d,V AC,118,uint16,100,W
+com.victronenergy.vebus,/Devices/1/Settings/InverterOutputVoltage,d,V AC,119,uint16,100,W
+com.victronenergy.vebus,/Devices/2/Settings/InverterOutputVoltage,d,V AC,120,uint16,100,W
+com.victronenergy.vebus,/Devices/3/Settings/InverterOutputVoltage,d,V AC,121,uint16,100,W
+com.victronenergy.vebus,/Devices/4/Settings/InverterOutputVoltage,d,V AC,122,uint16,100,W
+com.victronenergy.vebus,/Devices/5/Settings/InverterOutputVoltage,d,V AC,123,uint16,100,W
+com.victronenergy.vebus,/Devices/6/Settings/InverterOutputVoltage,d,V AC,124,uint16,100,W
+com.victronenergy.vebus,/Devices/7/Settings/InverterOutputVoltage,d,V AC,125,uint16,100,W
+com.victronenergy.vebus,/Devices/8/Settings/InverterOutputVoltage,d,V AC,126,uint16,100,W
+com.victronenergy.vebus,/Devices/9/Settings/InverterOutputVoltage,d,V AC,127,uint16,100,W
+com.victronenergy.vebus,/Devices/10/Settings/InverterOutputVoltage,d,V AC,128,uint16,100,W
+com.victronenergy.vebus,/Devices/11/Settings/InverterOutputVoltage,d,V AC,129,uint16,100,W
+com.victronenergy.vebus,/Devices/0/Settings/PowerAssistEnabled,d,,130,uint16,1,R
+com.victronenergy.vebus,/Devices/1/Settings/PowerAssistEnabled,d,,131,uint16,1,R
+com.victronenergy.vebus,/Devices/2/Settings/PowerAssistEnabled,d,,132,uint16,1,R
+com.victronenergy.vebus,/Devices/3/Settings/PowerAssistEnabled,d,,133,uint16,1,R
+com.victronenergy.vebus,/Devices/4/Settings/PowerAssistEnabled,d,,134,uint16,1,R
+com.victronenergy.vebus,/Devices/5/Settings/PowerAssistEnabled,d,,135,uint16,1,R
+com.victronenergy.vebus,/Devices/6/Settings/PowerAssistEnabled,d,,136,uint16,1,R
+com.victronenergy.vebus,/Devices/7/Settings/PowerAssistEnabled,d,,137,uint16,1,R
+com.victronenergy.vebus,/Devices/8/Settings/PowerAssistEnabled,d,,138,uint16,1,R
+com.victronenergy.vebus,/Devices/9/Settings/PowerAssistEnabled,d,,139,uint16,1,R
+com.victronenergy.vebus,/Devices/10/Settings/PowerAssistEnabled,d,,140,uint16,1,R
+com.victronenergy.vebus,/Devices/11/Settings/PowerAssistEnabled,d,,141,uint16,1,R
 com.victronenergy.battery,/Dc/0/Power,i,W,258,int16,1,R
 com.victronenergy.battery,/Dc/0/Voltage,d,V DC,259,uint16,100,R
 com.victronenergy.battery,/Dc/1/Voltage,d,V DC,260,uint16,100,R
@@ -537,6 +574,10 @@ com.victronenergy.alternator,/ErrorCode,u,12=High battery temperature;13=High ba
 com.victronenergy.alternator,/Engine/Speed,d,RPM,4114,uint16,1,R
 com.victronenergy.alternator,/Speed,d,RPM,4115,uint16,1,R
 com.victronenergy.alternator,/FieldDrive,q,%,4116,uint16,1,R
+com.victronenergy.alternator,/Dc/In/V,d,V DC,4117,uint16,100,R
+com.victronenergy.alternator,/Dc/In/P,d,W,4118,uint16,1,R
+com.victronenergy.alternator,/Mode,u,1=On;4=Off,4119,uint16,1,W
+com.victronenergy.alternator,/History/Cumulative/User/ChargedAh,d,Ah,4120,uint32,10,R
 com.victronenergy.dcsource,/Dc/0/Voltage,d,V DC,4200,uint16,100,R
 com.victronenergy.dcsource,/Dc/0/Current,d,A DC,4201,int16,10,R
 com.victronenergy.dcsource,/Dc/1/Voltage,d,V DC,4202,int16,10,R
