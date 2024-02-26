@@ -128,6 +128,7 @@ private:
 	template<class rettype> static rettype convertFromDbus(const QVariant &value, double scaleFactor);
 	template<class argtype> static QVariant convertToDbus(const QMetaType::Type dbusType, argtype value,
 														  double scaleFactor);
+	QVariant convertToDbus(QMetaType::Type dbusType, QString value);
 	ModbusTypes convertModbusType(const QString &typeString);
 	QMetaType::Type convertDbusType(const QString &typeString);
 	Permissions convertPermissions(const QString &permissions);

@@ -290,6 +290,7 @@ void Mappings::setValues(MappingRequest *request)
 	DataIterator it(this, request->address(), request->unitId(), request->quantity());
 	int j = 0;
 	const QByteArray &data = request->data();
+
 	for (;!it.atEnd(); it.next()) {
 		Q_ASSERT(it.error() == NoError);
 		// Where a register is calculated from multiple items, a WRITE should not be possible,
@@ -313,6 +314,7 @@ void Mappings::setValues(MappingRequest *request)
 			quint16 v = (static_cast<quint8>(data[j]) << 8) | static_cast<quint8>(data[j+1]);
 			int shift = 16 * (it.data()->size - i - it.offset() - 1);
 			value = (value & ~(0xFFFFu << shift)) | (v << shift);
+			value = v;
 		}
 		QVariant dbusValue;
 		switch (it.data()->modbusType) {
@@ -336,6 +338,8 @@ void Mappings::setValues(MappingRequest *request)
 			dbusValue = convertToDbus(it.data()->dbusType, static_cast<quint64>(value),
 									  it.data()->scaleFactor);
 			break;
+		case mb_type_string:
+			dbusValue = convertToDbus(it.data()->dbusType, QString(data));
 		default:
 			// Do nothing. dbusValue will remain invalid, which will generate an error below.
 			break;
@@ -412,6 +416,19 @@ template<class rettype> rettype Mappings::convertFromDbus(const QVariant &value,
 					<< value.type() << "(" << value.typeName() << ")";
 		return 0;
 	}
+}
+
+QVariant Mappings::convertToDbus(QMetaType::Type dbusType, QString value)
+{
+    switch (dbusType) {
+    case QMetaType::QString:
+        // value is already a string, so just return it
+        return QVariant::fromValue(value);
+    default:
+        QLOG_WARN() << "[Mappings] convert to dbus type tries to convert an unsupported type:"
+                    << dbusType;
+        return QVariant();
+    }
 }
 
 template<class argtype> QVariant Mappings::convertToDbus(QMetaType::Type dbusType,
@@ -667,11 +684,6 @@ Mappings::DBusModbusData::DBusModbusData(QString _deviceType, QStringList _objec
 		_scaleFactor = 1;
 	scaleFactor = _scaleFactor;
 
-	if (_modbusType == mb_type_string && _accessRights == mb_perm_write) {
-		_accessRights = mb_perm_read;
-		QLOG_WARN() << "[Mappings] Register" << _deviceType << _objectPaths[0]
-					<< ": cannot write string values";
-	}
 	accessRights = _accessRights;
 }
 
