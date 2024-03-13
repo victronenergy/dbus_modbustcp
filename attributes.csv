@@ -98,7 +98,7 @@ com.victronenergy.vebus,/Hub4/L3/AcPowerSetpoint,d,W,100,int32,1,W
 com.victronenergy.vebus,/Dc/0/PreferRenewableEnergy,i,0=Not preferred;1=Preferred,102,uint16,1,W
 com.victronenergy.vebus,/Ac/Control/RemoteGeneratorSelected,i,0=Generator not selected;1=Generator selected,103,uint16,1,W
 com.victronenergy.vebus,/Ac/State/RemoteGeneratorSelected,i,0=Generator not selected;1=Generator selected,104,uint16,1,R
-com.victronenergy.vebus,RESERVED,d,,105,reserved[1],1,R
+com.victronenergy.vebus,/RedetectSystem,u,0=No action;1=Redetect system,105,uint16,1,W
 com.victronenergy.vebus,/Devices/0/Settings/AssistCurrentBoostFactor,d,,106,uint16,100,W
 com.victronenergy.vebus,/Devices/1/Settings/AssistCurrentBoostFactor,d,,107,uint16,100,W
 com.victronenergy.vebus,/Devices/2/Settings/AssistCurrentBoostFactor,d,,108,uint16,100,W
