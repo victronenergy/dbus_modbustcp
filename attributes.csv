@@ -322,6 +322,9 @@ com.victronenergy.system,/Dc/Battery/Soc,d,%,843,uint16,1,R
 com.victronenergy.system,/Dc/Battery/State,i,0=idle;1=charging;2=discharging,844,uint16,1,R
 com.victronenergy.system,/Dc/Battery/ConsumedAmphours,d,Ah,845,uint16,-10,R
 com.victronenergy.system,/Dc/Battery/TimeToGo,d,s,846,uint16,0.01,R
+com.victronenergy.system,RESERVED,d,,867,reserved[1],1,R
+com.victronenergy.system,/Dc/InverterCharger/Current,d,A,868,int32,10,R
+com.victronenergy.system,/Dc/InverterCharger/Power,d,W,870,int32,1,R
 com.victronenergy.pvinverter,/Position,i,0=AC input 1;1=AC output;2=AC input 2,1026,uint16,1,R
 com.victronenergy.pvinverter,/Serial,s,,1039,string[7],1,R
 com.victronenergy.pvinverter,/Ac/L1/Voltage,d,V AC,1027,uint16,10,R
