@@ -284,6 +284,9 @@ com.victronenergy.solarcharger,/Pv/0/MppOperationMode,i,0=Off;1=Voltage/current 
 com.victronenergy.solarcharger,/Pv/1/MppOperationMode,i,0=Off;1=Voltage/current limited;2=MPPT active;255=Not available,3732,uint16,1,R
 com.victronenergy.solarcharger,/Pv/2/MppOperationMode,i,0=Off;1=Voltage/current limited;2=MPPT active;255=Not available,3733,uint16,1,R
 com.victronenergy.solarcharger,/Pv/3/MppOperationMode,i,0=Off;1=Voltage/current limited;2=MPPT active;255=Not available,3734,uint16,1,R
+com.victronenergy.system,/Serial,s,,800,string[6],1,R
+com.victronenergy.system,/Relay/0/State,i,0=Open;1=Closed,806,uint16,1,W
+com.victronenergy.system,/Relay/1/State,i,0=Open;1=Closed,807,uint16,1,W
 com.victronenergy.system,/Ac/PvOnOutput/L1/Power,d,W,808,uint16,1,R
 com.victronenergy.system,/Ac/PvOnOutput/L2/Power,d,W,809,uint16,1,R
 com.victronenergy.system,/Ac/PvOnOutput/L3/Power,d,W,810,uint16,1,R
@@ -319,9 +322,6 @@ com.victronenergy.system,/Dc/Battery/Soc,d,%,843,uint16,1,R
 com.victronenergy.system,/Dc/Battery/State,i,0=idle;1=charging;2=discharging,844,uint16,1,R
 com.victronenergy.system,/Dc/Battery/ConsumedAmphours,d,Ah,845,uint16,-10,R
 com.victronenergy.system,/Dc/Battery/TimeToGo,d,s,846,uint16,0.01,R
-com.victronenergy.system,/Relay/0/State,i,0=Open;1=Closed,806,uint16,1,W
-com.victronenergy.system,/Relay/1/State,i,0=Open;1=Closed,807,uint16,1,W
-com.victronenergy.system,/Serial,s,,800,string[6],1,R
 com.victronenergy.pvinverter,/Position,i,0=AC input 1;1=AC output;2=AC input 2,1026,uint16,1,R
 com.victronenergy.pvinverter,/Serial,s,,1039,string[7],1,R
 com.victronenergy.pvinverter,/Ac/L1/Voltage,d,V AC,1027,uint16,10,R
