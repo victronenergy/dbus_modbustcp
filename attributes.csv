@@ -325,6 +325,13 @@ com.victronenergy.system,/Dc/Battery/TimeToGo,d,s,846,uint16,0.01,R
 com.victronenergy.system,RESERVED,d,,867,reserved[1],1,R
 com.victronenergy.system,/Dc/InverterCharger/Current,d,A,868,int32,10,R
 com.victronenergy.system,/Dc/InverterCharger/Power,d,W,870,int32,1,R
+com.victronenergy.system,RESERVED,d,,871,reserved[1],1,R
+com.victronenergy.system,/Ac/ConsumptionOnInput/L1/Power,d,W,872,int32,1,R
+com.victronenergy.system,/Ac/ConsumptionOnInput/L2/Power,d,W,874,int32,1,R
+com.victronenergy.system,/Ac/ConsumptionOnInput/L3/Power,d,W,876,int32,1,R
+com.victronenergy.system,/Ac/ConsumptionOnOutput/L1/Power,d,W,878,int32,1,R
+com.victronenergy.system,/Ac/ConsumptionOnOutput/L2/Power,d,W,880,int32,1,R
+com.victronenergy.system,/Ac/ConsumptionOnOutput/L3/Power,d,W,882,int32,1,R
 com.victronenergy.pvinverter,/Position,i,0=AC input 1;1=AC output;2=AC input 2,1026,uint16,1,R
 com.victronenergy.pvinverter,/Serial,s,,1039,string[7],1,R
 com.victronenergy.pvinverter,/Ac/L1/Voltage,d,V AC,1027,uint16,10,R
