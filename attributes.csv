@@ -733,3 +733,27 @@ com.victronenergy.dcdc,/State,i,0=Off;2=Fault;3=Bulk;4=Absorption;5=Float;6=Stor
 com.victronenergy.dcdc,/Dc/In/V,d,V DC,4809,uint16,100,R
 com.victronenergy.dcdc,/Dc/In/P,d,W,4810,uint16,1,R
 com.victronenergy.dcdc,/History/Cumulative/User/ChargedAh,d,Ah,4811,uint16,10,R
+com.victronenergy.acsystem,/State,u,0=Off;1=Low Power;2=Fault;3=Bulk;4=Absorption;5=Float;6=Storage;7=Equalize;8=Passthru;9=Inverting;10=Power assist;11=Power supply;252=External control,4900,uint16,1,R
+com.victronenergy.acsystem,/Ac/In/1/L1/V,d,V AC,4901,uint16,10,R
+com.victronenergy.acsystem,/Ac/In/1/L2/V,d,V AC,4902,uint16,10,R
+com.victronenergy.acsystem,/Ac/In/1/L3/V,d,V AC,4903,uint16,10,R
+com.victronenergy.acsystem,/Ac/In/1/L1/I,d,A AC,4904,uint16,10,R
+com.victronenergy.acsystem,/Ac/In/1/L2/I,d,A AC,4905,uint16,10,R
+com.victronenergy.acsystem,/Ac/In/1/L3/I,d,A AC,4906,uint16,10,R
+com.victronenergy.acsystem,/Ac/In/1/L1/P,d,W,4907,int16,0.1,R
+com.victronenergy.acsystem,/Ac/In/1/L2/P,d,W,4908,int16,0.1,R
+com.victronenergy.acsystem,/Ac/In/1/L3/P,d,W,4909,int16,0.1,R
+com.victronenergy.acsystem,/Ac/In/1/L1/F,d,Hz,4910,uint16,100,R
+com.victronenergy.acsystem,/Ac/Out/L1/V,d,V AC,4911,uint16,10,R
+com.victronenergy.acsystem,/Ac/Out/L2/V,d,V AC,4912,uint16,10,R
+com.victronenergy.acsystem,/Ac/Out/L3/V,d,V AC,4913,uint16,10,R
+com.victronenergy.acsystem,/Ac/Out/L1/I,d,A AC,4914,int16,10,R
+com.victronenergy.acsystem,/Ac/Out/L2/I,d,A AC,4915,int16,10,R
+com.victronenergy.acsystem,/Ac/Out/L3/I,d,A AC,4916,int16,10,R
+com.victronenergy.acsystem,/Ac/Out/L1/P,d,W,4917,int16,0.1,R
+com.victronenergy.acsystem,/Ac/Out/L2/P,d,W,4918,int16,0.1,R
+com.victronenergy.acsystem,/Ac/Out/L3/P,d,W,4919,int16,0.1,R
+com.victronenergy.acsystem,/Ac/Out/L1/F,d,Hz,4920,uint16,100,R
+com.victronenergy.acsystem,/Settings/Ess/Mode,i,0=self-consumption (battery-life);1=self-consumption;2=Keep charged;3=External control,4921,uint16,1,W
+com.victronenergy.acsystem,/Ess/AcPowerSetpoint,d,W,4922,int32,1,W
+com.victronenergy.acsystem,/Ess/DisableFeedIn,d,0=Feed-in enabled;1=Feed-in disabled,4924,uint16,1,W
