@@ -621,9 +621,9 @@ com.victronenergy.dcsystem,/Alarms/HighTemperature,u,0=No alarm;2=Alarm,4413,uin
 com.victronenergy.multi,/Ac/In/1/L1/V,d,V AC,4500,uint16,10,R
 com.victronenergy.multi,/Ac/In/1/L2/V,d,V AC,4501,uint16,10,R
 com.victronenergy.multi,/Ac/In/1/L3/V,d,V AC,4502,uint16,10,R
-com.victronenergy.multi,/Ac/In/1/L1/I,d,A AC,4503,uint16,10,R
-com.victronenergy.multi,/Ac/In/1/L2/I,d,A AC,4504,uint16,10,R
-com.victronenergy.multi,/Ac/In/1/L3/I,d,A AC,4505,uint16,10,R
+com.victronenergy.multi,/Ac/In/1/L1/I,d,A AC,4503,int16,10,R
+com.victronenergy.multi,/Ac/In/1/L2/I,d,A AC,4504,int16,10,R
+com.victronenergy.multi,/Ac/In/1/L3/I,d,A AC,4505,int16,10,R
 com.victronenergy.multi,/Ac/In/1/L1/P,d,W,4506,int16,0.1,R
 com.victronenergy.multi,/Ac/In/1/L2/P,d,W,4507,int16,0.1,R
 com.victronenergy.multi,/Ac/In/1/L3/P,d,W,4508,int16,0.1,R
@@ -631,9 +631,9 @@ com.victronenergy.multi,/Ac/In/1/L1/F,d,Hz,4509,uint16,100,R
 com.victronenergy.multi,/Ac/Out/L1/V,d,V AC,4510,uint16,10,R
 com.victronenergy.multi,/Ac/Out/L2/V,d,V AC,4511,uint16,10,R
 com.victronenergy.multi,/Ac/Out/L3/V,d,V AC,4512,uint16,10,R
-com.victronenergy.multi,/Ac/Out/L1/I,d,A AC,4513,uint16,10,R
-com.victronenergy.multi,/Ac/Out/L2/I,d,A AC,4514,uint16,10,R
-com.victronenergy.multi,/Ac/Out/L3/I,d,A AC,4515,uint16,10,R
+com.victronenergy.multi,/Ac/Out/L1/I,d,A AC,4513,int16,10,R
+com.victronenergy.multi,/Ac/Out/L2/I,d,A AC,4514,int16,10,R
+com.victronenergy.multi,/Ac/Out/L3/I,d,A AC,4515,int16,10,R
 com.victronenergy.multi,/Ac/Out/L1/P,d,W,4516,int16,0.1,R
 com.victronenergy.multi,/Ac/Out/L2/P,d,W,4517,int16,0.1,R
 com.victronenergy.multi,/Ac/Out/L3/P,d,W,4518,int16,0.1,R
