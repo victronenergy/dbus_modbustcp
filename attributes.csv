@@ -197,6 +197,11 @@ com.victronenergy.battery,/System/MaxVoltageCellId,s,,1310,string[4],1,R
 com.victronenergy.battery,/System/MinTemperatureCellId,s,,1314,string[4],1,R
 com.victronenergy.battery,/System/MaxTemperatureCellId,s,,1318,string[4],1,R
 com.victronenergy.battery,/Mode,i,3=On;252=Standby,1319,uint16,1,W
+com.victronenergy.battery,/Balancer/Status,u,0=Unknown;1=Balanced;2=Balancing;3=Cell imbalance,1320,uint16,1,R
+com.victronenergy.battery,/Errors/SmartLithium/Communication,u,0=OK;1=Error,1321,uint16,1,R
+com.victronenergy.battery,/Errors/SmartLithium/Voltage,u,0=OK;1=Error,1322,uint16,1,R
+com.victronenergy.battery,/Errors/SmartLithium/NrOfBatteries,u,0=OK;1=Error,1323,uint16,1,R
+com.victronenergy.battery,/Errors/SmartLithium/InvalidConfiguration,u,0=OK;1=Error,1324,uint16,1,R
 com.victronenergy.solarcharger,/Dc/0/Voltage,d,V DC,771,uint16,100,R
 com.victronenergy.solarcharger,/Dc/0/Current,d,A DC,772,int16,10,R
 com.victronenergy.solarcharger,/Dc/0/Temperature,d,Degrees celsius,773,int16,10,R
