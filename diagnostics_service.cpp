@@ -82,7 +82,7 @@ void DiagnosticsService::onLastErrorTimer()
 	mLastError->produceValue(mLastErrorText);
 	mLastError->produceText(mLastErrorText);
 
-	mLastErrorTimeStamp->produceValue(mLastErrorTime.toTime_t());
+	mLastErrorTimeStamp->produceValue(mLastErrorTime.toMSecsSinceEpoch() / 1000);
 	mLastErrorTimeStamp->produceText(mLastErrorTime.toLocalTime().toString());
 }
 
