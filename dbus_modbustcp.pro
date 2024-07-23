@@ -88,3 +88,5 @@ QMAKE_CXXFLAGS += -Wno-unused-local-typedefs
 *clang* {
 QMAKE_CXXFLAGS_WARN_ON = -Wall -Wno-unused-local-typedef
 }
+
+equals(QT_MAJOR_VERSION, 6): QMAKE_CXXFLAGS += -std=c++17
