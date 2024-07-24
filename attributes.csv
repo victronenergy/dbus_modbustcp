@@ -700,6 +700,7 @@ com.victronenergy.multi,/Ess/AcPowerSetpoint,d,W,4610,int32,1,W
 com.victronenergy.multi,/Ess/DisableFeedIn,d,0=Feed-in enabled;1=Feed-in disabled,4612,uint16,1,W
 com.victronenergy.multi,/Ess/DisableCharge,d,0=Charge enabled;1=Charge disabled,4613,uint16,1,W
 com.victronenergy.multi,/Settings/Ess/MinimumSocLimit,d,%,4614,uint16,1,W
+com.victronenergy.multi,/Ess/Sustain,i,0=Sustain inactive;1=Sustain active,4615,uint16,1,R
 com.victronenergy.pump,/State,d,0=Stopped;1=Running,4700,uint16,1,R
 com.victronenergy.settings,/Settings/Pump0/AutoStartEnabled,d,0=Disabled;1=Enabled,4701,uint16,1,W
 com.victronenergy.settings,/Settings/Pump0/Mode,d,0=Auto;1=On;2=Off,4702,uint16,1,W
