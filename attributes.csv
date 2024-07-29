@@ -473,8 +473,14 @@ com.victronenergy.genset,/Dc/0/Voltage,d,V DC,3225,uint16,100,R
 com.victronenergy.genset,/Dc/0/Current,d,A DC,3226,int16,10,R
 com.victronenergy.genset,/HeatsinkTemperature,d,Degrees Celsius,3227,int16,10,R
 com.victronenergy.genset,/Engine/OilTemperature,d,Degrees Celsius,3228,int16,1,R
-com.victronenergy.genset,RESERVED,d,,3229,reserved[1],1,R
-com.victronenergy.genset,/Error/0/Id,s,,3330,string[16],1,R
+com.victronenergy.genset,/Error/0/Id,s,,5000,string[16],1,R
+com.victronenergy.genset,/Error/1/Id,s,,5016,string[16],1,R
+com.victronenergy.genset,/Error/2/Id,s,,5032,string[16],1,R
+com.victronenergy.genset,/Error/3/Id,s,,5048,string[16],1,R
+com.victronenergy.genset,/Error/4/Id,s,,5064,string[16],1,R
+com.victronenergy.genset,/Error/5/Id,s,,5080,string[16],1,R
+com.victronenergy.genset,/Error/6/Id,s,,5096,string[16],1,R
+com.victronenergy.genset,/Error/7/Id,s,,5112,string[16],1,R
 com.victronenergy.temperature,/ProductId,u,,3300,uint16,1,R
 com.victronenergy.temperature,/Scale,d,,3301,uint16,100,R
 com.victronenergy.temperature,/Offset,d,,3302,int16,100,R
