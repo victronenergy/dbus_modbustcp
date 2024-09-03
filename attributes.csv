@@ -462,15 +462,15 @@ com.victronenergy.genset,/Engine/OilPressure,d,kPa,3224,int16,1,R
 com.victronenergy.genset,/Ac/L1/Voltage,d,V AC,3200,uint16,10,R
 com.victronenergy.genset,/Ac/L1/Current,d,A AC,3203,int16,10,R
 com.victronenergy.genset,/Ac/L1/Power,d,W,3206,int16,1,R
-com.victronenergy.genset,/Ac/L1/Frequency,d,Hz,3209,uint16,100,R
+com.victronenergy.genset,/Ac/Frequency,d,Hz,3209,uint16,100,R
 com.victronenergy.genset,/Ac/L2/Voltage,d,V AC,3201,uint16,10,R
 com.victronenergy.genset,/Ac/L2/Current,d,A AC,3204,int16,10,R
 com.victronenergy.genset,/Ac/L2/Power,d,W,3207,int16,1,R
-com.victronenergy.genset,/Ac/L2/Frequency,d,Hz,3210,uint16,100,R
+com.victronenergy.genset,RESERVED,d,,3210,reserved[1],100,R
 com.victronenergy.genset,/Ac/L3/Voltage,d,V AC,3202,uint16,10,R
 com.victronenergy.genset,/Ac/L3/Current,d,A AC,3205,int16,10,R
 com.victronenergy.genset,/Ac/L3/Power,d,W,3208,int16,1,R
-com.victronenergy.genset,/Ac/L3/Frequency,d,Hz,3211,uint16,100,R
+com.victronenergy.genset,RESERVED,d,,3211,reserved[1],100,R
 com.victronenergy.genset,/Dc/0/Voltage,d,V DC,3225,uint16,100,R
 com.victronenergy.genset,/Dc/0/Current,d,A DC,3226,int16,10,R
 com.victronenergy.genset,/HeatsinkTemperature,d,Degrees Celsius,3227,int16,10,R
