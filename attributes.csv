@@ -778,3 +778,21 @@ com.victronenergy.dcgenset,/Error/4/Id,s,,5282,string[16],1,R
 com.victronenergy.dcgenset,/Error/5/Id,s,,5298,string[16],1,R
 com.victronenergy.dcgenset,/Error/6/Id,s,,5314,string[16],1,R
 com.victronenergy.dcgenset,/Error/7/Id,s,,5330,string[16],1,R
+com.victronenergy.system,/DynamicEss/Active,d,0=Off;1=Active,5400,uint16,1,R
+com.victronenergy.system,/DynamicEss/AllowGridFeedIn,d,0=Not allowed;1=Allowed,5401,uint16,1,R
+com.victronenergy.system,/DynamicEss/Available,d,0=System is not capable of doing DynamicEss;1=System is capable of doing DynamicEss,5402,uint16,1,R
+com.victronenergy.system,/DynamicEss/ChargeRate,d,W,5403,uint16,0.1,R
+com.victronenergy.system,/DynamicEss/ErrorCode,d,0=No error;1=No ESS;2=ESS mode;3=No matching schedule;4=SOC low;5=Battery capacity not configured,5404,uint16,1,R
+com.victronenergy.system,/DynamicEss/Restrictions,d,0=No restrictions between battery and the grid;1=Grid to battery energy flow is restricted;2=Battery to grid energy flow is restricted;3=No energy flow between battery and grid,5405,uint16,1,R
+com.victronenergy.system,/DynamicEss/Strategy,d,0=Target SOC;1=Self-consumption,5406,uint16,1,R
+com.victronenergy.system,/DynamicEss/TargetSoc,d,%,5407,uint16,1,R
+com.victronenergy.settings,/Settings/DynamicEss/BatteryCapacity,d,kWh,5420,uint16,10,W
+com.victronenergy.settings,/Settings/DynamicEss/FullChargeDuration,d,hour,5421,uint16,1,W
+com.victronenergy.settings,/Settings/DynamicEss/FullChargeInterval,d,day,5422,uint16,1,W
+com.victronenergy.settings,/Settings/DynamicEss/Mode,d,0=Off;1=Auto;4=Node-RED,5423,uint16,1,W
+com.victronenergy.settings,/Settings/DynamicEss/Schedule/0/AllowGridFeedIn,d,0=Not allowed;1=Allowed,5424,uint16,1,W
+com.victronenergy.settings,/Settings/DynamicEss/Schedule/0/Duration,d,Seconds,5425,uint16,1,W
+com.victronenergy.settings,/Settings/DynamicEss/Schedule/0/Restrictions,d,0=No restrictions between battery and the grid;1=Grid to battery energy flow is restricted;2=Battery to grid energy flow is restricted;3=No energy flow between battery and grid,5426,uint16,1,W
+com.victronenergy.settings,/Settings/DynamicEss/Schedule/0/Soc,d,%,5427,uint16,1,W
+com.victronenergy.settings,/Settings/DynamicEss/Schedule/0/Start,d,timestamp,5428,int32,1,W
+com.victronenergy.settings,/Settings/DynamicEss/Schedule/0/Strategy,d,0=Target SOC;1=Self-consumption,5429,uint16,1,W
