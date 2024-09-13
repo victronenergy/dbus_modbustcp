@@ -390,7 +390,7 @@ com.victronenergy.settings,/Settings/SystemSetup/AcInput1,u,0=Unused;1=Grid;2=Ge
 com.victronenergy.settings,/Settings/SystemSetup/AcInput2,u,0=Unused;1=Grid;2=Genset;3=Shore,2712,uint16,1,W
 com.victronenergy.settings,/Settings/CGwacs/AcExportLimit,d,A,2713,int16,1,W
 com.victronenergy.settings,/Settings/CGwacs/AcImportLimit,d,A,2714,int16,1,W
-com.victronenergy.settings,/Settings/CGwacs/AlwaysPeakShave,u,0=Above minimum SOC only;1=Always,2715,uint16,W
+com.victronenergy.settings,/Settings/CGwacs/AlwaysPeakShave,u,0=Above minimum SOC only;1=Always,2715,uint16,1,W
 com.victronenergy.hub4,/PvPowerLimiterActive,i,0=Feed-in limiting inactive;1=Feed-in limiting active,2709,uint16,1,R
 com.victronenergy.tank,/ProductId,u,,3000,uint16,1,R
 com.victronenergy.tank,/Capacity,d,m3,3001,uint32,10000,R
