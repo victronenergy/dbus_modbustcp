@@ -4,7 +4,10 @@
 # This module is available as python-pymodbus on debian based linux systems.
 import argparse
 import struct
-from pymodbus.client.sync import ModbusTcpClient
+try:
+    from pymodbus.client.sync import ModbusTcpClient
+except ImportError:
+    from pymodbus.client import ModbusTcpClient
 
 parser = argparse.ArgumentParser(description='Send modbus TCP commands.')
 parser.add_argument('--dest', '-d', nargs=1, help='modbus server')
