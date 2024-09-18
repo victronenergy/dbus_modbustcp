@@ -504,7 +504,7 @@ com.victronenergy.generator,/RunningByConditionCode,i,0=Stopped;1=Manual;2=TestR
 com.victronenergy.generator,/Runtime,i,seconds,3502,uint16,1,R
 com.victronenergy.generator,/QuietHours,i,0=Quiet hours inactive; 1=Quiet hours active,3503,uint16,1,R
 com.victronenergy.generator,/Runtime,u,seconds,3504,uint32,1,R
-com.victronenergy.generator,/State,i,0=Stopped;1=Running;10=Error,3506,uint16,1,R
+com.victronenergy.generator,/State,i,0=Stopped;1=Running;2=Warm-up;3=Cool-down;4=Stopping;10=Error,3506,uint16,1,R
 com.victronenergy.generator,/Error,i,0=No Error;1=Remote disabled;2=Remote fault,3507,uint16,1,R
 com.victronenergy.generator,/Alarms/NoGeneratorAtAcIn,i,0=No Alarm;2=Alarm,3508,uint16,1,R
 com.victronenergy.generator,/AutoStartEnabled,i,0=Autostart disabled;1=Autostart enabled,3509,uint16,1,W
