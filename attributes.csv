@@ -147,7 +147,7 @@ com.victronenergy.battery,/History/FullDischarges,i,count,285,uint16,1,R
 com.victronenergy.battery,/History/TotalAhDrawn,d,Ah,286,uint16,-10,R
 com.victronenergy.battery,/History/MinimumVoltage,d,V DC,287,uint16,100,R
 com.victronenergy.battery,/History/MaximumVoltage,d,V DC,288,uint16,100,R
-com.victronenergy.battery,/History/TimeSinceLastFullCharge,i,seconds,289,uint16,0.01,R
+com.victronenergy.battery,/History/TimeSinceLastFullCharge,i,seconds,289,uint32,0.01,R
 com.victronenergy.battery,/History/AutomaticSyncs,i,count,290,uint16,1,R
 com.victronenergy.battery,/History/LowVoltageAlarms,i,count,291,uint16,1,R
 com.victronenergy.battery,/History/HighVoltageAlarms,i,count,292,uint16,1,R
