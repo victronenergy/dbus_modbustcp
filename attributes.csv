@@ -393,6 +393,7 @@ com.victronenergy.settings,/Settings/CGwacs/AcImportLimit,d,A,2714,int16,1,W
 com.victronenergy.settings,/Settings/CGwacs/AlwaysPeakShave,u,0=Above minimum SOC only;1=Always,2715,uint16,1,W
 com.victronenergy.hub4,/PvPowerLimiterActive,i,0=Feed-in limiting inactive;1=Feed-in limiting active,2709,uint16,1,R
 com.victronenergy.hub4,/Overrides/Setpoint,d,W,2716,int32,1,W
+com.victronenergy.settings,/Settings/CGwacs/RunWithoutGridMeter,i,0=External meter;1=Inverter/Charger,2717,uint16,1,W
 com.victronenergy.tank,/ProductId,u,,3000,uint16,1,R
 com.victronenergy.tank,/Capacity,d,m3,3001,uint32,10000,R
 com.victronenergy.tank,/FluidType,u,0=Fuel;1=Fresh water;2=Waste water;3=Live well;4=Oil;5=Black water (sewage);6=Gasoline;7=Diesel;8=LPG;9=LNG;10=Hydraulic oil;11=Raw water,3003,uint16,1,R
