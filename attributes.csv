@@ -491,7 +491,7 @@ com.victronenergy.genset,/Error/7/Id,s,,5112,string[16],1,R
 com.victronenergy.temperature,/ProductId,u,,3300,uint16,1,R
 com.victronenergy.temperature,/Scale,d,,3301,uint16,100,R
 com.victronenergy.temperature,/Offset,d,,3302,int16,100,R
-com.victronenergy.temperature,/TemperatureType,u,0=Battery;1=Fridge;2=Generic,3303,uint16,1,R
+com.victronenergy.temperature,/TemperatureType,u,0=Battery;1=Fridge;2=Generic;3=Room;4=Outdoor;5=WaterHeater;6=Freezer,3303,uint16,1,R
 com.victronenergy.temperature,/Temperature,d,Degrees celsius,3304,int16,100,R
 com.victronenergy.temperature,/Status,u,0=OK;1=Open circuit;2=Short circuited;3=Reverse Polarity;4=Unknown,3305,uint16,1,R
 com.victronenergy.temperature,/Humidity,u,%,3306,uint16,10,R
