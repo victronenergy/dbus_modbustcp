@@ -757,7 +757,8 @@ com.victronenergy.acsystem,/Ac/Out/L1/F,d,Hz,4920,uint16,100,R
 com.victronenergy.acsystem,/Settings/Ess/Mode,i,0=self-consumption (battery-life);1=self-consumption;2=Keep charged;3=External control,4921,uint16,1,W
 com.victronenergy.acsystem,/Ess/AcPowerSetpoint,d,W,4922,int32,1,W
 com.victronenergy.acsystem,/Ess/DisableFeedIn,d,0=Feed-in enabled;1=Feed-in disabled,4924,uint16,1,W
-com.victronenergy.acsystem,RESERVED,d,,4925,reserved[5],1,R
+com.victronenergy.acsystem,/Ess/ActiveSocLimit,d,%,4925,uint16,1,R
+com.victronenergy.acsystem,RESERVED,d,,4926,reserved[4],1,R
 com.victronenergy.acsystem,/Alarms/GridLost,u,0=Ok;1=Warning;2=Alarm,4930,uint16,1,R
 com.victronenergy.acsystem,/Alarms/PhaseRotation,u,0=Ok;1=Warning;2=Alarm,4931,uint16,1,R
 com.victronenergy.dcgenset,/ProductId,u,,5200,uint16,1,R
