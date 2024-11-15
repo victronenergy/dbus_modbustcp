@@ -216,8 +216,7 @@ com.victronenergy.solarcharger,/Equalization/Pending,i,0=No;1=Yes;2=Error;3=Unav
 com.victronenergy.solarcharger,/Equalization/TimeRemaining,d,seconds,779,uint16,10,R
 com.victronenergy.solarcharger,/Relay/0/State,i,0=Open;1=Closed,780,uint16,1,R
 com.victronenergy.solarcharger,/Alarms/Alarm,i,0=No alarm;2=Alarm,781,uint16,1,R
-com.victronenergy.solarcharger,/Alarms/LowVoltage,i,0=No alarm;2=Alarm,782,uint16,1,R
-com.victronenergy.solarcharger,/Alarms/HighVoltage,i,0=No alarm;2=Alarm,783,uint16,1,R
+com.victronenergy.solarcharger,RESERVED,i,,782,reserved[2],1,R
 com.victronenergy.solarcharger,/History/Daily/0/Yield,d,kWh,784,uint16,10,R
 com.victronenergy.solarcharger,/History/Daily/0/MaxPower,d,W,785,uint16,1,R
 com.victronenergy.solarcharger,/History/Daily/1/Yield,d,kWh,786,uint16,10,R
