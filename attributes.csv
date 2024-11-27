@@ -212,7 +212,6 @@ com.victronenergy.solarcharger,/Mode,i,1=On;4=Off,774,uint16,1,W
 com.victronenergy.solarcharger,/State,i,0=Off;2=Fault;3=Bulk;4=Absorption;5=Float;6=Storage;7=Equalize;11=Other (Hub-1);252=Hub-1,775,uint16,1,R
 com.victronenergy.solarcharger,/Pv/V,d,V DC,776,uint16,100,R
 com.victronenergy.solarcharger,/Pv/I,d,A DC,777,INTERNAL,10,R
-com.victronenergy.solarcharger,/Yield/Power,d,W,789,uint16,10,R
 com.victronenergy.solarcharger,/Equalization/Pending,i,0=No;1=Yes;2=Error;3=Unavailable- Unknown,778,uint16,1,R
 com.victronenergy.solarcharger,/Equalization/TimeRemaining,d,seconds,779,uint16,10,R
 com.victronenergy.solarcharger,/Relay/0/State,i,0=Open;1=Closed,780,uint16,1,R
@@ -223,8 +222,10 @@ com.victronenergy.solarcharger,/History/Daily/0/MaxPower,d,W,785,uint16,1,R
 com.victronenergy.solarcharger,/History/Daily/1/Yield,d,kWh,786,uint16,10,R
 com.victronenergy.solarcharger,/History/Daily/1/MaxPower,d,W,787,uint16,1,R
 com.victronenergy.solarcharger,/ErrorCode,i,0=No error;1=Battery temperature too high;2=Battery voltage too high;3=Battery temperature sensor miswired (+);4=Battery temperature sensor miswired (-);5=Battery temperature sensor disconnected;6=Battery voltage sense miswired (+);7=Battery voltage sense miswired (-);8=Battery voltage sense disconnected;9=Battery voltage wire losses too high;17=Charger temperature too high;18=Charger over-current;19=Charger current polarity reversed;20=Bulk time limit reached;22=Charger temperature sensor miswired;23=Charger temperature sensor disconnected;34=Input current too high,788,uint16,1,R
+com.victronenergy.solarcharger,/Yield/Power,d,W,789,uint16,10,R
 com.victronenergy.solarcharger,/Yield/User,d,kWh,790,uint16,10,R
 com.victronenergy.solarcharger,/MppOperationMode,i,0=Off;1=Voltage/current limited;2=MPPT active;255=Not available,791,uint16,1,R
+com.victronenergy.solarcharger,/Yield/Power,d,W,792,uint32,1,R
 com.victronenergy.solarcharger,/Pv/0/V,d,V DC,3700,uint16,100,R
 com.victronenergy.solarcharger,/Pv/1/V,d,V DC,3701,uint16,100,R
 com.victronenergy.solarcharger,/Pv/2/V,d,V DC,3702,uint16,100,R
