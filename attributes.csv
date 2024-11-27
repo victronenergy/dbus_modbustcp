@@ -481,6 +481,10 @@ com.victronenergy.genset,/Ac/L3/Power,d,W,3208,int16,1,R
 com.victronenergy.genset,RESERVED,d,,3211,reserved[1],100,R
 com.victronenergy.genset,RESERVED,d,,3225,reserved[3],1,R
 com.victronenergy.genset,/Engine/OilTemperature,d,Degrees Celsius,3228,int16,1,R
+com.victronenergy.genset,RESERVED,d,,3229,reserved[1],1,R
+com.victronenergy.genset,/Ac/L1/Power,d,W,3230,int32,1,R
+com.victronenergy.genset,/Ac/L2/Power,d,W,3232,int32,1,R
+com.victronenergy.genset,/Ac/L3/Power,d,W,3234,int32,1,R
 com.victronenergy.genset,/Error/0/Id,s,,5000,string[16],1,R
 com.victronenergy.genset,/Error/1/Id,s,,5016,string[16],1,R
 com.victronenergy.genset,/Error/2/Id,s,,5032,string[16],1,R
