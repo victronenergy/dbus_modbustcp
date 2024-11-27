@@ -418,7 +418,7 @@ com.victronenergy.inverter,/Alarms/Overload,u,0=No alarm;1=Warning;2=Alarm,3116,
 com.victronenergy.inverter,/Alarms/Ripple,u,0=No alarm;1=Warning;2=Alarm,3117,uint16,1,R
 com.victronenergy.inverter,/Dc/0/Voltage,d,V DC,3105,uint16,100,R
 com.victronenergy.inverter,/Dc/0/Current,d,A DC,3106,int16,10,R
-com.victronenergy.inverter,/Mode,u,2=On;4=Off;5=Eco,3126,uint16,1,W
+com.victronenergy.inverter,/Mode,u,1=Charger only,2=Inverter only;3=On;4=Off;5=Low Power/Eco;251=Passthrough;252=Standby;253=Hibernate,3126,uint16,1,W
 com.victronenergy.inverter,/State,u,0=Off;1=Low power mode (search mode);2=Fault;9=Inverting (on),3128,uint16,1,R
 com.victronenergy.inverter,/Energy/InverterToAcOut,d,kWh,3130,uint32,100,R
 com.victronenergy.inverter,/Energy/OutToInverter,d,kWh,3132,uint32,100,R
