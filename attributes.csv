@@ -555,6 +555,10 @@ com.victronenergy.acload,/Ac/L1/Energy/Forward,d,kWh,3916,uint32,100,R
 com.victronenergy.acload,/Ac/L2/Energy/Forward,d,kWh,3918,uint32,100,R
 com.victronenergy.acload,/Ac/L3/Energy/Forward,d,kWh,3920,uint32,100,R
 com.victronenergy.acload,/Ac/Frequency,d,Hz,3922,uint16,100,R
+com.victronenergy.acload,RESERVED,d,,3923,reserved[1],1,R
+com.victronenergy.acload,/Ac/L1/Power,d,W,3924,int32,1,R
+com.victronenergy.acload,/Ac/L2/Power,d,W,3926,int32,1,R
+com.victronenergy.acload,/Ac/L3/Power,d,W,3928,int32,1,R
 com.victronenergy.fuelcell,/Dc/0/Voltage,d,V DC,4000,uint16,100,R
 com.victronenergy.fuelcell,/Dc/0/Current,d,A DC,4001,int16,10,R
 com.victronenergy.fuelcell,/Dc/1/Voltage,d,V DC,4002,int16,10,R
