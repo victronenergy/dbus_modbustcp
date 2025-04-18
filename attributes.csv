@@ -379,6 +379,10 @@ com.victronenergy.grid,/Ac/L1/Power,d,W,2638,int32,1,R
 com.victronenergy.grid,/Ac/L2/Power,d,W,2640,int32,1,R
 com.victronenergy.grid,/Ac/L3/Power,d,W,2642,int32,1,R
 com.victronenergy.grid,/Ac/Frequency,d,Hz,2644,uint16,100,R
+com.victronenergy.grid,/Ac/L1/PowerFactor,d,,2645,int16,1000,R
+com.victronenergy.grid,/Ac/L2/PowerFactor,d,,2646,int16,1000,R
+com.victronenergy.grid,/Ac/L3/PowerFactor,d,,2647,int16,1000,R
+com.victronenergy.grid,/Ac/PowerFactor,d,,2648,int16,1000,R
 com.victronenergy.settings,/Settings/CGwacs/AcPowerSetPoint,d,W,2700,int16,1,W
 com.victronenergy.settings,/Settings/CGwacs/AcPowerSetPoint,d,W,2703,int16,0.01,W
 com.victronenergy.settings,/Settings/CGwacs/MaxChargePercentage,d,%,2701,uint16,1,W
@@ -485,6 +489,10 @@ com.victronenergy.genset,RESERVED,d,,3229,reserved[1],1,R
 com.victronenergy.genset,/Ac/L1/Power,d,W,3230,int32,1,R
 com.victronenergy.genset,/Ac/L2/Power,d,W,3232,int32,1,R
 com.victronenergy.genset,/Ac/L3/Power,d,W,3234,int32,1,R
+com.victronenergy.genset,/Ac/L1/PowerFactor,d,,3236,int16,1000,R
+com.victronenergy.genset,/Ac/L2/PowerFactor,d,,3237,int16,1000,R
+com.victronenergy.genset,/Ac/L3/PowerFactor,d,,3238,int16,1000,R
+com.victronenergy.genset,/Ac/PowerFactor,d,,3239,int16,1000,R
 com.victronenergy.genset,/Error/0/Id,s,,5000,string[16],1,R
 com.victronenergy.genset,/Error/1/Id,s,,5016,string[16],1,R
 com.victronenergy.genset,/Error/2/Id,s,,5032,string[16],1,R
@@ -559,6 +567,10 @@ com.victronenergy.acload,RESERVED,d,,3923,reserved[1],1,R
 com.victronenergy.acload,/Ac/L1/Power,d,W,3924,int32,1,R
 com.victronenergy.acload,/Ac/L2/Power,d,W,3926,int32,1,R
 com.victronenergy.acload,/Ac/L3/Power,d,W,3928,int32,1,R
+com.victronenergy.acload,/Ac/L1/PowerFactor,d,,3930,int16,1000,R
+com.victronenergy.acload,/Ac/L2/PowerFactor,d,,3931,int16,1000,R
+com.victronenergy.acload,/Ac/L3/PowerFactor,d,,3932,int16,1000,R
+com.victronenergy.acload,/Ac/PowerFactor,d,,3933,int16,1000,R
 com.victronenergy.fuelcell,/Dc/0/Voltage,d,V DC,4000,uint16,100,R
 com.victronenergy.fuelcell,/Dc/0/Current,d,A DC,4001,int16,10,R
 com.victronenergy.fuelcell,/Dc/1/Voltage,d,V DC,4002,int16,10,R
