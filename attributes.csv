@@ -112,6 +112,7 @@ com.victronenergy.battery,/Dc/0/Temperature,d,Degrees celsius,262,int16,10,R
 com.victronenergy.battery,/Dc/0/MidVoltage,d,V DC,263,uint16,100,R
 com.victronenergy.battery,/Dc/0/MidVoltageDeviation,d,%,264,uint16,100,R
 com.victronenergy.battery,/ConsumedAmphours,d,Ah,265,uint16,-10,R
+com.victronenergy.battery,/ConsumedAmphours,d,Ah,330,uint32,-1,R
 com.victronenergy.battery,/Soc,y,%,266,uint16,10,R
 com.victronenergy.battery,/Soh,y,%,304,uint16,10,R
 com.victronenergy.battery,/TimeToGo,q,seconds,303,uint16,0.01,R
@@ -139,6 +140,7 @@ com.victronenergy.battery,/Alarms/InternalFailure,u,0=No alarm;2=Alarm,323,uint1
 com.victronenergy.battery,/Alarms/HighChargeTemperature,u,0=No alarm;2=Alarm,324,uint16,1,R
 com.victronenergy.battery,/Alarms/LowChargeTemperature,u,0=No alarm;2=Alarm,325,uint16,1,R
 com.victronenergy.battery,/Alarms/LowCellVoltage,u,0=No alarm;1=Almost discharged;2=Alarm,326,uint16,1,R
+com.victronenergy.battery,RESERVED,d,,327,reserved[3],1,R
 com.victronenergy.battery,/Relay/0/State,y,0=Open;1=Closed,280,uint16,1,W
 com.victronenergy.battery,/History/DeepestDischarge,d,Ah,281,uint16,-10,R
 com.victronenergy.battery,/History/LastDischarge,d,Ah,282,uint16,-10,R
