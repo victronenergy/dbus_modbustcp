@@ -18,9 +18,9 @@ com.victronenergy.vebus,/Ac/ActiveIn/L3/I,d,A AC,8,int16,10,R
 com.victronenergy.vebus,/Ac/ActiveIn/L1/F,d,Hz,9,int16,100,R
 com.victronenergy.vebus,/Ac/ActiveIn/L2/F,d,Hz,10,int16,100,R
 com.victronenergy.vebus,/Ac/ActiveIn/L3/F,d,Hz,11,int16,100,R
-com.victronenergy.vebus,/Ac/ActiveIn/L1/P,i,VA or Watts,12,int16,0.1,R
-com.victronenergy.vebus,/Ac/ActiveIn/L2/P,i,VA or Watts,13,int16,0.1,R
-com.victronenergy.vebus,/Ac/ActiveIn/L3/P,i,VA or Watts,14,int16,0.1,R
+com.victronenergy.vebus,/Ac/ActiveIn/L1/P,d,VA or Watts,12,int16,1,R
+com.victronenergy.vebus,/Ac/ActiveIn/L2/P,d,VA or Watts,13,int16,1,R
+com.victronenergy.vebus,/Ac/ActiveIn/L3/P,d,VA or Watts,14,int16,1,R
 com.victronenergy.vebus,/Ac/Out/L1/V,d,V AC,15,uint16,10,R
 com.victronenergy.vebus,/Ac/Out/L2/V,d,V AC,16,uint16,10,R
 com.victronenergy.vebus,/Ac/Out/L3/V,d,V AC,17,uint16,10,R
@@ -29,9 +29,9 @@ com.victronenergy.vebus,/Ac/Out/L2/I,d,A AC,19,int16,10,R
 com.victronenergy.vebus,/Ac/Out/L3/I,d,A AC,20,int16,10,R
 com.victronenergy.vebus,/Ac/Out/L1/F,d,Hz,21,int16,100,R
 com.victronenergy.vebus,/Ac/ActiveIn/CurrentLimit,d,A,22,int16,10,W
-com.victronenergy.vebus,/Ac/Out/L1/P,i,VA or Watts,23,int16,0.1,R
-com.victronenergy.vebus,/Ac/Out/L2/P,i,VA or Watts,24,int16,0.1,R
-com.victronenergy.vebus,/Ac/Out/L3/P,i,VA or Watts,25,int16,0.1,R
+com.victronenergy.vebus,/Ac/Out/L1/P,d,VA or Watts,23,int16,1,R
+com.victronenergy.vebus,/Ac/Out/L2/P,d,VA or Watts,24,int16,1,R
+com.victronenergy.vebus,/Ac/Out/L3/P,d,VA or Watts,25,int16,1,R
 com.victronenergy.vebus,/Dc/0/Voltage,d,V DC,26,uint16,100,R
 com.victronenergy.vebus,/Dc/0/Current,d,A DC,27,int16,10,R
 com.victronenergy.vebus,/Ac/NumberOfPhases,u,count,28,uint16,1,R
