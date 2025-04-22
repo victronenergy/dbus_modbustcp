@@ -820,7 +820,7 @@ com.victronenergy.system,/DynamicEss/Available,d,0=System is not capable of doin
 com.victronenergy.system,/DynamicEss/ChargeRate,d,W,5403,uint16,0.1,R
 com.victronenergy.system,/DynamicEss/ErrorCode,d,0=No error;1=No ESS;2=ESS mode;3=No matching schedule;4=SOC low;5=Battery capacity not configured,5404,uint16,1,R
 com.victronenergy.system,/DynamicEss/Restrictions,d,0=No restrictions between battery and the grid;1=Grid to battery energy flow is restricted;2=Battery to grid energy flow is restricted;3=No energy flow between battery and grid,5405,uint16,1,R
-com.victronenergy.system,/DynamicEss/Strategy,d,0=Target SOC;1=Self-consumption,5406,uint16,1,R
+com.victronenergy.system,/DynamicEss/Strategy,d,0=Target SOC;1=Self-consumption;2=Pro battery;3=Pro grid,5406,uint16,1,R
 com.victronenergy.system,/DynamicEss/TargetSoc,d,%,5407,uint16,1,R
 com.victronenergy.settings,/Settings/DynamicEss/BatteryCapacity,d,kWh,5420,uint16,10,W
 com.victronenergy.settings,/Settings/DynamicEss/FullChargeDuration,d,hour,5421,uint16,1,W
