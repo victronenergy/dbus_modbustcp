@@ -832,3 +832,9 @@ com.victronenergy.settings,/Settings/DynamicEss/Schedule/0/Restrictions,d,0=No r
 com.victronenergy.settings,/Settings/DynamicEss/Schedule/0/Soc,d,%,5427,uint16,1,W
 com.victronenergy.settings,/Settings/DynamicEss/Schedule/0/Start,d,timestamp,5428,int32,1,W
 com.victronenergy.settings,/Settings/DynamicEss/Schedule/0/Strategy,d,0=Target SOC;1=Self-consumption,5429,uint16,1,W
+com.victronenergy.heatpump,/ProductId,u,,5500,uint16,1,R
+com.victronenergy.heatpump,/State,u,0=Off;1=Error;2=Startup;3=Heating;4=Cooling,5501,uint16,1,R
+com.victronenergy.heatpump,/Ac/Power,d,W,5502,uint32,1,R
+com.victronenergy.heatpump,/Ac/Energy/Forward,d,kWh,5504,uint32,100,R
+com.victronenergy.heatpump,/Temperature,d,Degrees Celsius,5506,int16,10,R
+com.victronenergy.heatpump,/TargetTemperature,d,Degrees Celsius,5507,int16,10,R
