@@ -102,7 +102,7 @@ com.victronenergy.vebus,/RedetectSystem,u,0=No action;1=Redetect system,105,uint
 com.victronenergy.vebus,/Settings/AssistCurrentBoostFactor,d,,106,uint16,100,W
 com.victronenergy.vebus,/Settings/InverterOutputVoltage,d,,107,uint16,100,W
 com.victronenergy.vebus,/Settings/PowerAssistEnabled,d,,108,uint16,1,W
-com.victronenergy.vebus,/Settings/UpsFunction,d,,109,uint16,1,W
+com.victronenergy.vebus,/Settings/UpsFunction,d,0=Enabled;1=Disabled,109,uint16,1,W
 com.victronenergy.battery,/Dc/0/Power,i,W,256,int32,1,R
 com.victronenergy.battery,/Dc/0/Power,i,W,258,int16,1,R
 com.victronenergy.battery,/Dc/0/Voltage,d,V DC,259,uint16,100,R
