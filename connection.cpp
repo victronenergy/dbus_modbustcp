@@ -16,11 +16,11 @@ void Connection::readyRead()
 	QByteArray tcpReq = mSocket->readAll();
 	foreach(char byte, tcpReq) {
 		mData.append(byte);
-		if (mData.count() == 6) {
+		if (mData.size() == 6) {
 			mLength = toUInt16(mData, 4) + 6;
 			mData.reserve(mLength);
 		}
-		if (mData.count() == mLength) {
+		if (mData.size() == mLength) {
 			QLOG_DEBUG() << QString("[Server] request from: %1:%2").
 							arg(mSocket->peerAddress().toString()).
 							arg(mSocket->peerPort());
