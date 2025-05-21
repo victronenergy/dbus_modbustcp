@@ -3,6 +3,7 @@
 
 #include <QDBusConnection>
 #include <QObject>
+#include <veutil/qt/ve_qitem.hpp>
 #include "server.h"
 #include "backend.h"
 #include "dbus_services.h"
@@ -19,6 +20,7 @@ private:
 	Backend mBackend;
 	DBusServices mDBusServices;
 	Mappings mMapping;
+	VeQItemSettings *mSettings;
 };
 
 #endif // APP_H

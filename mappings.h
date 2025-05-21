@@ -7,6 +7,7 @@
 #include <QMap>
 #include <QMetaType>
 #include <QObject>
+#include <QVariant>
 #include "mapping_request.h"
 
 class DBusService;
@@ -35,6 +36,8 @@ public:
 
 public slots:
 	void handleRequest(MappingRequest *request);
+
+	void onReadWriteChanged(QVariant value);
 
 signals:
 	void requestCompleted(MappingRequest *request);
@@ -165,6 +168,9 @@ private:
 	DivOperation mDivOperation;
 	NopOperation mNopOperation;
 	TimeOperation mTimeOperation;
+
+	// Whether to allow writing
+	bool mReadWrite;
 };
 
 #endif // MAPPINGS_H

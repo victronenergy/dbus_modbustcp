@@ -16,7 +16,8 @@ const QString reservedType = "reserved";
 
 Mappings::Mappings(DBusServices *services, QObject *parent) :
 	QObject(parent),
-	mServices(services)
+	mServices(services),
+	mReadWrite(true)
 {
 }
 
@@ -158,7 +159,7 @@ void Mappings::handleRequest(MappingRequest *request)
 	DataIterator it(this, request->address(), request->unitId(), request->quantity());
 	QList<VeQItem *> pendingItems;
 	for (;!it.atEnd(); it.next()) {
-		if (request->type() == WriteValues && it.data()->accessRights != Mappings::mb_perm_write) {
+		if (request->type() == WriteValues && (!mReadWrite || it.data()->accessRights != Mappings::mb_perm_write)) {
 			QString errorString = QString("Cannot write to register %1").arg(it.address());
 			request->setError(PermissionError, errorString);
 			emit requestCompleted(request);
@@ -172,6 +173,11 @@ void Mappings::handleRequest(MappingRequest *request)
 		return;
 	}
 	addPendingRequest(request, pendingItems);
+}
+
+void Mappings::onReadWriteChanged(QVariant value)
+{
+	mReadWrite = value.toBool();
 }
 
 void Mappings::onItemsInitialized()
