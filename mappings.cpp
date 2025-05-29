@@ -109,6 +109,11 @@ void Mappings::importCSV(QTextStream &in)
 	mDBusModbusMap.insert(830, new DBusModbusData(
 		"system", QStringList(), 1, 4, mb_type_uint64, QMetaType::ULongLong,
 		Mappings::mb_perm_read, &mTimeOperation));
+
+	// Firmware version
+	mDBusModbusMap.insert(834, new DBusModbusData(
+		"system", QStringList() << "/FirmwareVersion", 1, 2, mb_type_uint32,
+		QMetaType::ULong, Mappings::mb_perm_read, &mFirmwareOperation));
 }
 
 void Mappings::importUnitIDMapping(const QString &filename)
@@ -712,4 +717,12 @@ QVariant Mappings::TimeOperation::calculate(QList<QVariant> args)
 	Q_UNUSED(args);
 	return QVariant(
 		QDateTime::currentDateTimeUtc().currentMSecsSinceEpoch()/1000);
+}
+
+QVariant Mappings::FirmwareOperation::calculate(QList<QVariant> args)
+{
+	int version = args[0].toInt();
+	// Change it into a 32-bit int, by inserting 8 extra bits before the
+	// beta value (0 for official release).
+	return QVariant(((version << 8) & 0xFFFF0000) + (version & 0xFF));
 }
