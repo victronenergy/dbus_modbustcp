@@ -108,11 +108,11 @@ com.victronenergy.vebus,/MicroGrid/DroopModeParameters/F0/Value,d,Hz,201,uint16,
 com.victronenergy.vebus,/MicroGrid/DroopModeParameters/P0/Value,d,%,202,int16,100,W
 com.victronenergy.vebus,/MicroGrid/DroopModeParameters/Pmin/Value,d,%,203,int16,100,W
 com.victronenergy.vebus,/MicroGrid/DroopModeParameters/Pmax/Value,d,%,204,int16,100,W
-com.victronenergy.vebus,/MicroGrid/DroopModeParameters/PFDroop/Value,d,%,205,uint16,100,W
+com.victronenergy.vebus,/MicroGrid/DroopModeParameters/FPDroop/Value,d,%,205,uint16,100,W
 com.victronenergy.vebus,/MicroGrid/DroopModeParameters/Q0/Value,d,%,206,int16,100,W
 com.victronenergy.vebus,/MicroGrid/DroopModeParameters/QMin/Value,d,%,207,int16,100,W
 com.victronenergy.vebus,/MicroGrid/DroopModeParameters/QMax/Value,d,%,208,int16,100,W
-com.victronenergy.vebus,/MicroGrid/DroopModeParameters/QUDroop/Value,d,%,209,uint16,100,W
+com.victronenergy.vebus,/MicroGrid/DroopModeParameters/UQDroop/Value,d,%,209,uint16,100,W
 com.victronenergy.vebus,/MicroGrid/DroopModeParameters/U0/Value,d,V,210,uint16,100,W
 com.victronenergy.vebus,/MicroGrid/DroopModeParameters/Activate,i,1=Send values,211,uint16,1,W
 com.victronenergy.battery,/Dc/0/Power,i,W,256,int32,1,R
