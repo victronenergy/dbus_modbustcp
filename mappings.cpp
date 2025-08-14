@@ -1,3 +1,5 @@
+#include <limits>
+#include <QtGlobal>
 #include <QCoreApplication>
 #include <QFile>
 #include <qmath.h>
@@ -409,13 +411,19 @@ template<class rettype> rettype Mappings::convertFromDbus(const QVariant &value,
 	case QMetaType::Int:
 	case QMetaType::Long:
 	case QMetaType::LongLong:
-		return static_cast<rettype>(round(value.toInt() * scaleFactor));
+		return static_cast<rettype>(
+			qBound((double)std::numeric_limits<rettype>::min(),
+			round(value.toInt() * scaleFactor),
+			(double)std::numeric_limits<rettype>::max()));
 	case QMetaType::UChar:
 	case QMetaType::UShort:
 	case QMetaType::UInt:
 	case QMetaType::ULong:
 	case QMetaType::ULongLong:
-		return static_cast<rettype>(round(value.toUInt() * scaleFactor));
+		return static_cast<rettype>(
+			qBound((double)std::numeric_limits<rettype>::min(),
+			round(value.toUInt() * scaleFactor),
+			(double)std::numeric_limits<rettype>::max()));
 	case QMetaType::Bool:
 		return static_cast<rettype>(value.toBool());
 	default:
