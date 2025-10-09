@@ -115,14 +115,14 @@ com.victronenergy.vebus,/MicroGrid/DroopModeParameters/QMax/Value,d,%,208,int16,
 com.victronenergy.vebus,/MicroGrid/DroopModeParameters/UQDroop/Value,d,%,209,uint16,100,W
 com.victronenergy.vebus,/MicroGrid/DroopModeParameters/U0/Value,d,V,210,uint16,100,W
 com.victronenergy.vebus,/MicroGrid/DroopModeParameters/Activate,i,1=Send values,211,uint16,1,W
-com.victronenergy.vebus,/MicroGrid/DirectDrivePQ/Fmin,d,Hz,212,uint16,100,W
-com.victronenergy.vebus,/MicroGrid/DirectDrivePQ/Fmax,d,Hz,213,uint16,100,W
-com.victronenergy.vebus,/MicroGrid/DirectDrivePQ/P,d,%,214,int16,100,W
-com.victronenergy.vebus,/MicroGrid/DirectDrivePQ/Q,d,%,215,int16,100,W
-com.victronenergy.vebus,/MicroGrid/DirectDrivePQ/Umin,d,V,216,uint16,100,W
-com.victronenergy.vebus,/MicroGrid/DirectDrivePQ/Umax,d,V,217,uint16,100,W
-com.victronenergy.vebus,/MicroGrid/DirectDrivePQ/Activate,i,1=Send values,218,uint16,1,W
-com.victronenergy.vebus,RESERVED,d,,219,reserved[1],1,R
+com.victronenergy.vebus,RESERVED,d,,212,reserved[1],1,R
+com.victronenergy.vebus,/MicroGrid/DirectDrivePQ/Fmin,d,Hz,213,uint16,100,W
+com.victronenergy.vebus,/MicroGrid/DirectDrivePQ/Fmax,d,Hz,214,uint16,100,W
+com.victronenergy.vebus,/MicroGrid/DirectDrivePQ/P,d,%,215,int16,100,W
+com.victronenergy.vebus,/MicroGrid/DirectDrivePQ/Q,d,%,216,int16,100,W
+com.victronenergy.vebus,/MicroGrid/DirectDrivePQ/Umin,d,V,217,uint16,100,W
+com.victronenergy.vebus,/MicroGrid/DirectDrivePQ/Umax,d,V,218,uint16,100,W
+com.victronenergy.vebus,/MicroGrid/DirectDrivePQ/Activate,i,1=Send values,219,uint16,1,W
 com.victronenergy.vebus,/MicroGrid/DirectDriveVf/F,d,Hz,220,uint16,100,W
 com.victronenergy.vebus,/MicroGrid/DirectDriveVf/U,d,V,221,uint16,100,W
 com.victronenergy.vebus,/MicroGrid/DirectDriveVf/Activate,i,1=Send values,222,uint16,1,W
