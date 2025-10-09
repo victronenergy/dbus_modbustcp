@@ -557,6 +557,11 @@ com.victronenergy.temperature,/Status,u,0=OK;1=Open circuit;2=Short circuited;3=
 com.victronenergy.temperature,/Humidity,u,%,3306,uint16,10,R
 com.victronenergy.temperature,/BatteryVoltage,d,V,3307,uint16,100,R
 com.victronenergy.temperature,/Pressure,u,hPa,3308,uint16,1,R
+com.victronenergy.temperature,/CO2,u,ppm,3309,unit16,1,R
+com.victronenergy.temperature,/Luminosity,u,lux,3310,unit32,1,R
+com.victronenergy.temperature,/NOX,u,,3313,unit16,1,R
+com.victronenergy.temperature,/PM25,u,ug/m^3,3314,unit16,1,R
+com.victronenergy.temperature,/VOC,u,,3315,unit16,1,R
 com.victronenergy.pulsemeter,/Aggregate,i,,3400,uint32,1,R
 com.victronenergy.pulsemeter,/Count,i,,3402,uint32,1,R
 com.victronenergy.digitalinput,/Count,i,,3420,uint32,1,R
