@@ -532,7 +532,8 @@ Mappings::DataIterator::DataIterator(const Mappings *mappings, int address, int 
 	mQuantity(quantity),
 	mOffset(0),
 	mRegisterCount(0),
-	mError(NoError)
+	mError(NoError),
+	mUnitId(unitId)
 {
 	if (quantity <= 0) {
 		mCurrent = mMappings->mDBusModbusMap.end();
@@ -569,35 +570,10 @@ Mappings::DataIterator::DataIterator(const Mappings *mappings, int address, int 
 	Q_ASSERT(mRegisterCount <= mCurrent.value()->size);
 	Q_ASSERT(mRegisterCount <= quantity);
 
-	// First check if the service can be located directly without a mapping.
-	// We don't limit the unitId to 247, since we're not mapping to actual
-	// serial addressing, and 0xFF is the max that can be communicated anyway.
-	// Get service from the first modbus address. The service must be the same
-	// for the complete address range therefore the service pointer has to be
-	// fetched and checked only once.
-	// TODO: Change the limitation that only one service can be matched, since
-	// we can have multiple services adjacent to one another, with the same
-	// unitID.
-	mService = mMappings->mServices->getService(
-		mCurrent.value()->deviceType, unitId);
-
-	// If no service found, try a mapping
-	int deviceInstance = unitId;
-	if (mService == 0 || !mService->getConnected()) {
-		QHash<int, int>::ConstIterator uIt = mMappings->mUnitIDMap.find(unitId);
-		if (uIt == mMappings->mUnitIDMap.end()) {
-			setError(UnitIdError, QString("Invalid unit ID: %1").arg(unitId));
-			return;
-		} else {
-			deviceInstance = uIt.value();
-		}
-		mService = mMappings->mServices->getService(mCurrent.value()->deviceType, deviceInstance);
-	}
-
-	if (mService == 0 || !mService->getConnected()) {
-		QString msg = QString("Error finding service with device type %1 at device instance %2, unitid %3").
+	mService = getService(mCurrent.value()->deviceType, unitId);
+	if (mService == 0) {
+		QString msg = QString("Error finding service with device type %1 at unit id %2").
 				arg(mCurrent.value()->deviceType).
-				arg(deviceInstance).
 				arg(unitId);
 		setError(ServiceError, msg);
 	}
@@ -625,9 +601,16 @@ void Mappings::DataIterator::next()
 	}
 	DBusModbusData *d = mCurrent.value();
 	int oldAddress = mCurrent.key();
+	QString oldDeviceType = mCurrent.value()->deviceType;
 	++mCurrent;
 	int newAddress = oldAddress + d->size;
-	if (mCurrent == mMappings->mDBusModbusMap.end() || mCurrent.key() != newAddress) {
+	QString newDeviceType = mCurrent.value()->deviceType;
+
+	if (oldDeviceType != newDeviceType) {
+		mService = getService(newDeviceType, mUnitId);
+	}
+
+	if (mService == 0 || mCurrent == mMappings->mDBusModbusMap.end() || mCurrent.key() != newAddress) {
 		setError(AddressError, QString("Modbus address %1 is not registered").arg(newAddress));
 		return;
 	}
@@ -672,6 +655,31 @@ int Mappings::DataIterator::address() const
 int Mappings::DataIterator::registerCount() const
 {
 	return mRegisterCount;
+}
+
+DBusService *Mappings::DataIterator::getService(QString deviceType, int unitId)
+{
+	// First check if the service can be located directly without a mapping.
+	// We don't limit the unitId to 247, since we're not mapping to actual
+	// serial addressing, and 0xFF is the max that can be communicated anyway.
+	DBusService *service = mMappings->mServices->getService(deviceType, unitId);
+
+	// If no service found, try a mapping
+	int deviceInstance = unitId;
+	if (service == 0 || !service->getConnected()) {
+		QHash<int, int>::ConstIterator uIt = mMappings->mUnitIDMap.find(unitId);
+		if (uIt == mMappings->mUnitIDMap.end()) {
+			setError(UnitIdError, QString("Invalid unit ID: %1").arg(unitId));
+			return 0;
+		} else {
+			deviceInstance = uIt.value();
+		}
+		service = mMappings->mServices->getService(deviceType, deviceInstance);
+	}
+
+	if (service != 0 && service->getConnected())
+		return service;
+	return 0;
 }
 
 void Mappings::DataIterator::setError(MappingErrors error, const QString &errorString)

@@ -110,9 +110,11 @@ private:
 		int registerCount() const;
 
 	private:
+		DBusService *getService(QString deviceType, int unitId);
 		void setError(MappingErrors error, const QString &errorString);
 		const Mappings *mMappings;
 		QMap<int, DBusModbusData *>::ConstIterator mCurrent;
+		int mUnitId;
 		int mQuantity;
 		int mOffset;
 		int mRegisterCount;
