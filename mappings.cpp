@@ -539,22 +539,6 @@ Mappings::DataIterator::DataIterator(const Mappings *mappings, int address, int 
 		return;
 	}
 
-	QHash<int, int>::ConstIterator uIt = mMappings->mUnitIDMap.find(unitId);
-	int deviceInstance = 0;
-	if (uIt == mMappings->mUnitIDMap.end()) {
-		/// If the unit ID is within byte range, and we cannot find it in the mapping, we assume
-		/// the unit ID equals  the device instance. This is usefull because device instances
-		/// are usually < 256, so we do not have to add all possible device instances to the
-		/// mapping.
-		if (unitId < 0 || unitId > 255) {
-			setError(UnitIdError, QString("Invalid unit ID: %1").arg(unitId));
-			return;
-		}
-		deviceInstance = unitId;
-	} else {
-		deviceInstance = uIt.value();
-	}
-
 	mCurrent = mMappings->mDBusModbusMap.lowerBound(address);
 	if (mCurrent == mMappings->mDBusModbusMap.end()) {
 		setError(StartAddressError, QString("Modbus address %1 is not registered").arg(address));
@@ -585,16 +569,36 @@ Mappings::DataIterator::DataIterator(const Mappings *mappings, int address, int 
 	Q_ASSERT(mRegisterCount <= mCurrent.value()->size);
 	Q_ASSERT(mRegisterCount <= quantity);
 
+	// First check if the service can be located directly without a mapping.
+	// We don't limit the unitId to 247, since we're not mapping to actual
+	// serial addressing, and 0xFF is the max that can be communicated anyway.
 	// Get service from the first modbus address. The service must be the same
 	// for the complete address range therefore the service pointer has to be
-	// fetched and checked only once
-	mService = mMappings->mServices->getService(mCurrent.value()->deviceType, deviceInstance);
+	// fetched and checked only once.
+	// TODO: Change the limitation that only one service can be matched, since
+	// we can have multiple services adjacent to one another, with the same
+	// unitID.
+	mService = mMappings->mServices->getService(
+		mCurrent.value()->deviceType, unitId);
+
+	// If no service found, try a mapping
+	int deviceInstance = unitId;
+	if (mService == 0 || !mService->getConnected()) {
+		QHash<int, int>::ConstIterator uIt = mMappings->mUnitIDMap.find(unitId);
+		if (uIt == mMappings->mUnitIDMap.end()) {
+			setError(UnitIdError, QString("Invalid unit ID: %1").arg(unitId));
+			return;
+		} else {
+			deviceInstance = uIt.value();
+		}
+		mService = mMappings->mServices->getService(mCurrent.value()->deviceType, deviceInstance);
+	}
+
 	if (mService == 0 || !mService->getConnected()) {
 		QString msg = QString("Error finding service with device type %1 at device instance %2").
 				arg(mCurrent.value()->deviceType).
 				arg(deviceInstance);
 		setError(ServiceError, msg);
-		return;
 	}
 }
 
