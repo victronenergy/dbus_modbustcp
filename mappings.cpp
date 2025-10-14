@@ -595,9 +595,10 @@ Mappings::DataIterator::DataIterator(const Mappings *mappings, int address, int 
 	}
 
 	if (mService == 0 || !mService->getConnected()) {
-		QString msg = QString("Error finding service with device type %1 at device instance %2").
+		QString msg = QString("Error finding service with device type %1 at device instance %2, unitid %3").
 				arg(mCurrent.value()->deviceType).
-				arg(deviceInstance);
+				arg(deviceInstance).
+				arg(unitId);
 		setError(ServiceError, msg);
 	}
 }
