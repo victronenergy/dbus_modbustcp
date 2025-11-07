@@ -97,6 +97,7 @@ void Mappings::importCSV(QTextStream &in)
 	}
 
 	// Backwards compatibility registers
+	// Solar charger PV current
 	mDBusModbusMap.insert(777, new DBusModbusData(
 		"solarcharger",
 		QStringList() << "/Yield/Power" << "/Pv/V", // objectPaths
@@ -106,6 +107,32 @@ void Mappings::importCSV(QTextStream &in)
 		QMetaType::Double, // dbus type
 		Mappings::mb_perm_read,
 		&mDivOperation)); // Divide power by voltage
+
+	// genset Error code
+	mDBusModbusMap.insert(3214, new DBusModbusData(
+		"genset",
+		QStringList() << "/Error/0/Id" << "/Error/1/Id" << "/Error/2/Id"
+			<< "/Error/3/Id" << "/Error/4/Id" << "/Error/5/Id" << "/Error/6/Id"
+			<< "/Error/7/Id",
+		1, // scaleFactor
+		1, // size
+		mb_type_uint16, // modbus type
+		QMetaType::UInt,
+		Mappings::mb_perm_read,
+		&mGensetErrorSummaryOperation));
+
+	// dcgenset Error code
+	mDBusModbusMap.insert(5202, new DBusModbusData(
+		"dcgenset",
+		QStringList() << "/Error/0/Id" << "/Error/1/Id" << "/Error/2/Id"
+			<< "/Error/3/Id" << "/Error/4/Id" << "/Error/5/Id" << "/Error/6/Id"
+			<< "/Error/7/Id",
+		1, // scaleFactor
+		1, // size
+		mb_type_uint16, // modbus type
+		QMetaType::UInt,
+		Mappings::mb_perm_read,
+		&mGensetErrorSummaryOperation));
 
 	// Date and time
 	mDBusModbusMap.insert(830, new DBusModbusData(
@@ -746,4 +773,12 @@ QVariant Mappings::FirmwareOperation::calculate(QList<QVariant> args)
 	// Change it into a 32-bit int, by inserting 8 extra bits before the
 	// beta value (0 for official release).
 	return QVariant(((version << 8) & 0xFFFF0000) + (version & 0xFF));
+}
+
+QVariant Mappings::GensetErrorSummaryOperation::calculate(QList<QVariant> args)
+{
+	foreach(QVariant v, args) {
+		if (v.toString().length() > 0) return QVariant((quint16)0xFF00);
+	}
+	return QVariant((quint16)0);
 }

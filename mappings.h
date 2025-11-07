@@ -157,6 +157,7 @@ private:
 	class NopOperation : public Operation { QVariant calculate(QList<QVariant> args); };
 	class TimeOperation : public Operation { QVariant calculate(QList<QVariant> args); };
 	class FirmwareOperation : public Operation { QVariant calculate(QList<QVariant> args); };
+	class GensetErrorSummaryOperation : public Operation { QVariant calculate(QList<QVariant> args); };
 
 	// To mark reserved ranges
 	class ReservedOperation : public Operation {
@@ -172,6 +173,7 @@ private:
 	NopOperation mNopOperation;
 	TimeOperation mTimeOperation;
 	FirmwareOperation mFirmwareOperation;
+	GensetErrorSummaryOperation mGensetErrorSummaryOperation;
 
 	// Whether to allow writing
 	bool mReadWrite;
