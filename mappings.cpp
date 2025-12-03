@@ -56,7 +56,7 @@ void Mappings::importCSV(QTextStream &in)
 					break;
 				case mb_type_reserved:
 					item_size = convertSize(reservedType, values.at(5));
-					operation = new ReservedOperation(item_size);
+					operation = &mReservedOperation;
 					break;
 				case mb_type_int32:
 				case mb_type_uint32:
@@ -279,7 +279,7 @@ quint16 Mappings::getValue(const QVariant &dbusValue, ModbusTypes modbusType, in
 		return v | b[index];
 	}
 	case mb_type_reserved:
-		return dbusValue.toInt();
+		return 0xFFFF;
 	default:
 		return 0;
 	}
@@ -746,10 +746,6 @@ QVariant Mappings::DivOperation::calculate(QList<QVariant> args)
 QVariant Mappings::NopOperation::calculate(QList<QVariant> args)
 {
 	return args[0];
-}
-
-Mappings::ReservedOperation::ReservedOperation(int size) : mSize(size)
-{
 }
 
 QVariant Mappings::ReservedOperation::calculate(QList<QVariant> args)

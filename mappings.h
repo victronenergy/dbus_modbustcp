@@ -160,13 +160,7 @@ private:
 	class GensetErrorSummaryOperation : public Operation { QVariant calculate(QList<QVariant> args); };
 
 	// To mark reserved ranges
-	class ReservedOperation : public Operation {
-	public:
-		ReservedOperation(int size);
-		QVariant calculate(QList<QVariant> args);
-	private:
-		int mSize;
-	};
+	class ReservedOperation : public Operation { QVariant calculate(QList<QVariant> args); };
 
 	// class level instances of operations
 	DivOperation mDivOperation;
@@ -174,6 +168,7 @@ private:
 	TimeOperation mTimeOperation;
 	FirmwareOperation mFirmwareOperation;
 	GensetErrorSummaryOperation mGensetErrorSummaryOperation;
+	ReservedOperation mReservedOperation;
 
 	// Whether to allow writing
 	bool mReadWrite;
