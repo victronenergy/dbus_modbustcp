@@ -696,11 +696,9 @@ DBusService *Mappings::DataIterator::getService(QString deviceType, int unitId)
 	if (service == 0 || !service->getConnected()) {
 		QHash<int, int>::ConstIterator uIt = mMappings->mUnitIDMap.find(unitId);
 		if (uIt == mMappings->mUnitIDMap.end()) {
-			setError(UnitIdError, QString("Invalid unit ID: %1").arg(unitId));
 			return 0;
-		} else {
-			deviceInstance = uIt.value();
 		}
+		deviceInstance = uIt.value();
 		service = mMappings->mServices->getService(deviceType, deviceInstance);
 	}
 
