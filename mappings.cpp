@@ -337,9 +337,19 @@ void Mappings::setValues(MappingRequest *request)
 			j += it.registerCount() * 2;
 			continue;
 		}
-		// Where a register is calculated from multiple items, a WRITE should not be possible,
-		// hence we are taking the easy solution of assuming there is only one item.
-		VeQItem *item = it.items()[0];
+		// Where a register is calculated from multiple items, a WRITE should not be possible.
+		// There is however one use case where a write to multiple items makes
+		// sense, and that is when multiple dbus paths could provide the same
+		// service, and you just want to use the first matching one. Therefore
+		// pick the first item that is online.
+		VeQItem *item;
+		foreach(item, it.items()) {
+			if (item->getState() != VeQItem::Offline) {
+				break;
+			}
+			QLOG_DEBUG() << item->uniqueId() << "is offline, skipping";
+		}
+
 		Q_ASSERT(item->getState() != VeQItem::Requested && item->getState() != VeQItem::Idle);
 		QVariant dbusValue;
 		if (it.data()->modbusType == mb_type_string) {
@@ -777,7 +787,11 @@ QVariant Mappings::DivOperation::calculate(QList<QVariant> args)
 
 QVariant Mappings::NopOperation::calculate(QList<QVariant> args)
 {
-	return args[0];
+	foreach(QVariant arg, args) {
+		if (arg.isValid())
+			return arg;
+	}
+	return QVariant();
 }
 
 QVariant Mappings::ReservedOperation::calculate(QList<QVariant> args)
