@@ -1,0 +1,31 @@
+name: Check Register Gaps
+
+on:
+  push:
+    paths:
+      - 'attributes.csv'
+      - 'test/check_register_gaps.py'
+      - 'test/baseline.json'
+      - '.github/workflows/check-register-gaps.yml'
+  pull_request:
+    paths:
+      - 'attributes.csv'
+      - 'test/check_register_gaps.py'
+      - 'test/baseline.json'
+      - '.github/workflows/check-register-gaps.yml'
+
+jobs:
+  check-gaps:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Check for register gaps
+        run: python test/check_register_gaps.py attributes.csv --baseline test/baseline.json
+
