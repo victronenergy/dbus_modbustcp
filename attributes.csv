@@ -103,6 +103,18 @@ com.victronenergy.vebus,/Settings/AssistCurrentBoostFactor,d,,106,uint16,100,W
 com.victronenergy.vebus,/Settings/InverterOutputVoltage,d,,107,uint16,100,W
 com.victronenergy.vebus,/Settings/PowerAssistEnabled,d,,108,uint16,1,W
 com.victronenergy.vebus,/Settings/UpsFunction,d,0=Enabled;1=Disabled,109,uint16,1,W
+com.victronenergy.vebus,/Devices/0/ExtendStatus/RelayTestOk,i,0=No;1=Yes,110,uint16,1,R
+com.victronenergy.vebus,/Devices/1/ExtendStatus/RelayTestOk,i,0=No;1=Yes,111,uint16,1,R
+com.victronenergy.vebus,/Devices/2/ExtendStatus/RelayTestOk,i,0=No;1=Yes,112,uint16,1,R
+com.victronenergy.vebus,/Devices/3/ExtendStatus/RelayTestOk,i,0=No;1=Yes,113,uint16,1,R
+com.victronenergy.vebus,/Devices/4/ExtendStatus/RelayTestOk,i,0=No;1=Yes,114,uint16,1,R
+com.victronenergy.vebus,/Devices/5/ExtendStatus/RelayTestOk,i,0=No;1=Yes,115,uint16,1,R
+com.victronenergy.vebus,/Devices/6/ExtendStatus/RelayTestOk,i,0=No;1=Yes,116,uint16,1,R
+com.victronenergy.vebus,/Devices/7/ExtendStatus/RelayTestOk,i,0=No;1=Yes,117,uint16,1,R
+com.victronenergy.vebus,/Devices/8/ExtendStatus/RelayTestOk,i,0=No;1=Yes,118,uint16,1,R
+com.victronenergy.vebus,/Devices/9/ExtendStatus/RelayTestOk,i,0=No;1=Yes,119,uint16,1,R
+com.victronenergy.vebus,/Devices/10/ExtendStatus/RelayTestOk,i,0=No;1=Yes,120,uint16,1,R
+com.victronenergy.vebus,/Devices/11/ExtendStatus/RelayTestOk,i,0=No;1=Yes,121,uint16,1,R
 com.victronenergy.vebus,/MicroGrid/Mode,i,0=Grid-forming;1=Grid-following;2=reserved;3=Hybrid droop mode,200,uint16,1,R
 com.victronenergy.vebus,/MicroGrid/DroopModeParameters/F0/Value,d,Hz,201,uint16,100,W
 com.victronenergy.vebus,/MicroGrid/DroopModeParameters/P0/Value,d,%,202,int16,100,W
