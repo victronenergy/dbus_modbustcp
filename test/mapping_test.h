@@ -4,7 +4,7 @@
 #include <dbus_services.h>
 #include <mappings.h>
 #include <mapping_request.h>
-#include <velib/qt/ve_qitem.hpp>
+#include <veutil/qt/ve_qitem.hpp>
 #include <QObject>
 #include <QScopedPointer>
 #include <QSignalSpy>

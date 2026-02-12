@@ -7,7 +7,7 @@
 #include <QObject>
 #include <QScopedPointer>
 #include <QTest>
-#include <velib/qt/ve_qitem.hpp>
+#include <veutil/qt/ve_qitem.hpp>
 
 class DiagnosticsServiceTest : public QObject
 {

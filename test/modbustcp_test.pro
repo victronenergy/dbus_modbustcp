@@ -27,10 +27,10 @@ EXTDIR = ../ext
 TESTDIR = ../src
 
 include($$EXTDIR/QsLog/QsLog.pri)
-include($$EXTDIR/velib/src/qt/ve_qitems.pri)
+include($$EXTDIR/veutil/veutil.pri)
 
 INCLUDEPATH += \
-    $$EXTDIR/velib/inc \
+    $$EXTDIR/veutil/inc \
     $$SRCDIR \
     $$TESTDIR
 
