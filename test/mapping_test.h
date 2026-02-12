@@ -31,6 +31,7 @@ private slots:
 			"com.victronenergy.vebus,/Ac/Out/L1/V,d,V AC,15,uint16,10,R\n"
 			"com.victronenergy.vebus,/Ac/ActiveIn/CurrentLimit,d,A,22,int16,10,W\n"
 			"com.victronenergy.system,/Serial,s,,800,string[6],1,R\n"
+			"com.victronenergy.system,/CustomName,s,,810,string[6],1,W\n"
 			"com.victronenergy.pvinverter,/Ac/L1/Power,i,W,1029,uint16,1,R\n"
 			"com.victronenergy.gps,/Position/Longitude,d,Decimal degrees,2802,int32,10000000,R\n"
 			"com.victronenergy.gps,/Position/Latitude,d,Decimal degrees,2800,int32,10000000,R\n"
@@ -510,6 +511,67 @@ private slots:
 
 		QCOMPARE(currentLimit->getValue().toDouble(), 83.5);
 		QCOMPARE(currentLimit->getState(), VeQItem::Synchronized);
+	}
+
+	void writeString()
+	{
+		VeQItem *system = createService("com.victronenergy.system", 0);
+		VeQItem *customName = system->itemGetOrCreate("/CustomName");
+		customName->setValue("OldValue1234");
+
+		mServices->initialScan();
+
+		// Write "Hello World!" (12 bytes = 6 registers)
+		MappingRequest request(WriteValues, 810, 100, 6);
+		QByteArray strBytes("Hello World!");
+		request.data().append(strBytes);
+		handleRequest(&request);
+
+		QCOMPARE(request.error(), NoError);
+		QVERIFY(request.errorString().isEmpty());
+		QCOMPARE(customName->getValue().toString(), QString("Hello World!"));
+	}
+
+	void writePartialString()
+	{
+		VeQItem *system = createService("com.victronenergy.system", 0);
+		VeQItem *customName = system->itemGetOrCreate("/CustomName");
+		customName->setValue("abcdefghijkl");
+
+		mServices->initialScan();
+
+		// Write to registers 812-813 (offset 2 into the string), replacing bytes 4-7
+		MappingRequest request(WriteValues, 812, 100, 2);
+		request.data().append('X');
+		request.data().append('Y');
+		request.data().append('Z');
+		request.data().append('W');
+		handleRequest(&request);
+
+		QCOMPARE(request.error(), NoError);
+		QVERIFY(request.errorString().isEmpty());
+		QCOMPARE(customName->getValue().toString(), QString("abcdXYZWijkl"));
+	}
+
+	void writeShortString()
+	{
+		VeQItem *system = createService("com.victronenergy.system", 0);
+		VeQItem *customName = system->itemGetOrCreate("/CustomName");
+		customName->setValue("OldValue1234");
+
+		mServices->initialScan();
+
+		// Write "Hi" followed by null bytes (full 6-register write)
+		MappingRequest request(WriteValues, 810, 100, 6);
+		request.data().append('H');
+		request.data().append('i');
+		for (int i = 0; i < 10; ++i)
+			request.data().append(static_cast<char>(0));
+		handleRequest(&request);
+
+		QCOMPARE(request.error(), NoError);
+		QVERIFY(request.errorString().isEmpty());
+		QCOMPARE(customName->getValue().toString(), QString("Hi"));
 	}
 
 private:

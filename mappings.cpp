@@ -336,49 +336,75 @@ void Mappings::setValues(MappingRequest *request)
 		// hence we are taking the easy solution of assuming there is only one item.
 		VeQItem *item = it.items()[0];
 		Q_ASSERT(item->getState() != VeQItem::Requested && item->getState() != VeQItem::Idle);
-		quint32 value = 0;
-		if (it.registerCount() < it.data()->size || it.offset() > 0) {
-			// The write request does not cover all registers mapped to the current item, so we
-			// retrieve the current value and overwrite parts of it with data from the request
-			// later.
-			QVariant dbusValue = item->getValue();
-			for (int i=0; i<it.data()->size; ++i) {
-				quint16 v = getValue(dbusValue, it.data()->modbusType, i, it.data()->scaleFactor);
-				value = (value << 16) | v;
-			}
-		}
-		// Copy the request data to `value`. Take care not to overwrite parts of `value` not
-		// covered by the request.
-		for (int i=0; i<it.registerCount(); ++i, j+=2) {
-			quint16 v = (static_cast<quint8>(data[j]) << 8) | static_cast<quint8>(data[j+1]);
-			int shift = 16 * (it.data()->size - i - it.offset() - 1);
-			value = (value & ~(0xFFFFu << shift)) | (v << shift);
-		}
 		QVariant dbusValue;
-		switch (it.data()->modbusType) {
-		case mb_type_int16:
-			dbusValue = convertToDbus(it.data()->dbusType, static_cast<qint16>(value),
-									  it.data()->scaleFactor);
-			break;
-		case mb_type_uint16:
-			dbusValue = convertToDbus(it.data()->dbusType, static_cast<quint16>(value),
-									  it.data()->scaleFactor);
-			break;
-		case mb_type_int32:
-			dbusValue = convertToDbus(it.data()->dbusType, static_cast<qint32>(value),
-									  it.data()->scaleFactor);
-			break;
-		case mb_type_uint32:
-			dbusValue = convertToDbus(it.data()->dbusType, static_cast<quint32>(value),
-									  it.data()->scaleFactor);
-			break;
-		case mb_type_uint64:
-			dbusValue = convertToDbus(it.data()->dbusType, static_cast<quint64>(value),
-									  it.data()->scaleFactor);
-			break;
-		default:
-			// Do nothing. dbusValue will remain invalid, which will generate an error below.
-			break;
+		if (it.data()->modbusType == mb_type_string) {
+			int byteSize = it.data()->size * 2;
+			QByteArray bytes(byteSize, '\0');
+
+			// For partial writes, seed with current D-Bus value
+			if (it.registerCount() < it.data()->size || it.offset() > 0) {
+				QByteArray current = item->getValue().toString().toLatin1();
+				int copyLen = qMin(current.size(), byteSize);
+				for (int i = 0; i < copyLen; ++i)
+					bytes[i] = current[i];
+			}
+
+			// Copy request register data at correct byte offset
+			int byteOffset = it.offset() * 2;
+			for (int i = 0; i < it.registerCount(); ++i, j += 2) {
+				int idx = byteOffset + i * 2;
+				if (idx < byteSize)
+					bytes[idx] = data[j];
+				if (idx + 1 < byteSize)
+					bytes[idx + 1] = data[j + 1];
+			}
+
+			// Truncate at first null (mirrors read path which returns 0 beyond string end)
+			dbusValue = QString::fromLatin1(bytes.constData());
+		} else {
+			quint32 value = 0;
+			if (it.registerCount() < it.data()->size || it.offset() > 0) {
+				// The write request does not cover all registers mapped to the current item, so we
+				// retrieve the current value and overwrite parts of it with data from the request
+				// later.
+				QVariant currentValue = item->getValue();
+				for (int i=0; i<it.data()->size; ++i) {
+					quint16 v = getValue(currentValue, it.data()->modbusType, i, it.data()->scaleFactor);
+					value = (value << 16) | v;
+				}
+			}
+			// Copy the request data to `value`. Take care not to overwrite parts of `value` not
+			// covered by the request.
+			for (int i=0; i<it.registerCount(); ++i, j+=2) {
+				quint16 v = (static_cast<quint8>(data[j]) << 8) | static_cast<quint8>(data[j+1]);
+				int shift = 16 * (it.data()->size - i - it.offset() - 1);
+				value = (value & ~(0xFFFFu << shift)) | (v << shift);
+			}
+			switch (it.data()->modbusType) {
+			case mb_type_int16:
+				dbusValue = convertToDbus(it.data()->dbusType, static_cast<qint16>(value),
+										  it.data()->scaleFactor);
+				break;
+			case mb_type_uint16:
+				dbusValue = convertToDbus(it.data()->dbusType, static_cast<quint16>(value),
+										  it.data()->scaleFactor);
+				break;
+			case mb_type_int32:
+				dbusValue = convertToDbus(it.data()->dbusType, static_cast<qint32>(value),
+										  it.data()->scaleFactor);
+				break;
+			case mb_type_uint32:
+				dbusValue = convertToDbus(it.data()->dbusType, static_cast<quint32>(value),
+										  it.data()->scaleFactor);
+				break;
+			case mb_type_uint64:
+				dbusValue = convertToDbus(it.data()->dbusType, static_cast<quint64>(value),
+										  it.data()->scaleFactor);
+				break;
+			default:
+				// Do nothing. dbusValue will remain invalid, which will generate an error below.
+				break;
+			}
 		}
 		if (!dbusValue.isValid()) {
 			QString errorString = QString("Could not convert value from %1").
@@ -724,11 +750,6 @@ Mappings::DBusModbusData::DBusModbusData(QString _deviceType, QStringList _objec
 		_scaleFactor = 1;
 	scaleFactor = _scaleFactor;
 
-	if (_modbusType == mb_type_string && _accessRights == mb_perm_write) {
-		_accessRights = mb_perm_read;
-		QLOG_WARN() << "[Mappings] Register" << _deviceType << _objectPaths[0]
-					<< ": cannot write string values";
-	}
 	accessRights = _accessRights;
 }
 
