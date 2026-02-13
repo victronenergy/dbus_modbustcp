@@ -657,13 +657,19 @@ void Mappings::DataIterator::next()
 	QString oldDeviceType = mCurrent.value()->deviceType;
 	++mCurrent;
 	int newAddress = oldAddress + d->size;
+
+	if (mCurrent == mMappings->mDBusModbusMap.end() || mCurrent.key() != newAddress) {
+		setError(AddressError, QString("Modbus address %1 is not registered").arg(newAddress));
+		return;
+	}
+
 	QString newDeviceType = mCurrent.value()->deviceType;
 
 	if (oldDeviceType != newDeviceType) {
 		mService = getService(newDeviceType, mUnitId);
 	}
 
-	if (mService == 0 || mCurrent == mMappings->mDBusModbusMap.end() || mCurrent.key() != newAddress) {
+	if (mService == 0) {
 		setError(AddressError, QString("Modbus address %1 is not registered").arg(newAddress));
 		return;
 	}
