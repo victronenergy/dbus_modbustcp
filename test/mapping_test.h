@@ -37,7 +37,8 @@ private slots:
 			"com.victronenergy.settings,/Settings/CGwacs/AcPowerSetPoint,d,W,2700,int16,1,W\n"
 			"com.victronenergy.settings,/Settings/CGwacs/AcPowerSetPoint,d,W,2703,int32,100,W\n"
 			"com.victronenergy.settings,/Settings/CGwacs/MaxChargePercentage,d,%,2701,uint16,1,W\n"
-			"com.victronenergy.settings,/Settings/CGwacs/MaxDischargePercentage,d,%,2702,uint16,1,W\n"));
+			"com.victronenergy.settings,/Settings/CGwacs/MaxDischargePercentage,d,%,2702,uint16,1,W\n"
+			"com.victronenergy.settings,/Settings/CGwacs/AcPowerSetPoint,d,W,6000,int16,1,R\n"));
 		mMappings->importCSV(attributes);
 		QTextStream unitIdMapping(QByteArray(
 			"Unit ID, /DeviceInstance,Remark\n"
@@ -220,6 +221,31 @@ private slots:
 		QCOMPARE(request.error(), AddressError);
 		QVERIFY(!request.errorString().isEmpty());
 		QVERIFY(request.data().isEmpty());
+	}
+
+	void readPastEndOfMapTest()
+	{
+		VeQItem *hub4 = createService("com.victronenergy.settings", 0);
+		VeQItem *hub4GridSetpoint = hub4->itemGetOrCreate("/Settings/CGwacs/AcPowerSetPoint");
+		hub4GridSetpoint->setValue(5014);
+
+		mServices->initialScan();
+
+		// Register 6000 is the last entry in the map (a uint16).
+		// Reading exactly 1 register should work fine.
+		MappingRequest request(ReadValues, 6000, 0, 1);
+		handleRequest(&request);
+
+		QCOMPARE(request.error(), NoError);
+		QCOMPARE(request.data().size(), 2);
+
+		// Reading 2 registers extends past the end of the map and should
+		// return an AddressError instead of crashing.
+		MappingRequest request2(ReadValues, 6000, 0, 2);
+		handleRequest(&request2);
+
+		QCOMPARE(request2.error(), AddressError);
+		QVERIFY(!request2.errorString().isEmpty());
 	}
 
 	void readInt32Test()
