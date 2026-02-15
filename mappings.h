@@ -56,14 +56,7 @@ private:
 		mb_type_int32,
 		mb_type_uint64,
 		mb_type_string,
-		mb_type_reserved
-	};
-
-	enum Permissions {
-		mb_perm_none,
-		mb_perm_read,
-		mb_perm_write
-	};
+                mb_type_int16_ul,
 
 	class Operation;
 	struct DBusModbusData {
