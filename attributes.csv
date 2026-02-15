@@ -450,7 +450,7 @@ com.victronenergy.settings,/Settings/CGwacs/AcPowerSetPoint,d,W,2700,int16,1,W
 com.victronenergy.settings,/Settings/CGwacs/AcPowerSetPoint,d,W,2703,int16,0.01,W
 com.victronenergy.settings,/Settings/CGwacs/MaxChargePercentage,d,%,2701,uint16,1,W
 com.victronenergy.settings,/Settings/CGwacs/MaxDischargePercentage,d,%,2702,uint16,1,W
-com.victronenergy.settings,/Settings/CGwacs/MaxDischargePower,d,W,2704,int16,0.1,W
+com.victronenergy.settings,/Settings/CGwacs/MaxDischargePower,d,W,2704,int16_ul,0.1,W
 com.victronenergy.settings,/Settings/SystemSetup/MaxChargeCurrent,d,A,2705,int16,1,W
 com.victronenergy.settings,/Settings/CGwacs/MaxFeedInPower,d,W,2706,int16,0.01,W
 com.victronenergy.settings,/Settings/CGwacs/OvervoltageFeedIn,i,0=Don't feed excess DC-coupled PV into grid;1=Feed excess DC-coupled PV into the grid,2707,uint16,1,W
