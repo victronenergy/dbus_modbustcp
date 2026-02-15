@@ -247,6 +247,10 @@ quint16 Mappings::getValue(const QVariant &dbusValue, ModbusTypes modbusType, in
 	case mb_type_int16:
 		return convertFromDbus<qint16>(dbusValue, scaleFactor);
 	case mb_type_uint16:
+        case mb_type_int16_ul:
+                if (dbusValue.toDouble() == -1.0)
+                        return 0xFFFF;
+                return convertFromDbus<qint16>(dbusValue, scaleFactor);
 		return convertFromDbus<quint16>(dbusValue, scaleFactor);
 	case mb_type_int32:
 	{
@@ -384,6 +388,13 @@ void Mappings::setValues(MappingRequest *request)
 			case mb_type_int16:
 				dbusValue = convertToDbus(it.data()->dbusType, static_cast<qint16>(value),
 										  it.data()->scaleFactor);
+                        case mb_type_int16_ul:
+                                if (static_cast<qint16>(value) == -1)
+                                        dbusValue = -1.0;
+                                else
+                                        dbusValue = convertToDbus(it.data()->dbusType, static_cast<qint16>(value),
+                                                                                          it.data()->scaleFactor);
+                                break;
 				break;
 			case mb_type_uint16:
 				dbusValue = convertToDbus(it.data()->dbusType, static_cast<quint16>(value),
@@ -518,6 +529,8 @@ Mappings::ModbusTypes Mappings::convertModbusType(const QString &typeString)
 {
 	if (typeString == "int16")
 		return mb_type_int16;
+        if (typeString == "int16_ul")
+                return mb_type_int16_ul;
 	if (typeString == "uint16")
 		return mb_type_uint16;
 	if (typeString == "int32")
@@ -593,21 +606,16 @@ Mappings::DataIterator::DataIterator(const Mappings *mappings, int address, int 
 		return;
 	}
 
-	mCurrent = mMappings->mDBusModbusMap.lowerBound(address);
-	if (mCurrent == mMappings->mDBusModbusMap.end()) {
-		setError(StartAddressError, QString("Modbus address %1 is not registered").arg(address));
-		return;
-	}
-	Q_ASSERT(mCurrent.key() >= address);
-	if (mCurrent.key() > address) {
-		if (mCurrent == mMappings->mDBusModbusMap.begin()) {
-			setError(StartAddressError, QString("Modbus address %1 is not registered").arg(address));
-			return;
-		}
-		// Note that in a QMap (unlike a QHash) all elements are ordered by key,
-		// so --mCurrent will move the iterator to the last element before it. This is
-		// the last value with key < modbusAddress.
-		--mCurrent;
+        mCurrent = mMappings->mDBusModbusMap.lowerBound(address);
+        if (mCurrent == mMappings->mDBusModbusMap.end() || mCurrent.key() > address) {
+                if (mCurrent == mMappings->mDBusModbusMap.begin()) {
+                        setError(StartAddressError, QString("Modbus address %1 is not registered").arg(address));
+                        return;
+                }
+                // Note that in a QMap (unlike a QHash) all elements are ordered by key,
+                // so --mCurrent will move the iterator to the last element before it. This is
+                // the last value with key < modbusAddress.
+                --mCurrent;
 		Q_ASSERT(mCurrent.key() < address);
 		if (mCurrent.key() + mCurrent.value()->size <= address) {
 			setError(StartAddressError, QString("Modbus address %1 is not registered").arg(address));
