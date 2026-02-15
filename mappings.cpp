@@ -666,7 +666,12 @@ void Mappings::DataIterator::next()
 	++mCurrent;
 	int newAddress = oldAddress + d->size;
 
-	if (mCurrent == mMappings->mDBusModbusMap.end() || mCurrent.key() != newAddress) {
+if (mCurrent == mMappings->mDBusModbusMap.end()) {
+            setError(AddressError, QString("Modbus address %1 is not registered").arg(newAddress));
+            return;
+    }
+
+    if (mCurrent.key() != newAddress) {
 		setError(AddressError, QString("Modbus address %1 is not registered").arg(newAddress));
 		return;
 	}
