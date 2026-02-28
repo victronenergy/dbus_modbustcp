@@ -593,21 +593,16 @@ Mappings::DataIterator::DataIterator(const Mappings *mappings, int address, int 
 		return;
 	}
 
-	mCurrent = mMappings->mDBusModbusMap.lowerBound(address);
-	if (mCurrent == mMappings->mDBusModbusMap.end()) {
-		setError(StartAddressError, QString("Modbus address %1 is not registered").arg(address));
-		return;
-	}
-	Q_ASSERT(mCurrent.key() >= address);
-	if (mCurrent.key() > address) {
-		if (mCurrent == mMappings->mDBusModbusMap.begin()) {
-			setError(StartAddressError, QString("Modbus address %1 is not registered").arg(address));
-			return;
-		}
-		// Note that in a QMap (unlike a QHash) all elements are ordered by key,
-		// so --mCurrent will move the iterator to the last element before it. This is
-		// the last value with key < modbusAddress.
-		--mCurrent;
+        mCurrent = mMappings->mDBusModbusMap.lowerBound(address);
+        if (mCurrent == mMappings->mDBusModbusMap.end() || mCurrent.key() > address) {
+                if (mCurrent == mMappings->mDBusModbusMap.begin()) {
+                        setError(StartAddressError, QString("Modbus address %1 is not registered").arg(address));
+                        return;
+                }
+                // Note that in a QMap (unlike a QHash) all elements are ordered by key,
+                // so --mCurrent will move the iterator to the last element before it. This is
+                // the last value with key < modbusAddress.
+                --mCurrent;
 		Q_ASSERT(mCurrent.key() < address);
 		if (mCurrent.key() + mCurrent.value()->size <= address) {
 			setError(StartAddressError, QString("Modbus address %1 is not registered").arg(address));
