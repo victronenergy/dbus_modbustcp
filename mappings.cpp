@@ -467,7 +467,7 @@ template<class rettype> rettype Mappings::convertFromDbus(const QVariant &value,
 		return static_cast<rettype>(
 			qBound((double)std::numeric_limits<rettype>::min(),
 			round(value.toInt() * scaleFactor),
-			(double)std::numeric_limits<rettype>::max()));
+			(double)(std::numeric_limits<rettype>::max()-1)));
 	case QMetaType::UChar:
 	case QMetaType::UShort:
 	case QMetaType::UInt:
@@ -476,7 +476,7 @@ template<class rettype> rettype Mappings::convertFromDbus(const QVariant &value,
 		return static_cast<rettype>(
 			qBound((double)std::numeric_limits<rettype>::min(),
 			round(value.toUInt() * scaleFactor),
-			(double)std::numeric_limits<rettype>::max()));
+			(double)(std::numeric_limits<rettype>::max()-1)));
 	case QMetaType::Bool:
 		return static_cast<rettype>(value.toBool());
 	default:
