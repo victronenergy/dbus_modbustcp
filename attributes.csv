@@ -346,7 +346,6 @@ com.victronenergy.system,/Dc/Vebus/Power,d,W,866,int16,1,R
 com.victronenergy.system,RESERVED,d,,867,reserved[1],1,R
 com.victronenergy.system,/Dc/InverterCharger/Current,d,A,868,int32,10,R
 com.victronenergy.system,/Dc/InverterCharger/Power,d,W,870,int32,1,R
-com.victronenergy.system,RESERVED,d,,871,reserved[1],1,R
 com.victronenergy.system,/Ac/ConsumptionOnInput/L1/Power,d,W,872,int32,1,R
 com.victronenergy.system,/Ac/ConsumptionOnInput/L2/Power,d,W,874,int32,1,R
 com.victronenergy.system,/Ac/ConsumptionOnInput/L3/Power,d,W,876,int32,1,R
