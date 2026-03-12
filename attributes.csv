@@ -925,7 +925,7 @@ com.victronenergy.settings,/Settings/DynamicEss/Schedule/0/Duration,d,Seconds,54
 com.victronenergy.settings,/Settings/DynamicEss/Schedule/0/Restrictions,d,0=No restrictions between battery and the grid;1=Grid to battery energy flow is restricted;2=Battery to grid energy flow is restricted;3=No energy flow between battery and grid,5426,uint16,1,W
 com.victronenergy.settings,/Settings/DynamicEss/Schedule/0/Soc,d,%,5427,uint16,1,W
 com.victronenergy.settings,/Settings/DynamicEss/Schedule/0/Start,d,timestamp,5428,int32,1,W
-com.victronenergy.settings,/Settings/DynamicEss/Schedule/0/Strategy,d,0=Target SOC;1=Self-consumption,5429,uint16,1,W
+com.victronenergy.settings,/Settings/DynamicEss/Schedule/0/Strategy,d,0=Target SOC;1=Self-consumption,5430,uint16,1,W
 com.victronenergy.heatpump,/ProductId,u,,5500,uint16,1,R
 com.victronenergy.heatpump,/State,u,0=Off;1=Error;2=Startup;3=Heating;4=Cooling,5501,uint16,1,R
 com.victronenergy.heatpump,/Ac/Power,d,W,5502,uint32,1,R
