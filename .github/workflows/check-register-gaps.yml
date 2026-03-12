@@ -1,21 +1,23 @@
-name: Check Register Gaps
+name: Check Register Map
 
 on:
   push:
     paths:
       - 'attributes.csv'
       - 'test/check_register_gaps.py'
+      - 'test/check_register_overlaps.py'
       - 'test/baseline.json'
       - '.github/workflows/check-register-gaps.yml'
   pull_request:
     paths:
       - 'attributes.csv'
       - 'test/check_register_gaps.py'
+      - 'test/check_register_overlaps.py'
       - 'test/baseline.json'
       - '.github/workflows/check-register-gaps.yml'
 
 jobs:
-  check-gaps:
+  check-register-map:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -29,3 +31,5 @@ jobs:
       - name: Check for register gaps
         run: python test/check_register_gaps.py attributes.csv --baseline test/baseline.json
 
+      - name: Check for register overlaps
+        run: python test/check_register_overlaps.py attributes.csv
