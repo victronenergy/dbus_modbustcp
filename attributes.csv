@@ -479,11 +479,15 @@ com.victronenergy.tank,/FluidType,u,0=Fuel;1=Fresh water;2=Waste water;3=Live we
 com.victronenergy.tank,/Level,d,%,3004,uint16,10,R
 com.victronenergy.tank,/Remaining,d,m3,3005,uint32,10000,R
 com.victronenergy.tank,/Status,u,0=OK;1=Open circuit;2=Short circuited;3=Reverse Polarity;4=Unknown,3007,uint16,1,R
-com.victronenergy.inverter,/ProductId,u,,3127,uint16,1,R
 com.victronenergy.inverter,/FirmwareVersion,u,,3125,uint16,1,R
+com.victronenergy.inverter,/ProductId,u,,3127,uint16,1,R
 com.victronenergy.inverter,/Ac/Out/L1/I,d,A AC,3100,int16,10,R
 com.victronenergy.inverter,/Ac/Out/L1/V,d,V AC,3101,uint16,10,R
 com.victronenergy.inverter,/Ac/Out/L1/P,d,W AC,3102,int16,0.1,R
+com.victronenergy.inverter,RESERVED,d,,3103,reserved[2],1,R
+com.victronenergy.inverter,/Dc/0/Voltage,d,V DC,3105,uint16,100,R
+com.victronenergy.inverter,/Dc/0/Current,d,A DC,3106,int16,10,R
+com.victronenergy.inverter,RESERVED,d,,3107,reserved[3],1,R
 com.victronenergy.inverter,/Alarms/HighTemperature,u,0=No alarm;1=Warning;2=Alarm,3110,uint16,1,R
 com.victronenergy.inverter,/Alarms/HighVoltage,u,0=No alarm;1=Warning;2=Alarm,3111,uint16,1,R
 com.victronenergy.inverter,/Alarms/HighVoltageAcOut,u,0=No alarm;1=Warning;2=Alarm,3112,uint16,1,R
@@ -492,19 +496,21 @@ com.victronenergy.inverter,/Alarms/LowVoltage,u,0=No alarm;1=Warning;2=Alarm,311
 com.victronenergy.inverter,/Alarms/LowVoltageAcOut,u,0=No alarm;1=Warning;2=Alarm,3115,uint16,1,R
 com.victronenergy.inverter,/Alarms/Overload,u,0=No alarm;1=Warning;2=Alarm,3116,uint16,1,R
 com.victronenergy.inverter,/Alarms/Ripple,u,0=No alarm;1=Warning;2=Alarm,3117,uint16,1,R
-com.victronenergy.inverter,/Dc/0/Voltage,d,V DC,3105,uint16,100,R
-com.victronenergy.inverter,/Dc/0/Current,d,A DC,3106,int16,10,R
+com.victronenergy.inverter,RESERVED,d,,3118,reserved[7],1,R
 com.victronenergy.inverter,/Mode,u,1=Charger only;2=Inverter only;3=On;4=Off;5=Low Power/Eco;251=Passthrough;252=Standby;253=Hibernate,3126,uint16,1,W
 com.victronenergy.inverter,/State,u,0=Off;1=Low power mode (search mode);2=Fault;9=Inverting (on),3128,uint16,1,R
+com.victronenergy.inverter,RESERVED,d,,3129,reserved[1],1,R
 com.victronenergy.inverter,/Energy/InverterToAcOut,d,kWh,3130,uint32,100,R
 com.victronenergy.inverter,/Energy/OutToInverter,d,kWh,3132,uint32,100,R
 com.victronenergy.inverter,/Energy/SolarToAcOut,d,kWh,3134,uint32,100,R
 com.victronenergy.inverter,/Energy/SolarToBattery,d,kWh,3136,uint32,100,R
 com.victronenergy.inverter,/Pv/V,d,V DC,3138,uint16,10,R
+com.victronenergy.inverter,RESERVED,d,,3139,reserved[1],1,R
 com.victronenergy.inverter,/Pv/0/V,d,V DC,3140,uint16,10,R
 com.victronenergy.inverter,/Pv/1/V,d,V DC,3141,uint16,10,R
 com.victronenergy.inverter,/Pv/2/V,d,V DC,3142,uint16,10,R
 com.victronenergy.inverter,/Pv/3/V,d,V DC,3143,uint16,10,R
+com.victronenergy.inverter,RESERVED,d,,3144,reserved[4],1,R
 com.victronenergy.inverter,/History/Daily/0/Pv/0/Yield,d,kWh,3148,uint16,10,R
 com.victronenergy.inverter,/History/Daily/0/Pv/1/Yield,d,kWh,3149,uint16,10,R
 com.victronenergy.inverter,/History/Daily/0/Pv/2/Yield,d,kWh,3150,uint16,10,R
@@ -613,6 +619,7 @@ com.victronenergy.meteo,/CellTemperature,d,Degrees celsius,3602,int16,10,R
 com.victronenergy.meteo,/ExternalTemperature,d,Degrees celsius,3603,int16,10,R
 com.victronenergy.meteo,/ExternalTemperature2,d,Degrees celsius,3604,int16,10,R
 com.victronenergy.evcharger,/ProductId,u,,3800,uint16,1,R
+com.victronenergy.evcharger,RESERVED,d,,3801,reserved[1],1,R
 com.victronenergy.evcharger,/FirmwareVersion,u,,3802,uint32,1,R
 com.victronenergy.evcharger,/Serial,s,,3804,string[6],,R
 com.victronenergy.evcharger,/Model,s,,3810,string[4],,R

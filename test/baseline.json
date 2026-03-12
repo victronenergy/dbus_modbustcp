@@ -5,23 +5,7 @@
       1281
     ]
   ],
-  "com.victronenergy.dcgenset": [
-    [
-      5202,
-      5202
-    ]
-  ],
-  "com.victronenergy.evcharger": [
-    [
-      3801,
-      3801
-    ]
-  ],
   "com.victronenergy.genset": [
-    [
-      3214,
-      3214
-    ],
     [
       3240,
       4999
@@ -31,32 +15,6 @@
     [
       2710,
       2715
-    ]
-  ],
-  "com.victronenergy.inverter": [
-    [
-      3103,
-      3104
-    ],
-    [
-      3107,
-      3109
-    ],
-    [
-      3118,
-      3124
-    ],
-    [
-      3129,
-      3129
-    ],
-    [
-      3139,
-      3139
-    ],
-    [
-      3144,
-      3147
     ]
   ],
   "com.victronenergy.settings": [
@@ -83,19 +41,11 @@
   ],
   "com.victronenergy.solarcharger": [
     [
-      777,
-      777
-    ],
-    [
       794,
       3699
     ]
   ],
   "com.victronenergy.system": [
-    [
-      830,
-      835
-    ],
     [
       920,
       5399
