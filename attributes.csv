@@ -166,7 +166,9 @@ com.victronenergy.battery,/Alarms/InternalFailure,u,0=No alarm;2=Alarm,323,uint1
 com.victronenergy.battery,/Alarms/HighChargeTemperature,u,0=No alarm;2=Alarm,324,uint16,1,R
 com.victronenergy.battery,/Alarms/LowChargeTemperature,u,0=No alarm;2=Alarm,325,uint16,1,R
 com.victronenergy.battery,/Alarms/LowCellVoltage,u,0=No alarm;1=Almost discharged;2=Alarm,326,uint16,1,R
-com.victronenergy.battery,RESERVED,d,,327,reserved[3],1,R
+com.victronenergy.battery,/Alarms/BmsCable,u,0=No alarm;1=Warning;2=Alarm,327,uint16,1,R
+com.victronenergy.battery,/Alarms/Contactor,u,0=No alarm;1=Warning;2=Alarm,328,uint16,1,R
+com.victronenergy.battery,/Alarms/HighCurrent,u,0=No alarm;1=Warning;2=Alarm,329,uint16,1,R
 com.victronenergy.battery,/Relay/0/State,y,0=Open;1=Closed,280,uint16,1,W
 com.victronenergy.battery,/History/DeepestDischarge,d,Ah,281,uint16,-10,R
 com.victronenergy.battery,/History/LastDischarge,d,Ah,282,uint16,-10,R
