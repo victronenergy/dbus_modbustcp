@@ -59,7 +59,7 @@ args = parser.parse_args()
 
 def getRegistersCount(modbusType):
     """Determine how many registers a modbus type spans."""
-    if modbusType.startswith('string[') or modbusType.startswith('reserved['):
+    if modbusType.startswith('string[') or modbusType.startswith('reserved[') or modbusType.startswith('INTERNAL['):
         temp = re.findall(r'\d+', modbusType)
         if len(temp) == 1:
             return int(temp[0])
@@ -74,8 +74,7 @@ def findGaps(csvPath):
     try:
         with open(csvPath, newline='', encoding='utf_8') as f:
             reader = csv.reader(f)
-            attributes = [row for row in reader
-                         if not any('INTERNAL' in cell for cell in row)]
+            attributes = [row for row in reader]
     except IOError:
         raise SystemExit(f"{RED}### Failed to read {csvPath}{RESET}")
 
