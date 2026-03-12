@@ -554,11 +554,10 @@ com.victronenergy.genset,/Ac/Frequency,d,Hz,3209,uint16,100,R
 com.victronenergy.genset,/Ac/L2/Voltage,d,V AC,3201,uint16,10,R
 com.victronenergy.genset,/Ac/L2/Current,d,A AC,3204,int16,10,R
 com.victronenergy.genset,/Ac/L2/Power,d,W,3207,int16,1,R
-com.victronenergy.genset,RESERVED,d,,3210,reserved[1],100,R
 com.victronenergy.genset,/Ac/L3/Voltage,d,V AC,3202,uint16,10,R
 com.victronenergy.genset,/Ac/L3/Current,d,A AC,3205,int16,10,R
 com.victronenergy.genset,/Ac/L3/Power,d,W,3208,int16,1,R
-com.victronenergy.genset,RESERVED,d,,3211,reserved[1],100,R
+com.victronenergy.genset,RESERVED,d,,3210,reserved[2],100,R
 com.victronenergy.genset,RESERVED,d,,3225,reserved[3],1,R
 com.victronenergy.genset,/Engine/OilTemperature,d,Degrees Celsius,3228,int16,1,R
 com.victronenergy.genset,RESERVED,d,,3229,reserved[1],1,R
