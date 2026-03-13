@@ -332,6 +332,11 @@ void Mappings::setValues(MappingRequest *request)
 	const QByteArray &data = request->data();
 	for (;!it.atEnd(); it.next()) {
 		Q_ASSERT(it.error() == NoError);
+		// Skip over writes that might span reserved ranges.
+		if (it.data()->modbusType == mb_type_reserved) {
+			j += it.registerCount() * 2;
+			continue;
+		}
 		// Where a register is calculated from multiple items, a WRITE should not be possible,
 		// hence we are taking the easy solution of assuming there is only one item.
 		VeQItem *item = it.items()[0];
