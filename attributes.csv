@@ -625,7 +625,7 @@ com.victronenergy.evcharger,/Serial,s,,3804,string[6],,R
 com.victronenergy.evcharger,/Model,s,,3810,string[4],,R
 com.victronenergy.evcharger,/MaxCurrent,d,A,3814,uint16,1,W
 com.victronenergy.evcharger,/Mode,u,0=Manual;1=Auto,3815,uint16,1,W
-com.victronenergy.evcharger,/Ac/Energy/Forward,d,kWh,3816,uint32,100,R
+com.victronenergy.evcharger,/Session/Energy,d,kWh,3816,uint32,100,R
 com.victronenergy.evcharger,/Ac/L1/Power,d,W,3818,uint16,1,R
 com.victronenergy.evcharger,/Ac/L2/Power,d,W,3819,uint16,1,R
 com.victronenergy.evcharger,/Ac/L3/Power,d,W,3820,uint16,1,R
@@ -640,6 +640,7 @@ com.victronenergy.evcharger,/Session/Time,u,s,3828,uint32,1,R
 com.victronenergy.evcharger,/Session/Energy,d,W,3830,uint32,100,R
 com.victronenergy.evcharger,/Session/Cost,d,,3832,int32,100,R
 com.victronenergy.evcharger,/Session/SavedCost,d,,3834,int32,100,R
+com.victronenergy.evcharger,/Ac/Energy/Forward,d,kWh,3836,uint32,100,R
 com.victronenergy.acload,/Ac/L1/Power,d,W,3900,int16,1,R
 com.victronenergy.acload,/Ac/L2/Power,d,W,3901,int16,1,R
 com.victronenergy.acload,/Ac/L3/Power,d,W,3902,int16,1,R
