@@ -7,7 +7,7 @@
   ],
   "com.victronenergy.genset": [
     [
-      3240,
+      3258,
       4999
     ]
   ],
@@ -37,6 +37,10 @@
     [
       4705,
       5419
+    ],
+    [
+      5431,
+      5699
     ]
   ],
   "com.victronenergy.solarcharger": [
@@ -53,7 +57,7 @@
   ],
   "com.victronenergy.vebus": [
     [
-      138,
+      148,
       199
     ]
   ]
