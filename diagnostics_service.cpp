@@ -130,10 +130,16 @@ VeQItem *DiagnosticsService::createServiceItem(VeQItem *deviceInstance)
 	QVariant v = deviceInstance->getValue();
 	if (!v.isValid())
 		return 0;
-	int unitId = mMappings->getUnitId(v.toInt());
 
+	int instance = v.toInt();
+	int unitId = mMappings->getUnitId(instance);
 	int serviceCount = mServiceCount->getValue().toInt();
+
 	VeQItem *serviceEntry = mRoot->itemGetOrCreate(QString("Services/%1").arg(serviceCount), false);
+
+	VeQItem *instanceIdItem = serviceEntry->itemGetOrCreate("VrmInstanceId");
+	instanceIdItem->produceValue(instance);
+	instanceIdItem->produceText(QString::number(instance));
 
 	VeQItem *unitIdItem = serviceEntry->itemGetOrCreate("UnitId");
 	unitIdItem->produceValue(unitId);
