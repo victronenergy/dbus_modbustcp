@@ -29,6 +29,26 @@ Mappings::~Mappings()
 		delete m;
 }
 
+QStringList Mappings::expandPath(const QString &path)
+{
+	int open = path.indexOf('{');
+	if (open == -1)
+		return QStringList() << path;
+
+	int close = path.indexOf('}', open);
+	if (close == -1)
+		return QStringList() << path;
+
+	QString prefix = path.left(open);
+	QString suffix = path.mid(close + 1);
+	QStringList alternatives = path.mid(open + 1, close - open - 1).split(',');
+
+	QStringList result;
+	foreach (const QString &alt, alternatives)
+		result << expandPath(prefix + alt + suffix);
+	return result;
+}
+
 void Mappings::importCSV(const QString &filename)
 {
 	QFile file(QCoreApplication::applicationDirPath() + "/" + filename);
@@ -72,7 +92,7 @@ void Mappings::importCSV(QTextStream &in)
 
 				DBusModbusData * item = new DBusModbusData(
 					DBusService::getDeviceType(values.at(0)),
-					QStringList() << values.at(1), // objectPaths
+					expandPath(values.at(1)), // objectPaths
 					values.at(6).toDouble(), // scaleFactor
 					item_size,
 					modbusType,

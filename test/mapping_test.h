@@ -600,6 +600,29 @@ private slots:
 		QCOMPARE(customName->getValue().toString(), QString("Hi"));
 	}
 
+	void expandPathTest()
+	{
+		// No braces: single-element list with the original string
+		QCOMPARE(Mappings::expandPath("/Foo/Bar"), QStringList() << "/Foo/Bar");
+
+		// Single group: one entry per alternative
+		QCOMPARE(Mappings::expandPath("/SwitchableOutput/{0,pwm_0}/Dimming"),
+			QStringList() << "/SwitchableOutput/0/Dimming"
+			              << "/SwitchableOutput/pwm_0/Dimming");
+
+		// Single alternative (trivial brace group)
+		QCOMPARE(Mappings::expandPath("/Foo/{Bar}/Baz"),
+			QStringList() << "/Foo/Bar/Baz");
+
+		// Two groups: cartesian product
+		QCOMPARE(Mappings::expandPath("/{a,b}/{x,y}"),
+			QStringList() << "/a/x" << "/a/y" << "/b/x" << "/b/y");
+
+		// Malformed: missing closing brace — returned as-is
+		QCOMPARE(Mappings::expandPath("/Foo/{Bar/Baz"),
+			QStringList() << "/Foo/{Bar/Baz");
+	}
+
 private:
 	VeQItem *createService(const QString &service, int deviceInstance)
 	{

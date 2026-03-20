@@ -34,6 +34,8 @@ public:
 
 	int getUnitId(int deviceInstance) const;
 
+	static QStringList expandPath(const QString &path);
+
 public slots:
 	void handleRequest(MappingRequest *request);
 
