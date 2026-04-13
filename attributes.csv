@@ -148,6 +148,9 @@ com.victronenergy.vebus,/MicroGrid/DirectDriveVf/Activate,i,1=Send values,222,ui
 com.victronenergy.vebus,RESERVED,d,,223,reserved[7],1,W
 com.victronenergy.vebus,/MicroGrid/Heartbeat,i,1=Keep alive for 2 seconds,230,uint16,1,W
 com.victronenergy.vebus,/MicroGrid/Error,i,0=No Error;1=Different fallback hybrid droop parameter values between phase masters;2=Hybrid droop parameter write failed,231,uint16,1,R
+com.victronenergy.vebus,/MicroGrid/OperationSwitcher/Operation,i,0=standard operation;1=microgrid operation,232,uint16,1,R
+com.victronenergy.vebus,/MicroGrid/OperationSwitcher/OperationChangePendingReset,i,1=System needs reset to switch operation,233,uint16,1,R
+com.victronenergy.vebus,/MicroGrid/OperationSwitcher/OperationIsAdjustable,i,0=Operation can be changed through AUX inputs only;1=Operation can be changed through dbus/modbus,234,uint16,1,R
 com.victronenergy.battery,/Dc/0/Power,i,W,256,int32,1,R
 com.victronenergy.battery,/Dc/0/Power,i,W,258,int16,1,R
 com.victronenergy.battery,/Dc/0/Voltage,d,V DC,259,uint16,100,R
