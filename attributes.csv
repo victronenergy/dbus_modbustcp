@@ -491,6 +491,7 @@ com.victronenergy.settings,/Settings/CGwacs/AcInputLimit,d,A,2714,int16,1,W
 com.victronenergy.settings,/Settings/CGwacs/AlwaysPeakShave,u,0=Above minimum SOC only;1=Always,2715,uint16,1,W
 com.victronenergy.hub4,/PvPowerLimiterActive,i,0=Feed-in limiting inactive;1=Feed-in limiting active,2709,uint16,1,R
 com.victronenergy.hub4,/Overrides/Setpoint,d,W,2716,int32,1,W
+com.victronenergy.hub4,/Pv/Disable,i,0=Enable PV inverters;1=Disable PV inverters,2724,uint16,1,R
 com.victronenergy.settings,/Settings/CGwacs/RunWithoutGridMeter,i,0=External meter;1=Inverter/Charger,2718,uint16,1,W
 com.victronenergy.settings,RESERVED,d,,2719,reserved[1],1,R
 com.victronenergy.settings,/Settings/CGwacs/MaxDischargePower,d,W,2720,int32,1,W
@@ -927,7 +928,8 @@ com.victronenergy.acsystem,/Settings/Ess/Mode,i,0=self-consumption (battery-life
 com.victronenergy.acsystem,/Ess/AcPowerSetpoint,d,W,4922,int32,1,W
 com.victronenergy.acsystem,/Ess/DisableFeedIn,d,0=Feed-in enabled;1=Feed-in disabled,4924,uint16,1,W
 com.victronenergy.acsystem,/Ess/ActiveSocLimit,d,%,4925,uint16,1,R
-com.victronenergy.acsystem,RESERVED,d,,4926,reserved[4],1,R
+com.victronenergy.acsystem,RESERVED,d,,4926,reserved[3],1,R
+com.victronenergy.acsystem,/Pv/Disable,i,0=PV enabled;1=PV Disabled,4929,uint16,1,R
 com.victronenergy.acsystem,/Alarms/GridLost,u,0=Ok;1=Warning;2=Alarm,4930,uint16,1,R
 com.victronenergy.acsystem,/Alarms/PhaseRotation,u,0=Ok;1=Warning;2=Alarm,4931,uint16,1,R
 com.victronenergy.acsystem,RESERVED,d,,4932,reserved[8],1,R
