@@ -69,6 +69,22 @@ def getRegistersCount(modbusType):
         return 1
 
 
+# Services that always run at DeviceInstance 0 and share the same Modbus unit ID
+SYSTEM_SERVICES = {
+    'com.victronenergy.settings',
+    'com.victronenergy.system',
+    'com.victronenergy.hub4',
+    'com.victronenergy.platform',
+}
+
+
+def getGroupKey(serviceType):
+    """Return the grouping key for a service type."""
+    if serviceType in SYSTEM_SERVICES:
+        return 'SYSTEM'
+    return serviceType
+
+
 def findGaps(csvPath):
     """Analyze attributes.csv and return gaps per service type."""
     try:
@@ -82,7 +98,7 @@ def findGaps(csvPath):
     serviceAttrs = {}
     for attr in attributes:
         try:
-            serviceType = attr[0]
+            serviceType = getGroupKey(attr[0])
             register = int(attr[4])
             regCount = getRegistersCount(attr[5])
 
