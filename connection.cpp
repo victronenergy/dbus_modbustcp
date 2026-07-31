@@ -1,6 +1,7 @@
 #include <QHostAddress>
 #include <QsLog.h>
 #include "connection.h"
+#include "tcp_adu.h"
 
 Connection::Connection(QTcpSocket *socket, QObject *parent):
 	QObject(parent),
@@ -25,7 +26,7 @@ void Connection::readyRead()
 							arg(mSocket->peerAddress().toString()).
 							arg(mSocket->peerPort());
 			QLOG_TRACE() << "[Server] request data " << tcpReq.toHex().toUpper();
-			ADU *request = new ADU(mSocket, mData);
+			ADU *request = new TcpAdu(mSocket, mData);
 			QLOG_TRACE() << "[Server] Request:" << request->aduToString();
 			mLength = -1;
 			mData.resize(0);

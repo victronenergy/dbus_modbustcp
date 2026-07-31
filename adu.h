@@ -2,38 +2,39 @@
 #define ADU_H
 
 #include <QtCore>
-#include <QTcpSocket>
 #include "pdu.h"
 
+// Transport-agnostic Application Data Unit. It carries the unit id, the PDU (via
+// the PDU base) and the reply data. Concrete subclasses (TcpAdu, RtuAdu) add the
+// transport specific framing (MBAP header / CRC) and know how to deliver a reply.
 class ADU : public PDU
 {
 public:
-	ADU();
-	ADU(QTcpSocket * const socket, const QByteArray & aduRequest);
-	~ADU();
+	virtual ~ADU() {}
 
-	QTcpSocket * getSocket() { return mSocket.data(); }
-	void setReplyData(const QByteArray &replyData) { mReplyData = replyData; }
-	uint getTransID() const { return mTransID; }
-	uint getProdID() const { return mProdID; }
-	uint getLength() const { return mLength; }
 	uint getUnitID() const { return mUnitID; }
+	void setReplyData(const QByteArray &replyData) { mReplyData = replyData; }
 
-	void setTransID(uint id) { mTransID = id; }
-	QByteArray toQByteArray() const;
+	// Serialize the complete reply frame (transport specific framing included).
+	virtual QByteArray toQByteArray() const = 0;
+
+	// Human readable description of where the request came from, used for logging.
+	virtual QString source() const = 0;
 
 	// Helpers
 	QString aduToString() const;
 
-private:
-	QPointer<QTcpSocket> mSocket;
-	QByteArray mReplyData;
+protected:
+	ADU() : PDU(), mUnitID(0) {}
+	ADU(const QByteArray &frame, int pduStart, quint8 unitID) :
+		PDU(frame, pduStart), mUnitID(unitID) {}
 
-	// MBAP Header members
-	quint16 mTransID;
-	quint16 mProdID;
-	quint16 mLength;
+	// Build the reply PDU (function code + payload / exception), shared by all
+	// transports. The transport specific framing is added by toQByteArray().
+	QByteArray buildPduReply() const;
+
 	quint8 mUnitID;
+	QByteArray mReplyData;
 };
 
 #endif // ADU_H

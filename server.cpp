@@ -1,6 +1,7 @@
 #include "connection.h"
 #include "server.h"
 #include "backend.h"
+#include "tcp_adu.h"
 #include "QsLog.h"
 
 
@@ -41,7 +42,7 @@ void Server::readyRead()
 					arg(socket->peerAddress().toString()).
 					arg(socket->peerPort());
 	QLOG_TRACE() << "[Server] request data " << tcpReq.toHex().toUpper();
-	ADU * request = new ADU(socket, tcpReq);
+	ADU * request = new TcpAdu(socket, tcpReq);
 	QLOG_TRACE() << "[Server] Request:" << request->aduToString();
 	emit modbusRequest(request);
 }
@@ -59,7 +60,7 @@ void Server::disconnected()
 void Server::modbusReply(ADU *modbusReply)
 {
 	QLOG_TRACE() << "[Server] Reply:" << modbusReply->aduToString();
-	QTcpSocket *socket = modbusReply->getSocket();
+	QTcpSocket *socket = static_cast<TcpAdu *>(modbusReply)->getSocket();
 	if (socket == 0)
 		return;
 	socket->write(modbusReply->toQByteArray());

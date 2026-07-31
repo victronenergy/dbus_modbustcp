@@ -12,13 +12,15 @@ public:
 	}
 };
 
-App::App(VeQItem *subRoot, VeQItem *pubRoot, int tcpPort, QObject *parent) :
+App::App(VeQItem *subRoot, VeQItem *pubRoot, QObject *transport, QObject *parent) :
 	QObject(parent),
-	mServer(tcpPort, parent),
+	mTransport(transport),
 	mBackend(parent),
 	mDBusServices(subRoot, parent),
 	mMapping(&mDBusServices, parent)
 {
+	mTransport->setParent(this);
+
 	mMapping.importCSV("attributes.csv");
 	mMapping.importUnitIDMapping("unitid2di.csv");
 
@@ -34,12 +36,16 @@ App::App(VeQItem *subRoot, VeQItem *pubRoot, int tcpPort, QObject *parent) :
 	connect(rw, SIGNAL(valueChanged(QVariant)), &mMapping, SLOT(onReadWriteChanged(QVariant)));
 	mMapping.onReadWriteChanged(rw->getValue());
 
-	connect(&mServer, SIGNAL(modbusRequest(ADU*)), &mBackend, SLOT(modbusRequest(ADU*)));
-	connect(&mBackend, SIGNAL(modbusReply(ADU*)), &mServer, SLOT(modbusReply(ADU*)));
+	connect(mTransport, SIGNAL(modbusRequest(ADU*)), &mBackend, SLOT(modbusRequest(ADU*)));
+	connect(&mBackend, SIGNAL(modbusReply(ADU*)), mTransport, SLOT(modbusReply(ADU*)));
 	connect(&mBackend, SIGNAL(mappingRequest(MappingRequest *)), &mMapping, SLOT(handleRequest(MappingRequest *)));
 	connect(&mMapping, SIGNAL(requestCompleted(MappingRequest *)),
 			&mBackend, SLOT(requestCompleted(MappingRequest *)));
-	VeQItem *serviceRoot = pubRoot->itemGetOrCreate("com.victronenergy.modbustcp");
-	new DiagnosticsService(&mDBusServices, &mMapping, serviceRoot, this);
+	// pubRoot is null when the transport does not publish a diagnostics service
+	// (the RTU slave), so only export com.victronenergy.modbustcp when we have one.
+	if (pubRoot) {
+		VeQItem *serviceRoot = pubRoot->itemGetOrCreate("com.victronenergy.modbustcp");
+		new DiagnosticsService(&mDBusServices, &mMapping, serviceRoot, this);
+	}
 	mDBusServices.initialScan();
 }

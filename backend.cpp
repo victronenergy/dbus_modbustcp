@@ -87,7 +87,7 @@ void Backend::logError(const QString &message, ADU *request)
 			arg(request->getUnitID()).
 			arg(request->getAddres()).
 			arg(request->getQuantity()).
-			arg(request->getSocket()->peerAddress().toString()).
+			arg(request->source()).
 			arg(message);
 	QLOG_ERROR() << errorMessage;
 }

@@ -52,11 +52,12 @@ PDU::PDU():
 {
 }
 
-PDU::PDU(const QByteArray & pduRequest):
-	// First 6 byte are MBAP Header so starting with 7
-	mFunctionCode(static_cast<quint8>(pduRequest[7])),
+PDU::PDU(const QByteArray & frame, int pduStart):
+	// pduStart points at the function code byte within the frame. For Modbus TCP
+	// that is 7 (after the MBAP header), for Modbus RTU it is 1 (after the unit id).
+	mFunctionCode(static_cast<quint8>(frame[pduStart])),
 	mExeptionCode(NoExeption),
-	mData(pduRequest.mid(8))
+	mData(frame.mid(pduStart + 1))
 {
 }
 

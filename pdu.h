@@ -19,7 +19,7 @@ class PDU
 {
 public:
 	PDU();
-	PDU(const QByteArray & pduRequest);
+	PDU(const QByteArray & frame, int pduStart);
 
 	enum FunctionCode
 	{
