@@ -7,6 +7,8 @@ on:
       - 'test/check_register_gaps.py'
       - 'test/check_register_overlaps.py'
       - 'test/check_column_validity.py'
+      - 'test/check_xlsx_validity.py'
+      - 'CCGX-Modbus-TCP-register-list.xlsx'
       - 'test/baseline.json'
       - '.github/workflows/check-register-gaps.yml'
   pull_request:
@@ -15,6 +17,8 @@ on:
       - 'test/check_register_gaps.py'
       - 'test/check_register_overlaps.py'
       - 'test/check_column_validity.py'
+      - 'test/check_xlsx_validity.py'
+      - 'CCGX-Modbus-TCP-register-list.xlsx'
       - 'test/baseline.json'
       - '.github/workflows/check-register-gaps.yml'
 
@@ -38,3 +42,6 @@ jobs:
 
       - name: Check column validity
         run: python test/check_column_validity.py attributes.csv
+
+      - name: Check xlsx validity
+        run: python test/check_xlsx_validity.py CCGX-Modbus-TCP-register-list.xlsx
