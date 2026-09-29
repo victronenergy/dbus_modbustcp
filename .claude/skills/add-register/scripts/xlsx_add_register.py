@@ -197,6 +197,9 @@ def main():
         preceding = [r for r, (start, _) in serviceRows if start < newStart]
         idx = (max(preceding) + 1) if preceding else serviceRows[0][0]
 
+    # Final Field list row numbers of adjusted RESERVED rows, with their range
+    reservedChecks = []
+
     # Copy formatting from the nearest real register of this service
     candidates = [r for r, _ in serviceRows if not isReserved(ws, r)] or [r for r, _ in serviceRows]
     style = rowStyle(ws, min(candidates, key=lambda r: abs(r - idx)))
@@ -214,17 +217,22 @@ def main():
                 ws.cell(r + 1, col).value = value
             ws.cell(r + 1, COL_ADDRESS).value = addressValue(*after)
             idx = r + 1
+            # The new register goes between the two reserved rows
+            reservedChecks = [(r, before), (r + 2, after)]
         elif before:
             ws.cell(r, COL_ADDRESS).value = addressValue(*before)
             idx = r + 1
+            reservedChecks = [(r, before)]
         elif after:
             ws.cell(r, COL_ADDRESS).value = addressValue(*after)
             idx = r
+            # The new register is inserted above the reserved row
+            reservedChecks = [(r + 1, after)]
         else:
             ws.delete_rows(r)
             idx = r
-        print(f"Adjusted RESERVED {addressValue(start, end)}: "
-              f"now {', '.join(str(addressValue(*p)) for p in (before, after) if p) or 'removed'}")
+        now = ', '.join(f"{addressValue(*p)} (row {row})" for row, p in reservedChecks) or 'removed'
+        print(f"Adjusted RESERVED {addressValue(start, end)}: now {now}")
 
     insertRow(ws, idx, style)
     values = {
@@ -249,6 +257,10 @@ def main():
             if cell.hyperlink is not None:
                 cell.hyperlink.ref = cell.coordinate
 
+    checks = [(idx, f"{FIELD_SHEET}, row {idx}: {args.service} {args.address} {args.path}")]
+    checks += [(row, f"{FIELD_SHEET}, row {row}: RESERVED {addressValue(*p)}") for row, p in reservedChecks]
+    checks = [text for _, text in sorted(checks)]
+
     if args.doc_summary:
         vs = wb[VERSIONS_SHEET]
         last = max((c.row for row in vs.iter_rows() for c in row if c.value not in (None, '')), default=0)
@@ -256,8 +268,13 @@ def main():
         if vs.cell(last, 2).has_style:
             vs.cell(last + 1, 2)._style = copy(vs.cell(last, 2)._style)
         print(f"Added to '{VERSIONS_SHEET}' row {last + 1}: {args.doc_summary}")
+        checks.append(f"{VERSIONS_SHEET}, row {last + 1}: {args.doc_summary}")
 
     wb.save(args.xlsx)
+
+    print("\nCheck in Excel:")
+    for text in checks:
+        print(f"  {text}")
 
 
 if __name__ == '__main__':

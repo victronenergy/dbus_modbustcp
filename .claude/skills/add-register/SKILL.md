@@ -109,6 +109,7 @@ What the script does:
 
 Afterwards:
 
+- The script ends with a **Check in Excel** list giving the final row numbers of the new register, any adjusted RESERVED rows and the Document versions line. Keep it for step 8.
 - Check the script's output. Reserved ranges in the xlsx don't always match the CSV exactly, so if the new register was taken from reserved space in the CSV but the script didn't report adjusting a RESERVED row, look at the xlsx reserved row by hand.
 - If the service has no rows in the xlsx yet, the script stops. Add the first row by hand, or ask the user.
 
@@ -125,7 +126,30 @@ python3 test/check_xlsx_validity.py CCGX-Modbus-TCP-register-list.xlsx
 
 Fix any failures before you finish. Show the user `git diff --stat` and the `attributes.csv` diff.
 
-## 8. Commit (only when asked)
+## 8. Have the user check the spreadsheet in Excel
+
+LibreOffice silently accepts some corruption that Microsoft Excel rejects, and a corrupted register list has reached customers before. `check_xlsx_validity.py` only catches known problems, so a person must open the file in Excel before it is committed.
+
+Give the user the **Check in Excel** list from step 6. For example:
+
+```
+Field list, row 221: com.victronenergy.vebus 235 /MicroGrid/AllowBlackStart
+Field list, row 222: RESERVED 236-239
+Document versions, row 184: Add Microgrid black start allowed (register 235)
+```
+
+Ask them to open `CCGX-Modbus-TCP-register-list.xlsx` in **Microsoft Excel** (LibreOffice is not enough) and confirm that:
+
+- Excel opens it without a "We found a problem with some content… Do you want us to try to recover as much as we can?" prompt
+- the new register is on the listed row of the **Field list** sheet, between the right neighbouring addresses, with the right values and the same formatting as the rows around it
+- any adjusted RESERVED row shows the reduced range
+- the **Document versions** line is there, with no new Rev number
+
+Ask them to close Excel without saving, so that the diff contains only the script's change.
+
+**Don't commit until the user confirms that the file is fine in Excel.** If Excel reports a problem, stop and investigate. Ask the user before discarding the change with `git checkout CCGX-Modbus-TCP-register-list.xlsx`.
+
+## 9. Commit (only when asked)
 
 Follow the repo's style: a short subject prefixed with the service's short name, and the issue link in the body. For example:
 
