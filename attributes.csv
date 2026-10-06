@@ -268,7 +268,7 @@ com.victronenergy.solarcharger,/Dc/0/Voltage,d,V DC,771,uint16,100,R
 com.victronenergy.solarcharger,/Dc/0/Current,d,A DC,772,int16,10,R
 com.victronenergy.solarcharger,/Dc/0/Temperature,d,Degrees celsius,773,int16,10,R
 com.victronenergy.solarcharger,/Mode,i,1=On;4=Off,774,uint16,1,W
-com.victronenergy.solarcharger,/State,i,0=Off;2=Fault;3=Bulk;4=Absorption;5=Float;6=Storage;7=Equalize;11=Other (Hub-1);252=Hub-1,775,uint16,1,R
+com.victronenergy.solarcharger,/State,i,0=Off;2=Fault;3=Bulk;4=Absorption;5=Float;6=Storage;7=Equalize;11=Other (Hub-1);245=Wake-up;252=External Control,775,uint16,1,R
 com.victronenergy.solarcharger,/Pv/V,d,V DC,776,uint16,100,R
 com.victronenergy.solarcharger,/Pv/I,d,A DC,777,INTERNAL[1],10,R
 com.victronenergy.solarcharger,/Equalization/Pending,i,0=No;1=Yes;2=Error;3=Unavailable- Unknown,778,uint16,1,R
@@ -503,7 +503,7 @@ com.victronenergy.tank,/Capacity,d,m3,3001,uint32,10000,R
 com.victronenergy.tank,/FluidType,u,0=Fuel;1=Fresh water;2=Waste water;3=Live well;4=Oil;5=Black water (sewage);6=Gasoline;7=Diesel;8=LPG;9=LNG;10=Hydraulic oil;11=Raw water,3003,uint16,1,R
 com.victronenergy.tank,/Level,d,%,3004,uint16,10,R
 com.victronenergy.tank,/Remaining,d,m3,3005,uint32,10000,R
-com.victronenergy.tank,/Status,u,0=OK;1=Open circuit;2=Short circuited;3=Reverse Polarity;4=Unknown,3007,uint16,1,R
+com.victronenergy.tank,/Status,u,0=OK;1=Open circuit;2=Short circuited;3=Reverse Polarity;4=Unknown;5=Error,3007,uint16,1,R
 com.victronenergy.tank,RESERVED,d,,3008,reserved[2],1,R
 com.victronenergy.tank,/CustomName,s,,3010,string[8],1,W
 com.victronenergy.inverter,/FirmwareVersion,u,,3125,uint16,1,R
@@ -618,7 +618,7 @@ com.victronenergy.temperature,/Scale,d,,3301,uint16,100,R
 com.victronenergy.temperature,/Offset,d,,3302,int16,100,R
 com.victronenergy.temperature,/TemperatureType,u,0=Battery;1=Fridge;2=Generic;3=Room;4=Outdoor;5=WaterHeater;6=Freezer,3303,uint16,1,R
 com.victronenergy.temperature,/Temperature,d,Degrees celsius,3304,int16,100,R
-com.victronenergy.temperature,/Status,u,0=OK;1=Open circuit;2=Short circuited;3=Reverse Polarity;4=Unknown,3305,uint16,1,R
+com.victronenergy.temperature,/Status,u,0=OK;1=Open circuit;2=Short circuited;3=Reverse Polarity;4=Unknown;5=Sensor battery low,3305,uint16,1,R
 com.victronenergy.temperature,/Humidity,u,%,3306,uint16,10,R
 com.victronenergy.temperature,/BatteryVoltage,d,V,3307,uint16,100,R
 com.victronenergy.temperature,/Pressure,u,hPa,3308,uint16,1,R
@@ -729,7 +729,7 @@ com.victronenergy.alternator,/Alarms/HighStarterVoltage,u,0=No alarm;2=Alarm,410
 com.victronenergy.alternator,/Alarms/LowTemperature,u,0=No alarm;2=Alarm,4110,uint16,1,R
 com.victronenergy.alternator,/Alarms/HighTemperature,u,0=No alarm;2=Alarm,4111,uint16,1,R
 com.victronenergy.alternator,/State,u,0=Off;2=Fault;3=Bulk;4=Absorption;5=Float;6=Storage;7=Equalize;252=External control,4112,uint16,1,R
-com.victronenergy.alternator,/ErrorCode,u,12=High battery temperature;13=High battery voltage;14=Low battery voltage;15=VBat exceeds $CPB;21=High alternator temperature;22=Alternator overspeed;24=Internal error;41=High field FET temperature;42=Sensor missing;43=Low VAlt;44=High Voltage offset;45=VAlt exceeds $CPB;51-52=Battery disconnect request;53=Battery instance out of range;54=Too many BMSes;55=AEBus fault;56=Too many Victron devices;58-61=Battery requested disconnection;91=BMS lost;92=Forced idle;201=DCDC converter fail;201-207=DCDC error,4113,uint16,1,R
+com.victronenergy.alternator,/ErrorCode,u,0=No Error;12=High battery temperature;13=High battery voltage;14=Low battery voltage;15=VBat exceeds $CPB;21=High alternator temperature;22=Alternator overspeed;24=Internal error;41=High field FET temperature;42=Sensor missing;43=Low VAlt;44=High Voltage offset;45=VAlt exceeds $CPB;51-52=Battery disconnect request;53=Battery instance out of range;54=Too many BMSes;55=AEBus fault;56=Too many Victron devices;58-61=Battery requested disconnection;91=BMS lost;92=Forced idle;201=DCDC converter fail;201-207=DCDC error,4113,uint16,1,R
 com.victronenergy.alternator,/Engine/Speed,d,RPM,4114,uint16,1,R
 com.victronenergy.alternator,/Speed,d,RPM,4115,uint16,1,R
 com.victronenergy.alternator,/FieldDrive,q,%,4116,uint16,1,R
