@@ -355,7 +355,8 @@ com.victronenergy.system,/Dc/Battery/Soc,d,%,843,uint16,1,R
 com.victronenergy.system,/Dc/Battery/State,i,0=idle;1=charging;2=discharging,844,uint16,1,R
 com.victronenergy.system,/Dc/Battery/ConsumedAmphours,d,Ah,845,uint16,-10,R
 com.victronenergy.system,/Dc/Battery/TimeToGo,d,s,846,uint16,0.01,R
-com.victronenergy.system,RESERVED,d,,847,reserved[3],1,R
+com.victronenergy.system,/Pv/Disable,i,0=Enable PV inverters;1=Disable PV inverters,847,uint16,1,W
+com.victronenergy.system,RESERVED,d,,848,reserved[2],1,R
 com.victronenergy.system,/Dc/Pv/Power,d,W,850,uint16,1,R
 com.victronenergy.system,/Dc/Pv/Current,d,A DC,851,int16,10,R
 com.victronenergy.system,RESERVED,d,,852,reserved[3],1,R
