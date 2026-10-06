@@ -675,7 +675,7 @@ com.victronenergy.evcharger,/Current,d,A,3823,uint16,1,W
 com.victronenergy.evcharger,/Status,u,0=Disconnected;1=Connected;2=Charging;3=Charged;4=Waiting for sun;5=Waiting for RFID;6=Waiting for start;7=Low SOC;8=Ground test error;9=Welded contacts test error;10=CP input test error (shorted);11=Residual current detected;12=Undervoltage detected;13=Overvoltage detected;14=Overheating detected;15=Reserved;16=Reserved;17=Reserved;18=Reserved;19=Reserved;20=Charging limit;21=Start charging;22=Switching to 3 phase;23=Switching to 1 phase;24=Stop charging,3824,uint16,1,R
 com.victronenergy.evcharger,/SetCurrent,d,A,3825,uint16,1,W
 com.victronenergy.evcharger,/StartStop,u,0=Stop;1=Start,3826,uint16,1,W
-com.victronenergy.evcharger,/Position,i,0=AC input 1;1=AC output;2=AC input 2,3827,uint16,1,W
+com.victronenergy.evcharger,/Position,i,0=AC output;1=AC input,3827,uint16,1,W
 com.victronenergy.evcharger,/Session/Time,u,s,3828,uint32,1,R
 com.victronenergy.evcharger,/Session/Energy,d,W,3830,uint32,100,R
 com.victronenergy.evcharger,/Session/Cost,d,,3832,int32,100,R
