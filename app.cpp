@@ -8,7 +8,7 @@ class SettingsInfo : public VeQItemSettingsInfo
 public:
 	SettingsInfo()
 	{
-		add("ModbusServer/ReadWrite", 1, 0, 1);
+		add("ModbusServer/ReadWrite", 0, 0, 1);
 	}
 };
 
